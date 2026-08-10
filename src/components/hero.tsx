@@ -115,7 +115,7 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
           alt={`${profile.name} 프로필 사진`}
           fill
           sizes="(min-width: 768px) 40vw, 90vw"
-          className="object-cover grayscale-[85%] contrast-105 transition-[filter] duration-500 ease-out group-hover:grayscale-0"
+          className="object-cover"
           priority
         />
         <motion.div

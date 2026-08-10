@@ -9,7 +9,6 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { Mail, Phone, GraduationCap } from "lucide-react";
 import type { profile as ProfileType } from "@/lib/content";
 import { HeroShaderBg } from "@/components/hero-shader-bg";
 
@@ -61,43 +60,29 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
         initial={reduceMotion ? false : "hidden"}
         animate="show"
       >
-        <motion.p
-          variants={item}
-          className="text-sm font-bold tracking-wide text-amber-700"
-        >
-          Frontend Engineer
-        </motion.p>
         <motion.h1
           variants={item}
-          className="mt-4 text-4xl leading-[1.15] font-black text-balance text-neutral-900 md:text-6xl"
+          className="text-4xl leading-[1.15] font-black text-balance text-neutral-900 [font-family:var(--font-display)] md:text-6xl"
         >
           <span className="text-amber-700">스펀지</span> 같은
           <br />
           개발자, {profile.name}
         </motion.h1>
+        <motion.p variants={item} className="mt-3 text-sm text-muted-foreground">
+          Frontend Engineer · {profile.school}
+        </motion.p>
         <motion.p
           variants={item}
           className="mt-8 max-w-[52ch] text-base leading-relaxed text-muted-foreground md:text-lg"
         >
           {profile.bio}
         </motion.p>
-        <motion.div
+        <motion.p
           variants={item}
-          className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground"
+          className="mt-8 border-t border-neutral-200 pt-4 text-sm text-neutral-500"
         >
-          <span className="inline-flex items-center gap-1.5">
-            <Mail className="h-4 w-4" strokeWidth={1.75} />
-            {profile.email}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Phone className="h-4 w-4" strokeWidth={1.75} />
-            {profile.phone}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <GraduationCap className="h-4 w-4" strokeWidth={1.75} />
-            {profile.school}
-          </span>
-        </motion.div>
+          {profile.email} &nbsp;·&nbsp; {profile.phone}
+        </motion.p>
       </motion.div>
 
       <motion.div

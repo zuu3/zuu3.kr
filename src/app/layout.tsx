@@ -4,9 +4,16 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { CustomCursor } from "@/components/custom-cursor";
 
+const pretendard = localFont({
+  src: "./fonts/PretendardVariable.woff2",
+  variable: "--font-sans",
+  weight: "45 920",
+  display: "swap",
+});
+
 const suit = localFont({
   src: "./fonts/SUIT-Variable.woff2",
-  variable: "--font-sans",
+  variable: "--font-display",
   weight: "100 900",
   display: "swap",
 });
@@ -23,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={suit.variable}>
+    <html lang="ko" className={`${pretendard.variable} ${suit.variable}`}>
       <body>
         <SmoothScroll />
         <CustomCursor />

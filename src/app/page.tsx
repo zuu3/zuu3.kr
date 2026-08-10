@@ -12,7 +12,9 @@ export default function Home() {
       <AwardsSection profile={profile} />
 
       <section className="mt-28">
-        <h2 className="text-2xl font-black text-neutral-900 md:text-3xl">Projects</h2>
+        <h2 className="text-2xl font-black text-neutral-900 [font-family:var(--font-display)] md:text-3xl">
+          Projects
+        </h2>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {projects.map((project, i) => (
             <MotionReveal key={project.slug} delay={i * 0.08}>

@@ -1,10 +1,7 @@
-import Image from "next/image";
-import { Mail, Phone, GraduationCap } from "lucide-react";
 import { profile, projects } from "@/lib/content";
 import { ProjectCard } from "@/components/project-card";
 import { MotionReveal } from "@/components/motion-reveal";
-
-const SPONGE_COLORS = ["#F5A524", "#2563EB", "#EC4899", "#171717", "#F5A524", "#3B82F6"];
+import { Hero } from "@/components/hero";
 
 type TimelineGroup = { year: string; items: string[] };
 
@@ -50,60 +47,7 @@ function TimelineBlock({
 export default function Home() {
   return (
     <main className="mx-auto max-w-5xl px-6 py-16 md:py-20">
-      <section className="grid items-center gap-12 md:grid-cols-[3fr_2fr]">
-        <div>
-          <p className="text-sm font-bold uppercase tracking-wide text-amber-700">
-            Frontend Developer
-          </p>
-          <h1 className="mt-3 text-4xl leading-tight font-normal text-balance md:text-5xl [font-family:var(--font-display)]">
-            <span className="text-amber-700">스펀지</span> 같은 개발자,
-            <br />
-            {profile.name}입니다.
-          </h1>
-          <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-muted-foreground md:text-lg">
-            {profile.bio}
-          </p>
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5">
-              <Mail className="h-4 w-4" strokeWidth={1.75} />
-              {profile.email}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Phone className="h-4 w-4" strokeWidth={1.75} />
-              {profile.phone}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <GraduationCap className="h-4 w-4" strokeWidth={1.75} />
-              {profile.school}
-            </span>
-          </div>
-        </div>
-
-        <div className="relative aspect-square overflow-hidden rounded-3xl bg-amber-700 md:aspect-4/5">
-          <div className="absolute inset-3 grid grid-cols-3 gap-2" aria-hidden>
-            {SPONGE_COLORS.map((color, i) => (
-              <div
-                key={i}
-                className="rounded-2xl"
-                style={{
-                  backgroundColor: color,
-                  opacity: 0.35,
-                  gridRow: i === 0 ? "span 2" : undefined,
-                  gridColumn: i === 4 ? "span 2" : undefined,
-                }}
-              />
-            ))}
-          </div>
-          <Image
-            src="/profile-photo.jpg"
-            alt={`${profile.name} 프로필 사진`}
-            fill
-            sizes="(min-width: 768px) 40vw, 90vw"
-            className="relative rounded-3xl object-cover"
-            priority
-          />
-        </div>
-      </section>
+      <Hero profile={profile} />
 
       <section className="mt-24">
         <h2 className="text-2xl font-normal md:text-3xl [font-family:var(--font-display)]">

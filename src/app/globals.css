@@ -4,14 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-html {
-  height: 100%;
-}
-
 body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

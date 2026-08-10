@@ -6,7 +6,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group block border-t border-neutral-200 py-6 transition-colors first:border-t-0 md:border-t-0 md:border md:border-neutral-200 md:p-6 md:hover:border-neutral-300"
+      className="group block h-full border border-neutral-200 p-6 transition-colors hover:border-neutral-300"
     >
       <div className="flex items-start justify-between gap-3">
         <h3 className="text-xl font-bold" style={{ color: project.brandColor }}>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Mail, Phone, GraduationCap } from "lucide-react";
 import { profile, projects } from "@/lib/content";
 import { ProjectCard } from "@/components/project-card";
@@ -78,19 +79,29 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid aspect-square grid-cols-3 gap-3 md:aspect-4/5" aria-hidden>
-          {SPONGE_COLORS.map((color, i) => (
-            <div
-              key={i}
-              className="rounded-3xl"
-              style={{
-                backgroundColor: color,
-                opacity: 0.85,
-                gridRow: i === 0 ? "span 2" : undefined,
-                gridColumn: i === 4 ? "span 2" : undefined,
-              }}
-            />
-          ))}
+        <div className="relative aspect-square overflow-hidden rounded-3xl bg-amber-700 md:aspect-4/5">
+          <div className="absolute inset-3 grid grid-cols-3 gap-2" aria-hidden>
+            {SPONGE_COLORS.map((color, i) => (
+              <div
+                key={i}
+                className="rounded-2xl"
+                style={{
+                  backgroundColor: color,
+                  opacity: 0.35,
+                  gridRow: i === 0 ? "span 2" : undefined,
+                  gridColumn: i === 4 ? "span 2" : undefined,
+                }}
+              />
+            ))}
+          </div>
+          <Image
+            src="/profile-photo.png"
+            alt={`${profile.name} 프로필 사진`}
+            fill
+            sizes="(min-width: 768px) 40vw, 90vw"
+            className="relative rounded-3xl object-cover"
+            priority
+          />
         </div>
       </section>
 

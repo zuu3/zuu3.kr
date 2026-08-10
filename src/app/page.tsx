@@ -5,22 +5,11 @@ import { Hero } from "@/components/hero";
 
 type TimelineGroup = { year: string; items: string[] };
 
-function TimelineBlock({
-  label,
-  groups,
-  accent,
-}: {
-  label: string;
-  groups: TimelineGroup[];
-  accent: string;
-}) {
+function TimelineBlock({ label, groups }: { label: string; groups: TimelineGroup[] }) {
   return (
     <div>
-      <h3 className="flex items-center gap-2 text-lg font-bold">
-        <span
-          className="inline-block h-2.5 w-2.5 rounded-full"
-          style={{ backgroundColor: accent }}
-        />
+      <h3 className="flex items-center gap-2 text-lg font-bold text-neutral-900">
+        <span className="inline-block h-2.5 w-2.5 rounded-full bg-amber-600" />
         {label}
       </h3>
       <div className="mt-4 space-y-4">
@@ -30,7 +19,7 @@ function TimelineBlock({
             <ul className="mt-1 space-y-1 text-sm leading-relaxed">
               {group.items.map((item) => (
                 <li key={item} className="pl-4 -indent-4">
-                  <span aria-hidden style={{ color: accent }}>
+                  <span aria-hidden className="text-amber-600">
                     ·{" "}
                   </span>
                   {item}
@@ -49,23 +38,23 @@ export default function Home() {
     <main className="mx-auto max-w-5xl px-6 py-16 md:py-20">
       <Hero profile={profile} />
 
-      <section className="mt-24">
-        <h2 className="text-2xl font-normal md:text-3xl [font-family:var(--font-display)]">
+      <section className="mt-28">
+        <p className="text-sm font-bold text-amber-700">경력과 활동</p>
+        <h2 className="mt-2 text-2xl font-black text-neutral-900 md:text-3xl">
           Awards &amp; Activities
         </h2>
-        <div className="mt-8 grid gap-x-10 gap-y-10 md:grid-cols-2">
-          <TimelineBlock label="Awards" groups={profile.awards} accent="#F5A524" />
-          <TimelineBlock label="Activity" groups={profile.activities} accent="#EC4899" />
-          <TimelineBlock label="Certificates" groups={profile.certificates} accent="#2563EB" />
-          <TimelineBlock label="Leadership" groups={profile.leadership} accent="#171717" />
+        <div className="mt-10 grid gap-x-10 gap-y-10 md:grid-cols-2">
+          <TimelineBlock label="Awards" groups={profile.awards} />
+          <TimelineBlock label="Activity" groups={profile.activities} />
+          <TimelineBlock label="Certificates" groups={profile.certificates} />
+          <TimelineBlock label="Leadership" groups={profile.leadership} />
         </div>
       </section>
 
-      <section className="mt-24">
-        <h2 className="text-2xl font-normal md:text-3xl [font-family:var(--font-display)]">
-          Projects
-        </h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
+      <section className="mt-28">
+        <p className="text-sm font-bold text-amber-700">만든 것들</p>
+        <h2 className="mt-2 text-2xl font-black text-neutral-900 md:text-3xl">Projects</h2>
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
           {projects.map((project, i) => (
             <MotionReveal key={project.slug} delay={i * 0.08}>
               <ProjectCard project={project} />

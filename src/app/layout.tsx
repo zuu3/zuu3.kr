@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
-import { Jua, Noto_Sans_KR } from "next/font/google";
+import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 
 const notoSansKr = Noto_Sans_KR({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ["400", "500", "700", "900"],
-});
-
-const jua = Jua({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`${notoSansKr.variable} ${jua.variable}`}>
+    <html lang="ko" className={notoSansKr.variable}>
       <body>{children}</body>
     </html>
   );

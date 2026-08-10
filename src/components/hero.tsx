@@ -12,8 +12,6 @@ import {
 import { Mail, Phone, GraduationCap } from "lucide-react";
 import type { profile as ProfileType } from "@/lib/content";
 
-const SPONGE_COLORS = ["#F5A524", "#2563EB", "#EC4899", "#171717", "#F5A524", "#3B82F6"];
-
 const container = {
   hidden: {},
   show: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
@@ -38,12 +36,10 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
   const springPx = useSpring(px, { stiffness: 150, damping: 18 });
   const springPy = useSpring(py, { stiffness: 150, damping: 18 });
 
-  const rotateY = useTransform(springPx, [0, 1], [-10, 10]);
-  const rotateX = useTransform(springPy, [0, 1], [8, -8]);
+  const rotateY = useTransform(springPx, [0, 1], [-6, 6]);
+  const rotateX = useTransform(springPy, [0, 1], [5, -5]);
   const spotlightX = useTransform(springPx, [0, 1], ["10%", "90%"]);
   const spotlightY = useTransform(springPy, [0, 1], ["10%", "90%"]);
-  const blockShiftX = useTransform(springPx, [0, 1], [8, -8]);
-  const blockShiftY = useTransform(springPy, [0, 1], [6, -6]);
 
   function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
     if (reduceMotion) return;
@@ -67,21 +63,21 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
       >
         <motion.p
           variants={item}
-          className="text-sm font-bold uppercase tracking-wide text-amber-700"
+          className="text-sm font-bold tracking-wide text-amber-700"
         >
-          Frontend Developer
+          당신의 코드를 가장 유연하게
         </motion.p>
         <motion.h1
           variants={item}
-          className="mt-3 text-4xl leading-tight font-normal text-balance md:text-5xl [font-family:var(--font-display)]"
+          className="mt-4 text-4xl leading-[1.15] font-black text-balance text-neutral-900 md:text-6xl"
         >
-          <span className="text-amber-700">스펀지</span> 같은 개발자,
+          <span className="text-amber-700">스펀지</span> 같은
           <br />
-          {profile.name}입니다.
+          개발자, {profile.name}
         </motion.h1>
         <motion.p
           variants={item}
-          className="mt-6 max-w-[58ch] text-base leading-relaxed text-muted-foreground md:text-lg"
+          className="mt-8 max-w-[52ch] text-base leading-relaxed text-muted-foreground md:text-lg"
         >
           {profile.bio}
         </motion.p>
@@ -108,48 +104,31 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
         ref={panelRef}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
-        initial={reduceMotion ? false : { opacity: 0, scale: 0.94 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-        style={{ rotateX, rotateY, transformPerspective: 800 }}
-        className="relative aspect-square touch-none overflow-hidden rounded-3xl bg-amber-700 md:aspect-4/5"
+        style={{ rotateX, rotateY, transformPerspective: 1000 }}
+        className="group relative aspect-square touch-none overflow-hidden rounded-2xl bg-neutral-100 md:aspect-4/5"
       >
-        <motion.div
-          className="absolute inset-3 grid grid-cols-3 gap-2"
-          style={{ x: blockShiftX, y: blockShiftY }}
-          aria-hidden
-        >
-          {SPONGE_COLORS.map((color, i) => (
-            <div
-              key={i}
-              className="rounded-2xl"
-              style={{
-                backgroundColor: color,
-                opacity: 0.35,
-                gridRow: i === 0 ? "span 2" : undefined,
-                gridColumn: i === 4 ? "span 2" : undefined,
-              }}
-            />
-          ))}
-        </motion.div>
         <Image
           src="/profile-photo.jpg"
           alt={`${profile.name} 프로필 사진`}
           fill
           sizes="(min-width: 768px) 40vw, 90vw"
-          className="relative rounded-3xl object-cover"
+          className="object-cover grayscale-[85%] contrast-105 transition-[filter] duration-500 ease-out group-hover:grayscale-0"
           priority
         />
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-3xl mix-blend-soft-light"
+          className="pointer-events-none absolute inset-0 mix-blend-overlay"
           style={{
             background: useTransform(
               [spotlightX, spotlightY],
-              ([x, y]) => `radial-gradient(220px circle at ${x} ${y}, white, transparent 70%)`
+              ([x, y]) => `radial-gradient(280px circle at ${x} ${y}, white, transparent 70%)`
             ),
           }}
         />
+        <div aria-hidden className="pointer-events-none absolute inset-0 ring-1 ring-black/5" />
       </motion.div>
     </section>
   );

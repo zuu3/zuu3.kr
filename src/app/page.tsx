@@ -95,7 +95,7 @@ export default function Home() {
             ))}
           </div>
           <Image
-            src="/profile-photo.png"
+            src="/profile-photo.jpg"
             alt={`${profile.name} 프로필 사진`}
             fill
             sizes="(min-width: 768px) 40vw, 90vw"

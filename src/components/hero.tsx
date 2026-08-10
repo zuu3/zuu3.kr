@@ -38,8 +38,6 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
 
   const rotateY = useTransform(springPx, [0, 1], [-6, 6]);
   const rotateX = useTransform(springPy, [0, 1], [5, -5]);
-  const spotlightX = useTransform(springPx, [0, 1], ["10%", "90%"]);
-  const spotlightY = useTransform(springPy, [0, 1], ["10%", "90%"]);
 
   function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
     if (reduceMotion) return;
@@ -117,16 +115,6 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
           sizes="(min-width: 768px) 40vw, 90vw"
           className="object-cover"
           priority
-        />
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 mix-blend-overlay"
-          style={{
-            background: useTransform(
-              [spotlightX, spotlightY],
-              ([x, y]) => `radial-gradient(280px circle at ${x} ${y}, white, transparent 70%)`
-            ),
-          }}
         />
         <div aria-hidden className="pointer-events-none absolute inset-0 ring-1 ring-black/5" />
       </motion.div>

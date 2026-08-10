@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Noto_Sans_KR } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { CustomCursor } from "@/components/custom-cursor";
 
-const notoSansKr = Noto_Sans_KR({
+const suit = localFont({
+  src: "./fonts/SUIT-Variable.woff2",
   variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
+  weight: "100 900",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={notoSansKr.variable}>
+    <html lang="ko" className={suit.variable}>
       <body>
         <SmoothScroll />
         <CustomCursor />

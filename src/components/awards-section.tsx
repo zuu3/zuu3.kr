@@ -66,8 +66,7 @@ export function AwardsSection({ profile }: { profile: typeof ProfileType }) {
 
   return (
     <section ref={sectionRef} className="mt-28">
-      <p className="text-sm font-bold text-amber-700">경력과 활동</p>
-      <h2 ref={headingRef} className="mt-2 text-2xl font-black text-neutral-900 md:text-3xl">
+      <h2 ref={headingRef} className="text-2xl font-black text-neutral-900 md:text-3xl">
         Awards &amp; Activities
       </h2>
       <div className="mt-10 grid gap-x-10 gap-y-10 md:grid-cols-2">

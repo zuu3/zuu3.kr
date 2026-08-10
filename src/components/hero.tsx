@@ -65,7 +65,7 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
           variants={item}
           className="text-sm font-bold tracking-wide text-amber-700"
         >
-          당신의 코드를 가장 유연하게
+          Frontend Engineer
         </motion.p>
         <motion.h1
           variants={item}

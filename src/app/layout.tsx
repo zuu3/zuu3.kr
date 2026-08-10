@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
+import { SmoothScroll } from "@/components/smooth-scroll";
+import { CustomCursor } from "@/components/custom-cursor";
 
 const notoSansKr = Noto_Sans_KR({
   variable: "--font-sans",
@@ -21,7 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={notoSansKr.variable}>
-      <body>{children}</body>
+      <body>
+        <SmoothScroll />
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   );
 }

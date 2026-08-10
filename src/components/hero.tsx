@@ -11,6 +11,7 @@ import {
 } from "motion/react";
 import { Mail, Phone, GraduationCap } from "lucide-react";
 import type { profile as ProfileType } from "@/lib/content";
+import { HeroShaderBg } from "@/components/hero-shader-bg";
 
 const container = {
   hidden: {},
@@ -53,7 +54,8 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
   }
 
   return (
-    <section className="grid items-center gap-12 md:grid-cols-[3fr_2fr]">
+    <section className="relative grid items-center gap-12 md:grid-cols-[3fr_2fr]">
+      <HeroShaderBg />
       <motion.div
         variants={reduceMotion ? undefined : container}
         initial={reduceMotion ? false : "hidden"}

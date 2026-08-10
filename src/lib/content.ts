@@ -272,7 +272,7 @@ export async function withRefreshLock(refreshFn: () => Promise<string | null>) {
       "AWS 등 클라우드 서비스를 처음 접하는 학생·선생님이 비용 걱정 없이 배포를 경험할 수 있도록, 교내 유휴 서버 자원을 활용한 관리형 클라우드 플랫폼입니다. 잘 모르고 사용하다가 요금이 발생하는 일 없이, 안전한 환경에서 배포를 연습할 수 있습니다.",
     period: "2025.12. ~ 2026.04",
     operatingPeriod: "2026.04 ~ 현재",
-    techStack: ["TypeScript", "Next.js", "TanStack Query", "GraphQL"],
+    techStack: ["TypeScript", "Next.js", "TanStack Query"],
     role: "Frontend Engineer",
     contributions: [
       "Google/Github OAuth 연동 로그인 구현",

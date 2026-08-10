@@ -11,10 +11,10 @@ const pretendard = localFont({
   display: "swap",
 });
 
-const suit = localFont({
-  src: "./fonts/SUIT-Variable.woff2",
+const paperlogy = localFont({
+  src: "./fonts/Paperlogy-Black.woff2",
   variable: "--font-display",
-  weight: "100 900",
+  weight: "900",
   display: "swap",
 });
 
@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`${pretendard.variable} ${suit.variable}`}>
+    <html lang="ko" className={`${pretendard.variable} ${paperlogy.variable}`}>
       <body>
         <SmoothScroll />
         <CustomCursor />

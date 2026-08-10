@@ -47,14 +47,19 @@ const FRAGMENT = /* glsl */ `
     n += 0.5 * noise(p * 4.0 - vec2(t * 1.6, t));
 
     float d = length(p - mouse * 0.4);
-    float glow = smoothstep(0.9, 0.0, d) * 0.35;
+    float glow = smoothstep(0.9, 0.0, d) * 0.4;
 
-    vec3 amber = vec3(0.961, 0.647, 0.141);
-    vec3 deep = vec3(0.09, 0.07, 0.03);
-    vec3 base = mix(deep, amber, clamp(n * 0.6 + glow, 0.0, 1.0));
+    // white base so the canvas edges match the page background exactly —
+    // no dark vignette, just a warm tint that brightens toward the cursor.
+    vec3 white = vec3(1.0);
+    vec3 cream = vec3(0.99, 0.91, 0.76);
+    vec3 amber = vec3(0.98, 0.78, 0.46);
 
-    float vignette = smoothstep(1.1, 0.2, length(p));
-    vec3 color = mix(deep, base, vignette);
+    vec3 base = mix(white, cream, clamp(n * 0.55, 0.0, 1.0));
+    vec3 color = mix(base, amber, glow);
+
+    float vignette = smoothstep(1.3, 0.1, length(p));
+    color = mix(white, color, vignette);
 
     gl_FragColor = vec4(color, 1.0);
   }
@@ -126,7 +131,7 @@ export function HeroShaderBg() {
     <div
       ref={containerRef}
       aria-hidden
-      className="pointer-events-none absolute -inset-x-16 -inset-y-24 -z-10 overflow-hidden opacity-40 blur-3xl md:-inset-x-32"
+      className="pointer-events-none absolute -inset-16 -z-10 overflow-hidden opacity-70 blur-2xl md:-inset-24"
     />
   );
 }

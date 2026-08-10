@@ -1,6 +1,7 @@
 import { Mail, Phone, GraduationCap } from "lucide-react";
 import { profile, projects } from "@/lib/content";
 import { ProjectCard } from "@/components/project-card";
+import { MotionReveal } from "@/components/motion-reveal";
 
 const SPONGE_COLORS = ["#F5A524", "#2563EB", "#EC4899", "#171717", "#F5A524", "#3B82F6"];
 
@@ -110,8 +111,10 @@ export default function Home() {
           Projects
         </h2>
         <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+          {projects.map((project, i) => (
+            <MotionReveal key={project.slug} delay={i * 0.08}>
+              <ProjectCard project={project} />
+            </MotionReveal>
           ))}
         </div>
       </section>

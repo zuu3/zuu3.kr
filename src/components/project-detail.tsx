@@ -1,6 +1,16 @@
+import Link from "next/link";
 import { TroubleshootingBlock } from "@/components/troubleshooting-block";
 import { Badge } from "@/components/ui/badge";
 import type { Project } from "@/lib/content";
+
+// ponytail: 25% RGB darken, per-channel clamp not needed since input channels are 0-255
+function darken(hex: string, amount = 0.25) {
+  const n = parseInt(hex.slice(1), 16);
+  const r = Math.round(((n >> 16) & 255) * (1 - amount));
+  const g = Math.round(((n >> 8) & 255) * (1 - amount));
+  const b = Math.round((n & 255) * (1 - amount));
+  return `rgb(${r}, ${g}, ${b})`;
+}
 
 export function ProjectDetail({ project }: { project: Project }) {
   return (
@@ -9,11 +19,17 @@ export function ProjectDetail({ project }: { project: Project }) {
       style={{ ["--brand" as string]: project.brandColor }}
     >
       <div className="mx-auto max-w-4xl">
+        <Link
+          href="/"
+          className="text-sm text-muted-foreground hover:text-foreground"
+        >
+          ← 목록으로
+        </Link>
         <div
-          className="h-1.5 w-16 rounded-full"
+          className="mt-6 h-1.5 w-16 rounded-full"
           style={{ backgroundColor: project.brandColor }}
         />
-        <p className="mt-4 text-sm font-medium" style={{ color: project.brandColor }}>
+        <p className="mt-4 text-sm font-medium" style={{ color: darken(project.brandColor) }}>
           {project.tagline}
         </p>
         <h1 className="mt-2 text-4xl font-black md:text-5xl">{project.name}</h1>

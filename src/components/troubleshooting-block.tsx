@@ -24,12 +24,18 @@ export function TroubleshootingBlock({ entry }: { entry: TroubleshootingEntry })
       </div>
       {entry.codeBefore && entry.codeAfter && (
         <div className="mt-4 grid gap-3 md:grid-cols-2">
-          <pre className="rounded-lg bg-neutral-900 p-4 text-xs text-neutral-100 overflow-x-auto">
-            <code>{entry.codeBefore.code}</code>
-          </pre>
-          <pre className="rounded-lg bg-neutral-900 p-4 text-xs text-neutral-100 overflow-x-auto">
-            <code>{entry.codeAfter.code}</code>
-          </pre>
+          <div>
+            <span className="text-xs font-semibold text-muted-foreground">Before</span>
+            <pre className="mt-1 rounded-lg bg-neutral-900 p-4 text-xs text-neutral-100 overflow-x-auto">
+              <code>{entry.codeBefore.code}</code>
+            </pre>
+          </div>
+          <div>
+            <span className="text-xs font-semibold text-muted-foreground">After</span>
+            <pre className="mt-1 rounded-lg bg-neutral-900 p-4 text-xs text-neutral-100 overflow-x-auto">
+              <code>{entry.codeAfter.code}</code>
+            </pre>
+          </div>
         </div>
       )}
     </div>

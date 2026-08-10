@@ -51,11 +51,11 @@ export default function Home() {
     <main className="mx-auto max-w-5xl px-6 py-16 md:py-20">
       <section className="grid items-center gap-12 md:grid-cols-[3fr_2fr]">
         <div>
-          <p className="text-sm font-bold uppercase tracking-wide text-amber-600">
+          <p className="text-sm font-bold uppercase tracking-wide text-amber-700">
             Frontend Developer
           </p>
           <h1 className="mt-3 text-4xl leading-tight font-normal text-balance md:text-5xl [font-family:var(--font-display)]">
-            <span className="text-amber-500">스펀지</span> 같은 개발자,
+            <span className="text-amber-700">스펀지</span> 같은 개발자,
             <br />
             {profile.name}입니다.
           </h1>

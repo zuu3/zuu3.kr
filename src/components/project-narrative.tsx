@@ -148,6 +148,10 @@ export function ProjectNarrative({
                 <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">운영 기간</p>
                 <p className="mt-1 text-sm font-medium text-neutral-700">{project.operatingPeriod}</p>
               </div>
+              <div>
+                <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">역할</p>
+                <p className="mt-1 text-sm font-medium text-neutral-700">{project.role}</p>
+              </div>
               {project.githubUrl && (
                 <div>
                   <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">깃허브</p>

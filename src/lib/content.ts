@@ -15,6 +15,7 @@ export type Project = {
   description: string;
   period: string;
   operatingPeriod: string;
+  image: string;
   techStack: string[];
   role: string;
   contributions: string[];
@@ -77,6 +78,8 @@ export const projects: Project[] = [
       "기존 구글 시트 기반의 자습 관리를 대체하여, 선생님께서 자습 일정·이석 현황을 한눈에 파악할 수 있는 웹 서비스입니다. 감독 교체 요청, 이탈 현황 확인, 이석 신청까지 하나의 플랫폼에서 처리할 수 있습니다.",
     period: "2024.12. ~ 2025.03.",
     operatingPeriod: "2025.03 ~",
+    image: "/projects/teachmon.png",
+    githubUrl: "https://github.com/Team-Teachmon/Teachmon-Client-V2",
     techStack: ["TypeScript", "React", "TanStack Query"],
     role: "Frontend Engineer",
     contributions: [
@@ -158,6 +161,8 @@ export const projects: Project[] = [
       "외국인 유학생의 한국 정착을 지원하는 플랫폼입니다. 하숙집 연결부터 생활 관리, 지역 모임까지 하나의 서비스에서 제공하여 낯선 환경에서의 적응을 돕습니다.",
     period: "2025.04. ~ 2025.11.",
     operatingPeriod: "2025.10. ~ 2025.11.",
+    image: "/projects/nuri.png",
+    githubUrl: "https://github.com/Team-Solvit/Nuri-Client",
     techStack: ["TypeScript", "Next.js", "TanStack Query", "GraphQL"],
     role: "Frontend Engineer",
     contributions: [
@@ -272,6 +277,8 @@ export async function withRefreshLock(refreshFn: () => Promise<string | null>) {
       "AWS 등 클라우드 서비스를 처음 접하는 학생·선생님이 비용 걱정 없이 배포를 경험할 수 있도록, 교내 유휴 서버 자원을 활용한 관리형 클라우드 플랫폼입니다. 잘 모르고 사용하다가 요금이 발생하는 일 없이, 안전한 환경에서 배포를 연습할 수 있습니다.",
     period: "2025.12. ~ 2026.04",
     operatingPeriod: "2026.04 ~ 현재",
+    image: "/projects/m-adp.png",
+    githubUrl: "https://github.com/M-ADP/M-ADP-CLIENT",
     techStack: ["TypeScript", "Next.js", "TanStack Query"],
     role: "Frontend Engineer",
     contributions: [
@@ -378,6 +385,8 @@ const reader = res.body!.getReader();`,
       "교회 소개, 예배 안내, 주보·월간 일정을 제공하는 웹사이트입니다. 담당자가 개발자 없이도 매주 콘텐츠를 직접 갱신할 수 있도록, 기획부터 백엔드 설계, 배포까지 진행했습니다.",
     period: "2026.01. ~ 2026.05.",
     operatingPeriod: "2026.05 ~ 현재",
+    image: "/projects/church.png",
+    githubUrl: "https://github.com/zuu3/fgbc-fe",
     techStack: ["TypeScript", "Next.js", "TanStack Query", "GraphQL", "MySQL", "Docker"],
     role: "Full-Stack Engineer",
     contributions: [

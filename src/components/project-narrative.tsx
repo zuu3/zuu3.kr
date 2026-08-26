@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SiGithub } from "react-icons/si";
 import type { Project } from "@/lib/content";
+import { TECH_ICON_MAP } from "@/lib/tech-icons";
 
 function splitSentences(text: string): string[] {
   return text.split(/(?<=\.)\s+/).filter(Boolean);
@@ -129,25 +132,90 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
         </div>
       </div>
 
+      <div className="px-6 pb-20 md:px-16 lg:pl-72 lg:pr-24">
+        <div
+          className={`grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16 ${
+            index % 2 === 1 ? "lg:[&>:first-child]:order-2" : ""
+          }`}
+        >
+          <div className="flex flex-col gap-8">
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">제작 기간</p>
+                <p className="mt-1.5 text-sm font-medium text-neutral-700">{project.period}</p>
+              </div>
+              <div>
+                <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">운영 기간</p>
+                <p className="mt-1.5 text-sm font-medium text-neutral-700">{project.operatingPeriod}</p>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">기술스택</p>
+              <div className="mt-2.5 flex flex-wrap gap-2">
+                {project.techStack.map((tech) => {
+                  const Icon = TECH_ICON_MAP[tech];
+                  return (
+                    <span
+                      key={tech}
+                      className="flex items-center gap-1.5 rounded-[var(--radius-control)] border border-neutral-200 px-2.5 py-1.5 text-xs font-medium text-neutral-600"
+                    >
+                      {Icon && <Icon className="h-3.5 w-3.5" />}
+                      {tech}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+
+            {project.githubUrl && (
+              <div>
+                <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">깃허브</p>
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-1.5 flex w-fit items-center gap-1.5 text-sm font-medium text-neutral-700 transition-colors hover:text-[#0cefd3]"
+                >
+                  <SiGithub className="h-4 w-4" />
+                  깃허브 바로가기
+                </a>
+              </div>
+            )}
+
+            {project.contributions.length > 0 && (
+              <div>
+                <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">기여</p>
+                <ul className="mt-2.5 space-y-2 text-base leading-relaxed text-neutral-600">
+                  {project.contributions.map((item) => (
+                    <li key={item} className="flex gap-2.5">
+                      <span
+                        aria-hidden
+                        className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full"
+                        style={{ backgroundColor: project.brandColor }}
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          <div className="overflow-hidden rounded-[var(--radius-control)] border border-neutral-200 bg-neutral-50">
+            <Image
+              src={project.image}
+              alt={`${main} 화면`}
+              width={1524}
+              height={1293}
+              className="h-auto w-full"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="px-6 pb-24 md:px-16 lg:pl-72 lg:pr-24">
         <div className="mx-auto w-full max-w-3xl space-y-14">
-          {project.contributions.length > 0 && (
-            <div>
-              <h3 className="text-xl font-bold text-neutral-900">Contribution</h3>
-              <ul className="mt-3 space-y-2 text-base leading-relaxed text-neutral-600">
-                {project.contributions.map((item) => (
-                  <li key={item} className="flex gap-2.5">
-                    <span
-                      aria-hidden
-                      className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full"
-                      style={{ backgroundColor: project.brandColor }}
-                    />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
 
           {project.features.length > 0 && (
             <div>

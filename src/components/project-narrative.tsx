@@ -297,7 +297,7 @@ export function ProjectNarrative({
                       </div>
 
                       {(entry.codeBefore || entry.codeAfter) && (
-                        <pre className="mt-5 max-w-2xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 pl-8 text-xs leading-relaxed">
+                        <pre className="mt-5 ml-8 max-w-2xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 text-xs leading-relaxed">
                           <code>
                             {entry.codeBefore?.code.split("\n").map((line, i) => (
                               <div key={`b-${i}`} className="bg-red-500/15 px-4 text-red-300">

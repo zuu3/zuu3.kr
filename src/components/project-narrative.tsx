@@ -4,6 +4,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ChevronDown } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import type { Project } from "@/lib/content";
 import { TECH_ICON_MAP } from "@/lib/tech-icons";
@@ -208,23 +209,22 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
           {project.features.length > 0 && (
             <div>
               <h3 className="text-xl font-bold tracking-tight text-neutral-900">Features</h3>
-              <div className="mt-4 space-y-3">
+              <div className="mt-2 divide-y divide-neutral-200">
                 {project.features.map((feature, i) => (
-                  <div
-                    key={feature.title}
-                    className="flex gap-5 rounded-2xl bg-[#f6f6f6] p-6 transition-colors hover:bg-[#f0f0f0]"
-                  >
+                  <div key={feature.title} className="relative py-8 first:pt-6">
                     <span
                       aria-hidden
-                      className="text-3xl font-black tabular-nums [font-family:var(--font-display)]"
-                      style={{ color: project.brandColor }}
+                      className="pointer-events-none absolute top-4 right-0 text-7xl font-black tabular-nums [font-family:var(--font-display)] md:text-8xl"
+                      style={{ color: project.brandColor, opacity: 0.08 }}
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <div>
-                      <p className="text-lg font-bold tracking-tight text-neutral-900">{feature.title}</p>
-                      <p className="mt-1.5 text-base leading-relaxed text-neutral-600">{feature.description}</p>
-                    </div>
+                    <p className="relative text-xl font-bold tracking-tight text-neutral-900 md:text-2xl">
+                      {feature.title}
+                    </p>
+                    <p className="relative mt-2 max-w-xl text-base leading-relaxed text-neutral-600">
+                      {feature.description}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -234,40 +234,50 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
           {project.troubleshooting.length > 0 && (
             <div>
               <h3 className="text-xl font-bold tracking-tight text-neutral-900">Troubleshooting</h3>
-              <div className="mt-4 space-y-8">
-                {project.troubleshooting.map((entry) => {
-                  const stages = [
-                    { label: "Problem", text: entry.problem, emphasize: true },
-                    { label: "Cause", text: entry.cause, emphasize: false },
-                    { label: "Solution", text: entry.solution, emphasize: true },
-                    { label: "Result", text: entry.result, emphasize: false },
-                  ];
-                  return (
-                    <div key={entry.title}>
-                      <p className="text-lg font-bold tracking-tight text-neutral-900">{entry.title}</p>
+              <div className="mt-4 space-y-3">
+                {project.troubleshooting.map((entry, i) => (
+                  <details
+                    key={entry.title}
+                    className="group rounded-2xl bg-[#f6f6f6] px-6 py-5 open:pb-6"
+                    open={i === 0}
+                  >
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+                      <span className="text-lg font-bold tracking-tight text-neutral-900">{entry.title}</span>
+                      <ChevronDown
+                        aria-hidden
+                        className="h-5 w-5 shrink-0 text-neutral-400 transition-transform duration-200 group-open:rotate-180"
+                        strokeWidth={2}
+                      />
+                    </summary>
 
-                      <dl className="mt-3 max-w-2xl space-y-5 rounded-2xl bg-[#f6f6f6] p-6">
-                        {stages.map((stage) => (
-                          <div key={stage.label}>
-                            <dt
-                              className="text-xs font-black tracking-wide uppercase"
-                              style={{ color: stage.emphasize ? project.brandColor : "#6c6d6f" }}
-                            >
-                              {stage.label}
-                            </dt>
-                            <dd
-                              className={`mt-1.5 text-base leading-relaxed ${
-                                stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-500"
-                              }`}
-                            >
-                              {renderRichText(stage.text)}
-                            </dd>
-                          </div>
-                        ))}
-                      </dl>
+                    <div className="mt-5 max-w-2xl space-y-5 border-t border-neutral-200 pt-5">
+                      {(
+                        [
+                          { label: "Problem", text: entry.problem, emphasize: true },
+                          { label: "Cause", text: entry.cause, emphasize: false },
+                          { label: "Solution", text: entry.solution, emphasize: true },
+                          { label: "Result", text: entry.result, emphasize: false },
+                        ] as const
+                      ).map((stage) => (
+                        <div key={stage.label}>
+                          <p
+                            className="text-xs font-black tracking-wide uppercase"
+                            style={{ color: stage.emphasize ? project.brandColor : "#6c6d6f" }}
+                          >
+                            {stage.label}
+                          </p>
+                          <p
+                            className={`mt-1.5 text-base leading-relaxed ${
+                              stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-500"
+                            }`}
+                          >
+                            {renderRichText(stage.text)}
+                          </p>
+                        </div>
+                      ))}
 
                       {(entry.codeBefore || entry.codeAfter) && (
-                        <pre className="mt-4 max-w-2xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 text-xs leading-relaxed">
+                        <pre className="max-w-2xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 text-xs leading-relaxed">
                           <code>
                             {entry.codeBefore?.code.split("\n").map((line, i) => (
                               <div key={`b-${i}`} className="bg-red-500/15 px-4 text-red-300">
@@ -285,8 +295,8 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
                         </pre>
                       )}
                     </div>
-                  );
-                })}
+                  </details>
+                ))}
               </div>
             </div>
           )}

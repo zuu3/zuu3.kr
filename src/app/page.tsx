@@ -16,7 +16,7 @@ export default function Home() {
       <AboutSection profile={profile} />
       <TechLogoLoop />
       {projects.map((project, index) => (
-        <ProjectNarrative key={project.slug} project={project} index={index} />
+        <ProjectNarrative key={project.slug} project={project} index={index} total={projects.length} />
       ))}
       <SiteFooter profile={profile} />
     </main>

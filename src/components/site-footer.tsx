@@ -1,4 +1,5 @@
 import { Mail, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import type { profile as ProfileType } from "@/lib/content";
 
 // lucide-react dropped brand icons; GitHub mark inlined instead of adding a dependency.
@@ -15,24 +16,24 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
     <footer className="border-t border-neutral-200 px-6 py-10 md:px-16 lg:pl-72 lg:pr-24">
       <div className="mx-auto flex max-w-3xl flex-col gap-4 text-sm sm:flex-row sm:items-center sm:justify-between">
         <p className="font-semibold text-neutral-900">{profile.name}</p>
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-neutral-500">
-          <a
-            href={`mailto:${profile.email}`}
-            className="flex items-center gap-1.5 transition-colors hover:text-[#0cefd3]"
+        <div className="flex flex-wrap items-center gap-1 text-neutral-500">
+          <Button
+            variant="ghost"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#0cefd3]"
+            render={<a href={`mailto:${profile.email}`} />}
           >
             <Mail className="h-4 w-4" strokeWidth={1.75} />
             {profile.email}
-          </a>
-          <a
-            href="https://github.com/zuu3"
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-1.5 transition-colors hover:text-[#0cefd3]"
+          </Button>
+          <Button
+            variant="ghost"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#0cefd3]"
+            render={<a href="https://github.com/zuu3" target="_blank" rel="noreferrer" />}
           >
             <GithubIcon className="h-4 w-4" />
             github.com/zuu3
-          </a>
-          <span className="flex items-center gap-1.5">
+          </Button>
+          <span className="flex items-center gap-1.5 px-2 py-1">
             <Phone className="h-4 w-4" strokeWidth={1.75} />
             {profile.phone}
           </span>

@@ -51,7 +51,15 @@ function splitProjectName(name: string): { main: string; alias: string | null } 
 // ponytail: the scroll-emphasis effect stays scoped to the intro hook
 // (2-3 sentences, pinned). Everything after — contributions/features/
 // troubleshooting — is plain readable flow, no dimming, no pin.
-export function ProjectNarrative({ project, index }: { project: Project; index: number }) {
+export function ProjectNarrative({
+  project,
+  index,
+  total,
+}: {
+  project: Project;
+  index: number;
+  total: number;
+}) {
   const hookRef = useRef<HTMLDivElement>(null);
   const sentences = splitSentences(project.description);
   const { main, alias } = splitProjectName(project.name);
@@ -92,31 +100,39 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
   return (
     <section id={`project-${project.slug}`} className="border-t border-neutral-200 first:border-t-0">
       <div ref={hookRef} className="flex min-h-[70vh] flex-col justify-center px-6 py-16 md:px-16 lg:pl-72 lg:pr-24">
-        <div className="mx-auto w-full max-w-3xl">
-          <div className="flex items-center gap-2 text-neutral-400">
-            <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: project.brandColor }} />
-            <span className="text-xs font-bold tracking-[0.15em] uppercase">Project {String(index + 1).padStart(2, "0")}</span>
-            <span aria-hidden className="text-neutral-300">·</span>
-            <span className="text-xs tracking-wide uppercase">{project.period}</span>
-          </div>
-          <h2
-            className="mt-4 text-5xl font-black tracking-tight [font-family:var(--font-display)] md:text-6xl"
-            style={{ color: project.brandColor }}
-          >
-            {main}
-          </h2>
-          {alias && <p className="mt-1 text-base font-medium text-neutral-400">{alias}</p>}
-          <p className="mt-3 text-base text-neutral-500">{project.tagline}</p>
-
-          <div className="mt-8 space-y-2">
-            {sentences.map((sentence) => (
-              <p
-                key={sentence}
-                className="hook-line text-xl leading-snug font-bold text-neutral-900 md:text-2xl"
+        <div className="mx-auto flex w-full max-w-3xl gap-6 sm:gap-8">
+          <div
+            aria-hidden
+            className="mt-2 w-[3px] shrink-0 self-stretch rounded-full"
+            style={{ backgroundColor: project.brandColor }}
+          />
+          <div className="min-w-0 flex-1">
+            <div className="flex items-baseline gap-3 text-neutral-400">
+              <span
+                className="text-sm font-bold tabular-nums [font-family:var(--font-display)]"
+                style={{ color: project.brandColor }}
               >
-                {sentence}
-              </p>
-            ))}
+                {String(index + 1).padStart(2, "0")}
+                <span className="text-neutral-300">/{String(total).padStart(2, "0")}</span>
+              </span>
+              <span className="text-xs tracking-wide text-neutral-400 uppercase">{project.period}</span>
+            </div>
+            <h2 className="mt-3 text-5xl font-black tracking-tight text-neutral-900 [font-family:var(--font-display)] md:text-6xl">
+              {main}
+            </h2>
+            {alias && <p className="mt-1 text-base font-medium text-neutral-400">{alias}</p>}
+            <p className="mt-4 max-w-lg text-lg text-neutral-500">{project.tagline}</p>
+
+            <div className="mt-8 space-y-2">
+              {sentences.map((sentence) => (
+                <p
+                  key={sentence}
+                  className="hook-line text-xl leading-snug font-bold text-neutral-900 md:text-2xl"
+                >
+                  {sentence}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       </div>

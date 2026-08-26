@@ -12,8 +12,11 @@ export function MobileMenu({ projects }: { profile: typeof ProfileType; projects
   const ids = ["home", "about", ...projects.map((p) => `project-${p.slug}`)];
   const labels = ["Home", "About", ...projects.map((p) => shortName(p.name))];
 
+  const rotations = [-8, 8, -8, 8, -8, 8];
+
   const items = labels.map((label, i) => ({
     label,
+    rotation: rotations[i % rotations.length],
     onClick: () => {
       const target = document.getElementById(ids[i]);
       if (!target) return;
@@ -25,5 +28,5 @@ export function MobileMenu({ projects }: { profile: typeof ProfileType; projects
     },
   }));
 
-  return <BubbleMenu logo="Z" menuBg="#ffffff" menuContentColor="#171717" items={items} />;
+  return <BubbleMenu menuBg="#ffffff" menuContentColor="#171717" items={items} />;
 }

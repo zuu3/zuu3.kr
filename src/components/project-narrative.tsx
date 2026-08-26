@@ -303,7 +303,7 @@ export function ProjectNarrative({
                       </span>
                     </AccordionTrigger>
                     <AccordionContent className="pb-8">
-                      <div className="grid max-w-2xl gap-x-8 gap-y-5 pl-8 sm:grid-cols-2">
+                      <div className="max-w-2xl space-y-5 pl-8">
                         {(
                           [
                             { label: "Problem", text: entry.problem, emphasize: true },
@@ -311,21 +311,29 @@ export function ProjectNarrative({
                             { label: "Solution", text: entry.solution, emphasize: true },
                             { label: "Result", text: entry.result, emphasize: false },
                           ] as const
-                        ).map((stage) => (
-                          <div key={stage.label}>
-                            <p
-                              className="text-xs font-black tracking-wide uppercase"
-                              style={{ color: stage.emphasize ? project.brandColor : "#6c6d6f" }}
+                        ).map((stage, si) => (
+                          <div key={stage.label} className="flex gap-3">
+                            <span
+                              className="mt-px shrink-0 text-xs font-black tabular-nums [font-family:var(--font-display)]"
+                              style={{ color: stage.emphasize ? project.brandColor : "#a3a3a3" }}
                             >
-                              {stage.label}
-                            </p>
-                            <p
-                              className={`mt-1.5 text-sm leading-relaxed ${
-                                stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-500"
-                              }`}
-                            >
-                              {renderRichText(stage.text)}
-                            </p>
+                              {String(si + 1).padStart(2, "0")}
+                            </span>
+                            <div className="min-w-0">
+                              <p
+                                className="text-xs font-black tracking-wide uppercase"
+                                style={{ color: stage.emphasize ? project.brandColor : "#6c6d6f" }}
+                              >
+                                {stage.label}
+                              </p>
+                              <p
+                                className={`mt-1 text-sm leading-relaxed ${
+                                  stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-500"
+                                }`}
+                              >
+                                {renderRichText(stage.text)}
+                              </p>
+                            </div>
                           </div>
                         ))}
                       </div>

@@ -2,9 +2,8 @@
 
 import { ArrowDown } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import type { profile as ProfileType } from "@/lib/content";
 
-export function Hero({ profile }: { profile: typeof ProfileType }) {
+export function Hero() {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -24,15 +23,6 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
         <br />
         Engineer
       </motion.h1>
-
-      <motion.p
-        initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.15 }}
-        className="mt-6 max-w-xl text-base leading-relaxed text-neutral-500"
-      >
-        <span className="font-semibold text-neutral-900">{profile.tagline}</span> {profile.bio}
-      </motion.p>
 
       <motion.div
         aria-hidden

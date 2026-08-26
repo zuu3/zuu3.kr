@@ -9,12 +9,21 @@ function splitSentences(text: string): string[] {
   return text.split(/(?<=\.)\s+/).filter(Boolean);
 }
 
+// "TeachMon(티치몬)" -> { main: "TeachMon", alias: "티치몬" }. Names without
+// a parenthetical (e.g. "순복음범천교회 웹사이트") just render as-is.
+function splitProjectName(name: string): { main: string; alias: string | null } {
+  const match = name.match(/^(.+?)\((.+)\)$/);
+  if (!match) return { main: name, alias: null };
+  return { main: match[1], alias: match[2] };
+}
+
 // ponytail: the scroll-emphasis effect stays scoped to the intro hook
 // (2-3 sentences, pinned). Everything after — contributions/features/
 // troubleshooting — is plain readable flow, no dimming, no pin.
 export function ProjectNarrative({ project, index }: { project: Project; index: number }) {
   const hookRef = useRef<HTMLDivElement>(null);
   const sentences = splitSentences(project.description);
+  const { main, alias } = splitProjectName(project.name);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -59,11 +68,14 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
             </span>
             <span className="text-xs tracking-wide uppercase">{project.period}</span>
           </div>
-          <h2
-            className="mt-3 text-4xl font-black [font-family:var(--font-display)] md:text-5xl"
-            style={{ color: project.brandColor }}
-          >
-            {project.name}
+          <h2 className="mt-3 flex flex-wrap items-baseline gap-x-3">
+            <span
+              className="text-4xl font-black [font-family:var(--font-display)] md:text-5xl"
+              style={{ color: project.brandColor }}
+            >
+              {main}
+            </span>
+            {alias && <span className="text-xl font-medium text-neutral-400">{alias}</span>}
           </h2>
           <p className="mt-1 text-base text-neutral-500">{project.tagline}</p>
 

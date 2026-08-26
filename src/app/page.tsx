@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 export default function Home() {
   return (
     <main>
-      <Hero profile={profile} />
+      <Hero />
       <AboutSection profile={profile} />
       {projects.map((project, index) => (
         <ProjectNarrative key={project.slug} project={project} index={index} />

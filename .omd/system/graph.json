@@ -1,0 +1,345 @@
+{
+  "$schema": "https://oh-my-design.kr/schema/design-system-graph-v2.schema.json",
+  "components_states": {
+    "components": [
+      {
+        "anatomy": [
+          "label"
+        ],
+        "id": "hero-cta",
+        "interaction": {
+          "kind": "interactive",
+          "state_applicability": {
+            "default": {
+              "applicability": "applicable"
+            },
+            "disabled": {
+              "applicability": "not-applicable",
+              "reason": "항상 활성 상태인 mailto 링크"
+            },
+            "error": {
+              "applicability": "not-applicable",
+              "reason": "실패 상태가 없는 mailto 링크"
+            },
+            "focus-visible": {
+              "applicability": "applicable"
+            },
+            "hover": {
+              "applicability": "applicable"
+            },
+            "loading": {
+              "applicability": "not-applicable",
+              "reason": "페이지 이동 없는 즉시 액션"
+            },
+            "success": {
+              "applicability": "not-applicable",
+              "reason": "성공 상태 표시가 없는 mailto 링크"
+            }
+          }
+        },
+        "semantics": "히어로의 유일한 primary 색 사용처. 이메일 연락 액션",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible"
+        ],
+        "token_refs": [
+          "color.primary",
+          "radius.control"
+        ],
+        "variants": [
+          "default"
+        ]
+      },
+      {
+        "anatomy": [
+          "index",
+          "period",
+          "name",
+          "tagline",
+          "tech-chip-row",
+          "hook-sentences"
+        ],
+        "id": "project-hook",
+        "interaction": {
+          "kind": "non-interactive",
+          "reason": "스크롤에 반응하는 표시 영역이며 클릭 가능한 컨트롤이 아니다"
+        },
+        "semantics": "프로젝트 섹션 상단, 스크롤 고정된 채 도입부 문장이 순차 강조되는 영역. 문장이 2개 이하이면 강조 애니메이션 없이 그대로 표시",
+        "states": [
+          "default"
+        ],
+        "token_refs": [
+          "radius.control"
+        ],
+        "variants": [
+          "default"
+        ]
+      },
+      {
+        "anatomy": [
+          "heading",
+          "item-list"
+        ],
+        "id": "contribution-callout",
+        "interaction": {
+          "kind": "non-interactive",
+          "reason": "정보 표시 전용 카드"
+        },
+        "semantics": "기여 목록을 담는 프로젝트 brandColor 5% 틴트 배경의 카드",
+        "states": [
+          "default"
+        ],
+        "token_refs": [
+          "radius.card"
+        ],
+        "variants": [
+          "default"
+        ]
+      },
+      {
+        "anatomy": [
+          "title",
+          "problem",
+          "cause",
+          "solution",
+          "result"
+        ],
+        "id": "troubleshooting-entry",
+        "interaction": {
+          "kind": "non-interactive",
+          "reason": "정보 표시 전용 항목"
+        },
+        "semantics": "problem/solution은 진하게, cause/result는 보조 톤으로 표시해 핵심을 우선 노출하는 트러블슈팅 항목",
+        "states": [
+          "default"
+        ],
+        "token_refs": [],
+        "variants": [
+          "default"
+        ]
+      }
+    ],
+    "rules": [
+      "인터랙티브 컴포넌트는 hover와 focus-visible 상태를 시각적으로 구분한다"
+    ]
+  },
+  "content_locales": {
+    "locales": [
+      {
+        "locale": "ko",
+        "rules": [
+          "모든 UI 카피는 한국어 우선"
+        ],
+        "status": "supported"
+      }
+    ],
+    "terminology": {
+      "수상": "award",
+      "프로젝트": "project"
+    },
+    "voice": [
+      "direct",
+      "concise",
+      "personal"
+    ]
+  },
+  "experience": {
+    "avoid": [
+      "primary 컬러를 히어로 eyebrow 텍스트, About 사진 프레임, 카테고리 라벨처럼 매 섹션에 반복 사용하지 않는다",
+      "한글 디스플레이 헤딩에 음수 letter-spacing(tracking-tight)을 쓰지 않는다 — Paperlogy+한글 조합에서 글자가 뭉개진다",
+      "트러블슈팅을 problem/cause/solution/result 필드 구분 없이 하나의 문단으로 합치지 않는다",
+      "기술 스택을 프로젝트 섹션 맨 끝에 텍스트로만 나열하지 않는다 — 태그라인 아래 박스형 칩으로 배치한다"
+    ],
+    "design_direction": [
+      "타이포그래피가 주역 — 장식보다 크기·굵기·여백으로 위계를 만든다",
+      "baemin 2.0의 밝은 민트는 실제 행동 지점(CTA 버튼)에만 쓰고 배경/보더/장식으로 확산시키지 않는다",
+      "About과 히어로는 기본적으로 흑백/그레이스케일로 두고, 색은 프로젝트 섹션의 브랜드 컬러와 히어로 CTA 버튼에만 남긴다"
+    ],
+    "primary_tasks": [
+      "방문자가 히어로에서 이름과 한 줄 소개를 빠르게 파악한다",
+      "About에서 수상/활동/자격/리더십 이력을 연도순으로 훑어본다",
+      "각 프로젝트의 도입부(왜 만들었는지)를 스크롤 강조로 읽는다",
+      "프로젝트의 기여/기능/트러블슈팅을 이어서 읽는다",
+      "이메일로 연락한다"
+    ],
+    "principles": [
+      "primary(민트)는 실제 클릭 가능한 행동(CTA)에만 사용한다 — 배지, 보더, 장식용 프레임, 라벨 텍스트에 습관적으로 채워 넣지 않는다",
+      "각 프로젝트의 brandColor는 그 프로젝트 섹션 안에서만 강조로 쓰고 사이트 전역 톤을 바꾸지 않는다",
+      "본문/수치/기간 같은 사실 정보는 항상 명료하게 우선한다",
+      "여백과 타이포 크기 대비로 위계를 만들고, 색·배지·프레임 같은 장식적 강조 수단은 최후에 검토한다"
+    ],
+    "summary": "고등학생 개발자 오주현의 개인 포트폴리오. 프로젝트를 가장 먼저 보여주고, 각 프로젝트는 스크롤에 따라 도입부 문장이 강조되며 드러난 뒤 기여/기능/트러블슈팅이 일반 텍스트로 이어지는 단일 페이지 서사 구조."
+  },
+  "foundations": {
+    "contrast_pairs": [
+      {
+        "background": "color.canvas",
+        "foreground": "color.foreground",
+        "minimum_ratio": 7
+      },
+      {
+        "background": "color.primary",
+        "foreground": "color.foreground",
+        "minimum_ratio": 4.5
+      }
+    ],
+    "reduced_motion": true,
+    "rules": [
+      "primary 민트는 사이트 전체에서 클릭 가능한 CTA 버튼 1곳에만 채움색으로 사용한다",
+      "본문 텍스트는 color.foreground, 보조 텍스트는 color.muted만 사용한다",
+      "히어로와 About 섹션은 프로젝트별 brandColor를 쓰지 않는다 — 색은 프로젝트 섹션 안에서만 등장한다"
+    ],
+    "tokens": {
+      "color.border": {
+        "$description": "구분선, 카드/칩 보더",
+        "$type": "color",
+        "$value": "#e5e5e5"
+      },
+      "color.canvas": {
+        "$description": "페이지 기본 배경",
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "color.foreground": {
+        "$description": "본문 텍스트",
+        "$type": "color",
+        "$value": "#171717"
+      },
+      "color.muted": {
+        "$description": "보조 텍스트, 캡션, 라벨",
+        "$type": "color",
+        "$value": "#737373"
+      },
+      "color.primary": {
+        "$description": "baemin 2.0 브라이트 민트. 실제 행동(CTA 버튼)에만 사용 — 배지/보더/장식 금지",
+        "$type": "color",
+        "$value": "#0cefd3"
+      },
+      "radius.card": {
+        "$description": "기여 콜아웃 박스 등 카드형 컨테이너",
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "radius.control": {
+        "$description": "버튼, 칩, 작은 컨트롤",
+        "$type": "dimension",
+        "$value": "8px"
+      }
+    }
+  },
+  "governance": {
+    "change_policy": [
+      "색상/타이포 토큰 변경은 DESIGN.md 갱신 후 적용한다"
+    ],
+    "decisions": [
+      {
+        "evidence": [
+          "baemin reference catalog verified_v2 2026-07-12, tokens.colors.primary; 사용자 승인 하에 프로젝트 브랜드로 채택"
+        ],
+        "path": "foundations.tokens.color.primary",
+        "source_class": "agent-proposed-greenfield-decision"
+      },
+      {
+        "evidence": [
+          "사용자 피드백: 'primary를 계속 넣으려 하니까 그런거같음' — 히어로/About에 민트를 과도하게 반복 사용해 결과물이 나빠짐"
+        ],
+        "path": "experience.avoid",
+        "source_class": "prompt-fact"
+      },
+      {
+        "evidence": [
+          "사용자 피드백: '폰트가 못생겼다' — tracking-tight가 한글+Paperlogy 조합에서 글자를 뭉개뜨림을 확인 후 제거"
+        ],
+        "path": "typography_assets.rules",
+        "source_class": "prompt-fact"
+      }
+    ],
+    "priority": [
+      "experience",
+      "foundations",
+      "typography-assets",
+      "components-states",
+      "layout-platforms",
+      "content-locales"
+    ],
+    "unknown_policy": "absent-at-smallest-unresolved-boundary"
+  },
+  "identity": {
+    "kind": "project-system",
+    "name": "zuu3.kr Portfolio",
+    "scope": "오주현 개인 개발자 포트폴리오 웹사이트 — 히어로, About(수상/활동 이력), 프로젝트별 스크롤 서사 섹션, 푸터로 구성된 단일 페이지"
+  },
+  "layout_platforms": {
+    "minimum_width_px": 320,
+    "platforms": [
+      {
+        "id": "web",
+        "rules": [
+          "반응형 브레이크포인트는 Tailwind 기본값(sm/md/lg)을 따른다"
+        ]
+      }
+    ],
+    "reflow_zoom_percent": 200,
+    "rules": [
+      "전체 폭 컨테이너 없이 각 섹션은 max-w-3xl~5xl 내부 컨텐츠 폭을 사용한다",
+      "프로젝트 도입부 pin 스크롤은 prefers-reduced-motion에서 비활성화하고 즉시 전체 텍스트를 표시한다"
+    ]
+  },
+  "projection": {
+    "locale": "en",
+    "path": "DESIGN.md",
+    "sha256": "8b30b76a0052cce297e21904c66d434960ada182f5f2aceb3f142c87dddc4047"
+  },
+  "schema_version": "2.0.0",
+  "typography_assets": {
+    "assets": [
+      {
+        "id": "paperlogy",
+        "kind": "font",
+        "license_status": "verified",
+        "notes": "display 폰트, 로컬 woff2로 이미 프로젝트에 포함",
+        "source_status": "project-owned"
+      },
+      {
+        "id": "pretendard",
+        "kind": "font",
+        "license_status": "verified",
+        "notes": "본문 폰트, 로컬 woff2로 이미 프로젝트에 포함",
+        "source_status": "project-owned"
+      }
+    ],
+    "roles": [
+      {
+        "family": "Paperlogy",
+        "id": "display",
+        "line_height": 1.15,
+        "size": "clamp(1.5rem, 4vw, 3.75rem)",
+        "tracking": "normal",
+        "usage": "히어로/프로젝트/섹션 타이틀",
+        "weight": 900
+      },
+      {
+        "family": "Pretendard",
+        "id": "body",
+        "line_height": 1.6,
+        "size": "1rem",
+        "usage": "본문 텍스트",
+        "weight": 400
+      },
+      {
+        "family": "Pretendard",
+        "id": "label",
+        "line_height": 1.3,
+        "size": "0.75rem",
+        "tracking": "0.02em",
+        "usage": "라벨/캡션/칩",
+        "weight": 700
+      }
+    ],
+    "rules": [
+      "display 롤(Paperlogy)에는 한글 조합 시 음수 tracking을 적용하지 않는다 — 기본 tracking 유지",
+      "baemin 공식 WORK 서체는 라이선스 미확보로 이식하지 않는다"
+    ]
+  }
+}

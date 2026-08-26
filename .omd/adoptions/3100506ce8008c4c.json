@@ -1,0 +1,45 @@
+{
+  "approved": true,
+  "authority": {
+    "identifier": "zuu3",
+    "role": "project-owner"
+  },
+  "checkpoint_receipt_sha256": "2322d61eb6e6a4c1a386353249312697ba7482b8a79e397a1ba69eb850ffdbec",
+  "destination": {
+    "design_md_sha256": "8b30b76a0052cce297e21904c66d434960ada182f5f2aceb3f142c87dddc4047",
+    "system_tree_sha256": "018d20052e257823fd1e938ab6e679757da7c014a93e38e6a7ed6c8631920144"
+  },
+  "kind": "design-md-core-project-adoption-report",
+  "previous": {
+    "design_md": {
+      "present": false,
+      "sha256": null
+    },
+    "system": {
+      "present": false,
+      "tree_sha256": null
+    }
+  },
+  "project_proof": {
+    "authority_mode": "core-v2-project-system",
+    "pass": true,
+    "profile": "portable-core",
+    "sha256": "fc5eb38598a62b4762b08ca4d1ac84445d4b0c8053d8a5bba63d53c76eb45e8c"
+  },
+  "recovery": {
+    "action": null,
+    "recovered": false
+  },
+  "report_path": ".omd/adoptions/3100506ce8008c4c.json",
+  "schema_version": "2.0.0",
+  "source_package": {
+    "adoption_receipt_sha256": "11c9844091ecd2a37ec8f93d061350ee3d17d7b91afae53abe5ab8b9bffef11f",
+    "coverage_sha256": "1deda3974269ce942b1ddd514405d1af85029d8eddbccf41fdbd4dfc1fd84727",
+    "design_md_sha256": "8b30b76a0052cce297e21904c66d434960ada182f5f2aceb3f142c87dddc4047",
+    "graph_sha256": "37a494d9250bdc52b83f4d1a65da1c01fec3b6d6cada59a86a897290c8faf6b5",
+    "manifest_sha256": "3779c88b088e1550702d36243779905514046881ecb4f946e2858c2fb31f8fb9",
+    "provenance_sha256": "f46005cd0d94b231eefce5197a193bd3d6c6b144a305762f255d2471df0767d3"
+  },
+  "status": "adopted",
+  "transaction_id": "3100506ce8008c4c"
+}

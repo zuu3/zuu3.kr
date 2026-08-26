@@ -9,45 +9,39 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
 
   return (
     <section className="flex min-h-screen flex-col justify-center px-6 py-24 md:px-16 lg:px-24">
-      <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-end">
-        <div>
-          <motion.span
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center rounded-[var(--radius-control)] bg-[#0cefd3] px-3 py-1 text-xs font-bold tracking-wide text-neutral-900 uppercase"
-          >
-            Frontend Engineer
-          </motion.span>
-          <motion.h1
-            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-5 max-w-2xl text-4xl leading-[1.15] font-black text-neutral-900 [font-family:var(--font-display)] sm:text-5xl md:text-6xl"
-          >
-            {profile.tagline}
-          </motion.h1>
-          <motion.a
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            href={`mailto:${profile.email}`}
-            className="mt-8 inline-flex w-fit items-center gap-2 rounded-[var(--radius-control)] bg-[#0cefd3] px-5 py-2.5 text-sm font-bold text-neutral-900 transition-transform hover:scale-105"
-          >
-            연락하기
-          </motion.a>
-        </div>
-
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="border-l-2 border-[#0cefd3] pl-6"
-        >
-          <p className="text-base leading-relaxed text-neutral-600">{profile.bio}</p>
-          <p className="mt-4 text-sm text-neutral-400">{profile.school}</p>
-        </motion.div>
-      </div>
+      <motion.p
+        initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-sm font-medium tracking-wide text-neutral-400 uppercase"
+      >
+        Frontend Engineer
+      </motion.p>
+      <motion.h1
+        initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="mt-4 max-w-3xl text-4xl leading-[1.15] font-black text-neutral-900 [font-family:var(--font-display)] sm:text-5xl md:text-6xl"
+      >
+        {profile.tagline}
+      </motion.h1>
+      <motion.p
+        initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="mt-6 max-w-xl text-base leading-relaxed text-neutral-500"
+      >
+        {profile.bio}
+      </motion.p>
+      <motion.a
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        href={`mailto:${profile.email}`}
+        className="mt-8 inline-flex w-fit items-center gap-2 rounded-[var(--radius-control)] bg-[#0cefd3] px-5 py-2.5 text-sm font-bold text-neutral-900 transition-transform hover:scale-105"
+      >
+        연락하기
+      </motion.a>
 
       <motion.div
         aria-hidden

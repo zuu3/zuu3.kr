@@ -1,0 +1,64 @@
+{
+  "decisions": [
+    {
+      "evidence": [
+        "package.json",
+        "src/lib/content.ts"
+      ],
+      "path": "identity.name",
+      "source_class": "repository-fact",
+      "value": "zuu3.kr Portfolio"
+    },
+    {
+      "evidence": [
+        "src/app/page.tsx"
+      ],
+      "path": "identity.scope",
+      "source_class": "repository-fact"
+    },
+    {
+      "evidence": [
+        "src/lib/content.ts",
+        "src/components/project-narrative.tsx"
+      ],
+      "path": "experience.summary",
+      "source_class": "repository-fact"
+    },
+    {
+      "evidence": [
+        "docs/superpowers/specs/2026-08-26-portfolio-redesign-design.md"
+      ],
+      "path": "experience.avoid",
+      "source_class": "prompt-fact"
+    },
+    {
+      "evidence": [
+        "docs/superpowers/specs/2026-08-26-portfolio-redesign-design.md",
+        "src/components/hero.tsx"
+      ],
+      "path": "typography_assets.rules",
+      "source_class": "prompt-fact"
+    },
+    {
+      "evidence": [
+        "src/app/globals.css",
+        ".claude/data/references/baemin/DESIGN.md"
+      ],
+      "path": "foundations.tokens.color.primary",
+      "source_class": "agent-proposed-greenfield-decision"
+    },
+    {
+      "evidence": [
+        "src/components/hero.tsx",
+        "src/components/about-section.tsx",
+        "src/components/project-narrative.tsx",
+        "src/components/site-footer.tsx"
+      ],
+      "path": "components_states.components",
+      "source_class": "repository-fact"
+    }
+  ],
+  "design_md_sha256": "8b30b76a0052cce297e21904c66d434960ada182f5f2aceb3f142c87dddc4047",
+  "graph_sha256": "37a494d9250bdc52b83f4d1a65da1c01fec3b6d6cada59a86a897290c8faf6b5",
+  "schema_version": "2.0.0"
+}

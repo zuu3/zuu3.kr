@@ -1,0 +1,97 @@
+{
+  "checks": {
+    "assets_fonts_licenses": {
+      "method": "controller-computed-system-graph-v2",
+      "pass": true
+    },
+    "bound_system_authority": {
+      "method": "controller-computed-system-graph-v2",
+      "pass": true
+    },
+    "component_state_coverage": {
+      "method": "controller-computed-system-graph-v2",
+      "pass": true
+    },
+    "contrast": {
+      "method": "controller-computed-system-graph-v2",
+      "pass": true
+    },
+    "implementation_contract_complete": {
+      "method": "controller-computed-system-graph-v2",
+      "pass": true
+    },
+    "opaque_extension_preservation": {
+      "method": "controller-computed-system-graph-v2",
+      "pass": true
+    },
+    "portable_core_structure": {
+      "method": "controller-computed-system-graph-v2",
+      "pass": true
+    },
+    "reduced_motion": {
+      "method": "controller-computed-system-graph-v2",
+      "pass": true
+    },
+    "responsive_320_200": {
+      "method": "controller-computed-system-graph-v2",
+      "pass": true
+    },
+    "token_reference_closure": {
+      "method": "controller-computed-system-graph-v2",
+      "pass": true
+    },
+    "unknown_absence": {
+      "method": "controller-computed-system-graph-v2",
+      "pass": true
+    }
+  },
+  "design_md_sha256": "8b30b76a0052cce297e21904c66d434960ada182f5f2aceb3f142c87dddc4047",
+  "graph_sha256": "37a494d9250bdc52b83f4d1a65da1c01fec3b6d6cada59a86a897290c8faf6b5",
+  "groups": {
+    "components-states": {
+      "evidence": [
+        "src/components/hero.tsx",
+        "src/components/project-narrative.tsx"
+      ],
+      "status": "covered"
+    },
+    "content-locales": {
+      "evidence": [
+        "src/lib/content.ts"
+      ],
+      "status": "covered"
+    },
+    "experience": {
+      "evidence": [
+        "src/lib/content.ts",
+        "src/app/page.tsx"
+      ],
+      "status": "covered"
+    },
+    "foundations": {
+      "evidence": [
+        "src/app/globals.css"
+      ],
+      "status": "covered"
+    },
+    "governance": {
+      "evidence": [
+        "docs/superpowers/specs/2026-08-26-portfolio-redesign-design.md"
+      ],
+      "status": "covered"
+    },
+    "layout-platforms": {
+      "evidence": [
+        "src/components/project-narrative.tsx"
+      ],
+      "status": "covered"
+    },
+    "typography-assets": {
+      "evidence": [
+        "src/app/layout.tsx"
+      ],
+      "status": "covered"
+    }
+  },
+  "schema_version": "2.0.0"
+}

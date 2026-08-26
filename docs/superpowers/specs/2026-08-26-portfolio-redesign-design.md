@@ -53,3 +53,11 @@ Per-project `brandColor` (already in `content.ts`) still drives each project car
 ## Testing
 
 No test suite in this repo (`package.json` has no test script). Verification is manual: `npm run dev`, visually check hero/gallery/about/footer at mobile (375px) and desktop widths, confirm gallery scrub still works, confirm all 4 project detail pages render with new components, run `npm run lint` and `npm run build` to catch type/lint errors.
+
+## Revision notes (post-launch feedback)
+
+- The single-page horizontal-scrub project gallery from the initial spec was scrapped after user feedback in favor of a per-project pinned scroll narrative (intro hook sentences emphasized in sequence, then plain-flow contributions/features/troubleshooting).
+- Primary (mint `#0cefd3`) had been applied to the hero eyebrow text, the About photo frame, and About category labels. User feedback: this made the result worse — primary must stay restricted to the one actual CTA action, not spread across every section as decoration.
+- Korean display headings (Paperlogy) had `tracking-tight` applied, which crowded Hangul glyphs and read as ugly. Removed; Korean display type keeps normal tracking.
+- Troubleshooting entries must keep Problem/Cause/Solution/Result as separate labeled fields, not one merged paragraph — Problem/Solution get heavier emphasis than Cause/Result.
+- Tech stack chips moved from the end of each project section to right under the tagline, styled as bordered boxes instead of a plain text line.

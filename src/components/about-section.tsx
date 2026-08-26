@@ -48,20 +48,14 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
       <div className="mx-auto max-w-5xl">
         <div className="grid gap-x-14 gap-y-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
           <div>
-            <div className="relative w-40">
-              <div
-                aria-hidden
-                className="absolute -right-3 -bottom-3 h-full w-full rounded-[var(--radius-control)] bg-[#0cefd3]"
+            <div className="relative aspect-3/4 w-40 overflow-hidden rounded-[var(--radius-control)] bg-neutral-100">
+              <Image
+                src="/profile-photo.jpg"
+                alt={`${profile.name} 프로필 사진`}
+                fill
+                sizes="160px"
+                className="object-cover"
               />
-              <div className="relative aspect-3/4 w-40 overflow-hidden rounded-[var(--radius-control)] bg-neutral-100">
-                <Image
-                  src="/profile-photo.jpg"
-                  alt={`${profile.name} 프로필 사진`}
-                  fill
-                  sizes="160px"
-                  className="object-cover"
-                />
-              </div>
             </div>
             <h2 className="mt-8 text-2xl font-black [font-family:var(--font-display)]">About</h2>
             <p className="mt-3 max-w-[38ch] text-sm leading-relaxed text-neutral-500">{profile.bio}</p>
@@ -79,7 +73,7 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
                 className="about-row flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:gap-4"
               >
                 <span className="w-12 shrink-0 text-sm font-bold text-neutral-400">{entry.year}</span>
-                <span className="w-24 shrink-0 text-xs font-bold tracking-wide text-[#0a8f80] uppercase">
+                <span className="w-24 shrink-0 text-xs font-bold tracking-wide text-neutral-400 uppercase">
                   {entry.category}
                 </span>
                 <span className="text-sm leading-relaxed text-neutral-700">{entry.item}</span>

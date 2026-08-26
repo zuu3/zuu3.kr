@@ -170,24 +170,22 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
                       </dl>
 
                       {(entry.codeBefore || entry.codeAfter) && (
-                        <div className="mt-4 grid gap-3 md:grid-cols-2">
-                          {entry.codeBefore && (
-                            <div>
-                              <p className="text-xs font-semibold text-neutral-400">Before</p>
-                              <pre className="mt-1 overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 p-4 text-xs text-neutral-100">
-                                <code>{entry.codeBefore.code}</code>
-                              </pre>
-                            </div>
-                          )}
-                          {entry.codeAfter && (
-                            <div>
-                              <p className="text-xs font-semibold text-neutral-400">After</p>
-                              <pre className="mt-1 overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 p-4 text-xs text-neutral-100">
-                                <code>{entry.codeAfter.code}</code>
-                              </pre>
-                            </div>
-                          )}
-                        </div>
+                        <pre className="mt-4 overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 text-xs leading-relaxed">
+                          <code>
+                            {entry.codeBefore?.code.split("\n").map((line, i) => (
+                              <div key={`b-${i}`} className="bg-red-500/15 px-4 text-red-300">
+                                <span className="mr-2 select-none text-red-400/60">-</span>
+                                {line}
+                              </div>
+                            ))}
+                            {entry.codeAfter?.code.split("\n").map((line, i) => (
+                              <div key={`a-${i}`} className="bg-emerald-500/15 px-4 text-emerald-300">
+                                <span className="mr-2 select-none text-emerald-400/60">+</span>
+                                {line}
+                              </div>
+                            ))}
+                          </code>
+                        </pre>
                       )}
                     </div>
                   );

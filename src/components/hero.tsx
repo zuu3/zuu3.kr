@@ -2,6 +2,7 @@
 
 import { ArrowDown } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
+import GradualBlur from "@/components/gradual-blur";
 import ParticleText from "@/components/particle-text";
 
 export function Hero() {
@@ -69,6 +70,8 @@ export function Hero() {
       >
         <ArrowDown className="h-5 w-5" strokeWidth={1.5} />
       </motion.div>
+
+      <GradualBlur target="parent" position="bottom" height="9rem" strength={1.5} divCount={6} curve="bezier" opacity={0.9} />
     </section>
   );
 }

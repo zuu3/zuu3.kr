@@ -12,7 +12,7 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
   return (
-    <footer className="border-t border-neutral-200 px-6 py-10 md:px-16 lg:px-24">
+    <footer className="border-t border-neutral-200 px-6 py-10 md:px-16 lg:pl-72 lg:pr-24">
       <div className="mx-auto flex max-w-3xl flex-col gap-4 text-sm sm:flex-row sm:items-center sm:justify-between">
         <p className="font-semibold text-neutral-900">{profile.name}</p>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-neutral-500">

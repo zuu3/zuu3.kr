@@ -86,7 +86,7 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
 
   return (
     <section id={`project-${project.slug}`} className="border-t border-neutral-200 first:border-t-0">
-      <div ref={hookRef} className="flex min-h-[70vh] flex-col justify-center px-6 py-16 md:px-16 lg:px-24">
+      <div ref={hookRef} className="flex min-h-[70vh] flex-col justify-center px-6 py-16 md:px-16 lg:pl-72 lg:pr-24">
         <div className="mx-auto w-full max-w-3xl">
           <div className="flex items-baseline gap-3 text-neutral-400">
             <span className="text-sm font-black tabular-nums [font-family:var(--font-display)]">
@@ -129,7 +129,7 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
         </div>
       </div>
 
-      <div className="px-6 pb-24 md:px-16 lg:px-24">
+      <div className="px-6 pb-24 md:px-16 lg:pl-72 lg:pr-24">
         <div className="mx-auto w-full max-w-3xl space-y-14">
           {project.contributions.length > 0 && (
             <div>

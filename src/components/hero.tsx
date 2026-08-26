@@ -15,17 +15,18 @@ export function Hero() {
         ) : (
           <GradientWaves
             horizonColor="#ffffff"
-            waveColor="#c9fbf1"
+            waveColor="#0cefd3"
             crestColor="#ffffff"
-            speed={0.25}
-            amplitude={3.2}
-            waveScale={0.55}
-            swell={32}
-            turbulence={18}
-            tilt={0.85}
-            fogDepth={18}
+            speed={0.3}
+            amplitude={4}
+            waveScale={0.6}
+            swell={38}
+            turbulence={22}
+            tilt={0.75}
+            fogDepth={22}
             opacity={1}
-            parallaxStrength={0.25}
+            brightness={1.1}
+            parallaxStrength={0.3}
             grainIntensity={0.04}
           />
         )}

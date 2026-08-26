@@ -74,11 +74,10 @@ export function Hero() {
       <GradualBlur
         target="parent"
         position="bottom"
-        height="14rem"
-        strength={4}
-        divCount={8}
+        height="7rem"
+        strength={2.5}
+        divCount={6}
         curve="bezier"
-        exponential
         opacity={1}
       />
     </section>

@@ -21,9 +21,9 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
         initial={reduceMotion ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="mt-4 max-w-4xl text-4xl leading-tight font-black text-neutral-900 [font-family:var(--font-display)] sm:text-5xl md:text-6xl"
+        className="mt-4 max-w-3xl text-4xl leading-[1.15] font-black text-neutral-900 [font-family:var(--font-display)] sm:text-5xl md:text-6xl"
       >
-        {profile.name}, {profile.tagline}
+        {profile.tagline}
       </motion.h1>
       <motion.p
         initial={reduceMotion ? false : { opacity: 0, y: 16 }}

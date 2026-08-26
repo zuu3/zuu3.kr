@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { ExternalLink } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SiGithub } from "react-icons/si";
@@ -119,6 +120,20 @@ export function ProjectNarrative({
           {alias && <p className="mt-1 text-base font-medium text-neutral-400">{alias}</p>}
           <p className="mt-4 max-w-lg text-lg text-neutral-500">{project.tagline}</p>
 
+          {project.tags.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full px-3 py-1 text-xs font-bold"
+                  style={{ backgroundColor: `${project.brandColor}14`, color: project.brandColor }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
           <div className="mt-8 space-y-2">
             {sentences.map((sentence) => (
               <p
@@ -162,6 +177,20 @@ export function ProjectNarrative({
                     className="mt-1 flex w-fit items-center gap-1.5 text-sm font-medium text-neutral-700 transition-colors hover:text-[#0cefd3]"
                   >
                     <SiGithub className="h-4 w-4" />
+                    바로가기
+                  </a>
+                </div>
+              )}
+              {project.liveUrl && (
+                <div>
+                  <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">서비스</p>
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1 flex w-fit items-center gap-1.5 text-sm font-medium text-neutral-700 transition-colors hover:text-[#0cefd3]"
+                  >
+                    <ExternalLink className="h-4 w-4" strokeWidth={1.75} />
                     바로가기
                   </a>
                 </div>

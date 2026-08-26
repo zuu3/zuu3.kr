@@ -80,6 +80,7 @@ export const projects: Project[] = [
     operatingPeriod: "2025.03 ~",
     image: "/projects/teachmon.png",
     githubUrl: "https://github.com/Team-Teachmon/Teachmon-Client-V2",
+    liveUrl: "https://teachmon.kro.kr",
     techStack: ["TypeScript", "React", "TanStack Query", "Zustand"],
     role: "Frontend Engineer",
     contributions: [
@@ -279,6 +280,7 @@ export async function withRefreshLock(refreshFn: () => Promise<string | null>) {
     operatingPeriod: "2026.04 ~ 현재",
     image: "/projects/m-adp.png",
     githubUrl: "https://github.com/M-ADP/M-ADP-CLIENT",
+    liveUrl: "https://madp.cloud",
     techStack: ["TypeScript", "Next.js", "TanStack Query", "Zustand"],
     role: "Frontend Engineer",
     contributions: [
@@ -387,6 +389,7 @@ const reader = res.body!.getReader();`,
     operatingPeriod: "2026.05 ~ 현재",
     image: "/projects/church.png",
     githubUrl: "https://github.com/zuu3/fgbc-fe",
+    liveUrl: "https://fgbc.church",
     techStack: ["TypeScript", "Next.js", "TanStack Query", "MySQL", "Docker", "Zustand"],
     role: "Full-Stack Engineer",
     contributions: [

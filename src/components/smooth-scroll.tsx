@@ -5,12 +5,22 @@ import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+declare global {
+  interface Window {
+    __lenis?: Lenis;
+  }
+}
+
 export function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     gsap.registerPlugin(ScrollTrigger);
     const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    // Exposed so section-jump navigation (LineSidebar) can call
+    // window.__lenis?.scrollTo(el) instead of fighting Lenis with a raw
+    // scrollIntoView/scrollTo, which it overrides mid-animation.
+    window.__lenis = lenis;
 
     // Bridge Lenis's virtual scroll into GSAP: without this, ScrollTrigger
     // (used for the per-project pinned narrative reveal) reads stale scroll
@@ -37,6 +47,7 @@ export function SmoothScroll() {
       resizeObserver.disconnect();
       gsap.ticker.remove(tick);
       lenis.destroy();
+      window.__lenis = undefined;
     };
   }, []);
 

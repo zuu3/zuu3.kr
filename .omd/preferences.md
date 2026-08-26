@@ -409,3 +409,48 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/par
 ```
 
 Introduced off-palette color(s) #8b5cf6 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/particle-text.jsx — not in DESIGN.md
+
+## 2026-08-26T10:53:58.591Z — introduced-off-palette-color-s-0b0b12-a3
+
+```omd-meta
+id: pref_mt9z7oov_a8139e3a
+timestamp: 2026-08-26T10:53:58.591Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/opengraph-image.tsx"
+```
+
+Introduced off-palette color(s) #0b0b12, #a3a3a3 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/opengraph-image.tsx — not in DESIGN.md
+
+## 2026-08-26T10:54:12.561Z — introduced-off-palette-color-s-0b0b12-in
+
+```omd-meta
+id: pref_mt9z7zgx_913157da
+timestamp: 2026-08-26T10:54:12.561Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/icon.tsx"
+```
+
+Introduced off-palette color(s) #0b0b12 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/icon.tsx — not in DESIGN.md
+
+## 2026-08-26T10:54:24.951Z — introduced-off-palette-color-s-0b0b12-in
+
+```omd-meta
+id: pref_mt9z8913_fa815fcf
+timestamp: 2026-08-26T10:54:24.951Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/apple-icon.tsx"
+```
+
+Introduced off-palette color(s) #0b0b12 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/apple-icon.tsx — not in DESIGN.md

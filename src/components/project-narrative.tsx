@@ -303,7 +303,7 @@ export function ProjectNarrative({
                       </span>
                     </AccordionTrigger>
                     <AccordionContent className="pb-8">
-                      <div className="max-w-2xl space-y-5 pl-8">
+                      <div className="max-w-3xl space-y-6 pl-8">
                         {(
                           [
                             { label: "Problem", text: entry.problem, emphasize: true },
@@ -312,9 +312,9 @@ export function ProjectNarrative({
                             { label: "Result", text: entry.result, emphasize: false },
                           ] as const
                         ).map((stage, si) => (
-                          <div key={stage.label} className="flex gap-3">
+                          <div key={stage.label} className="flex gap-4">
                             <span
-                              className="mt-px shrink-0 text-xs font-black tabular-nums [font-family:var(--font-display)]"
+                              className="mt-0.5 shrink-0 text-sm font-black tabular-nums [font-family:var(--font-display)]"
                               style={{ color: stage.emphasize ? project.brandColor : "#a3a3a3" }}
                             >
                               {String(si + 1).padStart(2, "0")}
@@ -327,7 +327,7 @@ export function ProjectNarrative({
                                 {stage.label}
                               </p>
                               <p
-                                className={`mt-1 text-sm leading-relaxed ${
+                                className={`mt-1.5 text-base leading-relaxed ${
                                   stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-500"
                                 }`}
                               >
@@ -339,7 +339,7 @@ export function ProjectNarrative({
                       </div>
 
                       {(entry.codeBefore || entry.codeAfter) && (
-                        <pre className="mt-5 ml-8 max-w-2xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 text-xs leading-relaxed">
+                        <pre className="mt-5 ml-8 max-w-3xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 text-xs leading-relaxed">
                           <code>
                             {entry.codeBefore?.code.split("\n").map((line, i) => (
                               <div key={`b-${i}`} className="bg-red-500/15 px-4 text-red-300">

@@ -4,10 +4,10 @@ import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ChevronDown } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import type { Project } from "@/lib/content";
 import { TECH_ICON_MAP } from "@/lib/tech-icons";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 function splitSentences(text: string): string[] {
   return text.split(/(?<=\.)\s+/).filter(Boolean);
@@ -234,50 +234,54 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
           {project.troubleshooting.length > 0 && (
             <div>
               <h3 className="text-xl font-bold tracking-tight text-neutral-900">Troubleshooting</h3>
-              <div className="mt-4 space-y-3">
-                {project.troubleshooting.map((entry) => (
-                  <details
-                    key={entry.title}
-                    className="group rounded-2xl bg-[#f6f6f6] px-6 py-5 open:pb-6"
-                    open
-                  >
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
-                      <span className="text-lg font-bold tracking-tight text-neutral-900">{entry.title}</span>
-                      <ChevronDown
-                        aria-hidden
-                        className="h-5 w-5 shrink-0 text-neutral-400 transition-transform duration-200 group-open:rotate-180"
-                        strokeWidth={2}
-                      />
-                    </summary>
-
-                    <div className="mt-5 max-w-2xl space-y-5 border-t border-neutral-200 pt-5">
-                      {(
-                        [
-                          { label: "Problem", text: entry.problem, emphasize: true },
-                          { label: "Cause", text: entry.cause, emphasize: false },
-                          { label: "Solution", text: entry.solution, emphasize: true },
-                          { label: "Result", text: entry.result, emphasize: false },
-                        ] as const
-                      ).map((stage) => (
-                        <div key={stage.label}>
-                          <p
-                            className="text-xs font-black tracking-wide uppercase"
-                            style={{ color: stage.emphasize ? project.brandColor : "#6c6d6f" }}
-                          >
-                            {stage.label}
-                          </p>
-                          <p
-                            className={`mt-1.5 text-base leading-relaxed ${
-                              stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-500"
-                            }`}
-                          >
-                            {renderRichText(stage.text)}
-                          </p>
-                        </div>
-                      ))}
+              <Accordion
+                multiple
+                defaultValue={project.troubleshooting.map((entry) => entry.title)}
+                className="mt-2"
+              >
+                {project.troubleshooting.map((entry, i) => (
+                  <AccordionItem key={entry.title} value={entry.title} className="not-last:border-b border-neutral-200">
+                    <AccordionTrigger className="py-5 text-left hover:no-underline focus-visible:ring-0">
+                      <span className="flex items-baseline gap-3">
+                        <span
+                          className="text-sm font-black tabular-nums [font-family:var(--font-display)]"
+                          style={{ color: project.brandColor }}
+                        >
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="text-lg font-bold tracking-tight text-neutral-900">{entry.title}</span>
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-8">
+                      <div className="grid max-w-2xl gap-x-8 gap-y-5 pl-8 sm:grid-cols-2">
+                        {(
+                          [
+                            { label: "Problem", text: entry.problem, emphasize: true },
+                            { label: "Cause", text: entry.cause, emphasize: false },
+                            { label: "Solution", text: entry.solution, emphasize: true },
+                            { label: "Result", text: entry.result, emphasize: false },
+                          ] as const
+                        ).map((stage) => (
+                          <div key={stage.label}>
+                            <p
+                              className="text-xs font-black tracking-wide uppercase"
+                              style={{ color: stage.emphasize ? project.brandColor : "#6c6d6f" }}
+                            >
+                              {stage.label}
+                            </p>
+                            <p
+                              className={`mt-1.5 text-sm leading-relaxed ${
+                                stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-500"
+                              }`}
+                            >
+                              {renderRichText(stage.text)}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
 
                       {(entry.codeBefore || entry.codeAfter) && (
-                        <pre className="max-w-2xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 text-xs leading-relaxed">
+                        <pre className="mt-5 max-w-2xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 pl-8 text-xs leading-relaxed">
                           <code>
                             {entry.codeBefore?.code.split("\n").map((line, i) => (
                               <div key={`b-${i}`} className="bg-red-500/15 px-4 text-red-300">
@@ -294,10 +298,10 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
                           </code>
                         </pre>
                       )}
-                    </div>
-                  </details>
+                    </AccordionContent>
+                  </AccordionItem>
                 ))}
-              </div>
+              </Accordion>
             </div>
           )}
         </div>

@@ -7,7 +7,9 @@ import { SiGithub } from "react-icons/si";
 import type { Project } from "@/lib/content";
 import { TECH_ICON_MAP } from "@/lib/tech-icons";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
+import { Item, ItemContent, ItemGroup, ItemMedia } from "@/components/ui/item";
 import TiltedCard from "@/components/tilted-card";
 
 function splitSentences(text: string): string[] {
@@ -181,28 +183,27 @@ export function ProjectNarrative({
             {project.contributions.length > 0 && (
               <div>
                 <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">기여</p>
-                <ul className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                <ItemGroup className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {project.contributions.map((item, i) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2.5 rounded-lg bg-[#f3f4f5] px-3.5 py-3 text-sm leading-snug font-medium tracking-tight text-neutral-800"
-                    >
-                      <span
+                    <Item key={item} className="bg-[#f3f4f5] px-3.5 py-3">
+                      <ItemMedia
                         aria-hidden
                         className="text-xs font-black tabular-nums [font-family:var(--font-display)]"
                         style={{ color: project.brandColor }}
                       >
                         {String(i + 1).padStart(2, "0")}
-                      </span>
-                      {item}
-                    </li>
+                      </ItemMedia>
+                      <ItemContent className="text-sm leading-snug font-medium tracking-tight text-neutral-800">
+                        {item}
+                      </ItemContent>
+                    </Item>
                   ))}
-                </ul>
+                </ItemGroup>
               </div>
             )}
           </div>
 
-          <div className="aspect-[1524/1293] w-full">
+          <AspectRatio ratio={1524 / 1293}>
             <TiltedCard
               imageSrc={project.image}
               altText={`${main} 화면`}
@@ -215,7 +216,7 @@ export function ProjectNarrative({
               showMobileWarning={false}
               showTooltip={false}
             />
-          </div>
+          </AspectRatio>
         </div>
       </div>
 

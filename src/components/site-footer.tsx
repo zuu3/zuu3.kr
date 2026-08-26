@@ -1,4 +1,7 @@
-import { Mail, Phone } from "lucide-react";
+"use client";
+
+import { Copy, Mail, Phone } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import type { profile as ProfileType } from "@/lib/content";
 
@@ -25,6 +28,22 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
           >
             <Mail className="h-4 w-4" strokeWidth={1.75} />
             {profile.email}
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            aria-label="이메일 주소 복사"
+            className="text-neutral-400 hover:bg-transparent hover:text-[#0cefd3]"
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(profile.email);
+                toast.success("이메일 주소를 복사했습니다.");
+              } catch {
+                toast.error("복사에 실패했습니다.");
+              }
+            }}
+          >
+            <Copy className="h-3.5 w-3.5" strokeWidth={1.75} />
           </Button>
           <Button
             variant="ghost"

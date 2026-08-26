@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { Toaster } from "@/components/ui/sonner";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body>
         <SmoothScroll />
         {children}
+        <Toaster position="bottom-center" />
       </body>
     </html>
   );

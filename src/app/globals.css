@@ -36,6 +36,10 @@ a {
   --border: #e5e5e5;
   --ring: #0cefd3;
   --radius-control: 8px;
+  /* sonner toast needs these */
+  --popover: #ffffff;
+  --popover-foreground: #171717;
+  --radius: 8px;
 }
 
 @layer base {

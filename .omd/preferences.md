@@ -454,3 +454,48 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/apple-icon
 ```
 
 Introduced off-palette color(s) #0b0b12 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/apple-icon.tsx — not in DESIGN.md
+
+## 2026-08-26T23:10:24.514Z — introduced-off-palette-color-s-2c8177-in
+
+```omd-meta
+id: pref_mtapiqrm_06b1eb72
+timestamp: 2026-08-26T23:10:24.514Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/site-nav.tsx"
+```
+
+Introduced off-palette color(s) #2c8177 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/site-nav.tsx — not in DESIGN.md
+
+## 2026-08-26T23:14:52.990Z — introduced-off-palette-color-s-ff79c6-in
+
+```omd-meta
+id: pref_mtapohxa_7072a014
+timestamp: 2026-08-26T23:14:52.990Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/laser-flow.jsx"
+```
+
+Introduced off-palette color(s) #ff79c6 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/laser-flow.jsx — not in DESIGN.md
+
+## 2026-08-26T23:20:20.419Z — introduced-off-palette-color-s-0b0b12-in
+
+```omd-meta
+id: pref_mtapvikj_b537fb15
+timestamp: 2026-08-26T23:20:20.419Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/laser-divider.tsx"
+```
+
+Introduced off-palette color(s) #0b0b12 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/laser-divider.tsx — not in DESIGN.md

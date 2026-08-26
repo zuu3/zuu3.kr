@@ -42,3 +42,10 @@ next-env.d.ts
 
 # generated caches
 .impeccable/
+
+# AI agent tool configs
+.agents/
+.claude/
+.codex/
+.opencode/
+untitled.md

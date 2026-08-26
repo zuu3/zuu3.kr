@@ -39,36 +39,43 @@ export const LineSidebar = ({
   const activeRef = useRef(controlledActiveIndex);
   const smoothingRef = useRef(smoothing);
 
-  activeRef.current = controlledActiveIndex;
-  smoothingRef.current = smoothing;
+  // Refs updated post-render (not during render) so rAF callbacks always
+  // read the latest props without needing them in a dependency array.
+  useEffect(() => {
+    activeRef.current = controlledActiveIndex;
+    smoothingRef.current = smoothing;
+  });
 
   // Self-recursing rAF loop: kept behind a ref instead of a directly
   // self-referencing useCallback so the recursive requestAnimationFrame
-  // call never closes over a not-yet-initialized binding.
+  // call never closes over a not-yet-initialized binding, and assigned
+  // in an effect rather than during render.
   const runFrameRef = useRef(null);
-  runFrameRef.current = (now) => {
-    const dt = Math.min((now - lastRef.current) / 1000, 0.05);
-    lastRef.current = now;
-    const tau = Math.max(smoothingRef.current, 1) / 1000;
-    const k = 1 - Math.exp(-dt / tau);
+  useEffect(() => {
+    runFrameRef.current = (now) => {
+      const dt = Math.min((now - lastRef.current) / 1000, 0.05);
+      lastRef.current = now;
+      const tau = Math.max(smoothingRef.current, 1) / 1000;
+      const k = 1 - Math.exp(-dt / tau);
 
-    let moving = false;
-    const items = itemRefs.current;
-    for (let i = 0; i < items.length; i++) {
-      const el = items[i];
-      if (!el) continue;
-      const target = Math.max(targetsRef.current[i] || 0, activeRef.current === i ? 1 : 0);
-      const cur = currentRef.current[i] || 0;
-      const next = cur + (target - cur) * k;
-      const settled = Math.abs(target - next) < 0.0015;
-      const value = settled ? target : next;
-      currentRef.current[i] = value;
-      el.style.setProperty("--effect", value.toFixed(4));
-      if (!settled) moving = true;
-    }
+      let moving = false;
+      const items = itemRefs.current;
+      for (let i = 0; i < items.length; i++) {
+        const el = items[i];
+        if (!el) continue;
+        const target = Math.max(targetsRef.current[i] || 0, activeRef.current === i ? 1 : 0);
+        const cur = currentRef.current[i] || 0;
+        const next = cur + (target - cur) * k;
+        const settled = Math.abs(target - next) < 0.0015;
+        const value = settled ? target : next;
+        currentRef.current[i] = value;
+        el.style.setProperty("--effect", value.toFixed(4));
+        if (!settled) moving = true;
+      }
 
-    rafRef.current = moving ? requestAnimationFrame(runFrameRef.current) : null;
-  };
+      rafRef.current = moving ? requestAnimationFrame(runFrameRef.current) : null;
+    };
+  });
 
   const startLoop = useCallback(() => {
     if (rafRef.current != null) cancelAnimationFrame(rafRef.current);

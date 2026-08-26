@@ -2,6 +2,7 @@
 
 import { ArrowDown } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
+import GradientWaves from "@/components/gradient-waves";
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
@@ -9,15 +10,25 @@ export function Hero() {
   return (
     <section id="home" className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-24 text-center md:px-16 lg:px-24">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-24 -right-24 h-[26rem] w-[26rem] rounded-full bg-[#0cefd3]/25 blur-[110px]" />
-        <div className="absolute -bottom-32 -left-16 h-[22rem] w-[22rem] rounded-full bg-neutral-200/70 blur-[110px]" />
-        <div
-          className="absolute inset-0 opacity-[0.09] mix-blend-multiply"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 18 -8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-          }}
-        />
+        {reduceMotion ? (
+          <div className="absolute -top-24 -right-24 h-[26rem] w-[26rem] rounded-full bg-[#0cefd3]/25 blur-[110px]" />
+        ) : (
+          <GradientWaves
+            horizonColor="#ffffff"
+            waveColor="#c9fbf1"
+            crestColor="#ffffff"
+            speed={0.25}
+            amplitude={3.2}
+            waveScale={0.55}
+            swell={32}
+            turbulence={18}
+            tilt={0.85}
+            fogDepth={18}
+            opacity={1}
+            parallaxStrength={0.25}
+            grainIntensity={0.04}
+          />
+        )}
       </div>
 
       <motion.h1

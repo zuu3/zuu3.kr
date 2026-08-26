@@ -11,9 +11,11 @@ const pretendard = localFont({
 });
 
 const paperlogy = localFont({
-  src: "./fonts/Paperlogy-Black.woff2",
+  src: [
+    { path: "./fonts/Paperlogy-Bold.woff2", weight: "700" },
+    { path: "./fonts/Paperlogy-Black.woff2", weight: "900" },
+  ],
   variable: "--font-display",
-  weight: "900",
   display: "swap",
 });
 

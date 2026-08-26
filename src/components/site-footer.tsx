@@ -22,7 +22,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
         <div className="flex flex-wrap items-center gap-1 text-neutral-500">
           <Button
             variant="ghost"
-            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#0cefd3]"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#2c8177]"
             nativeButton={false}
             render={<a href={`mailto:${profile.email}`} />}
           >
@@ -33,7 +33,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
             variant="ghost"
             size="icon-sm"
             aria-label="이메일 주소 복사"
-            className="text-neutral-400 hover:bg-transparent hover:text-[#0cefd3]"
+            className="text-neutral-400 hover:bg-transparent hover:text-[#2c8177]"
             onClick={async () => {
               try {
                 await navigator.clipboard.writeText(profile.email);
@@ -47,7 +47,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
           </Button>
           <Button
             variant="ghost"
-            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#0cefd3]"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#2c8177]"
             nativeButton={false}
             render={<a href="https://github.com/zuu3" target="_blank" rel="noreferrer" />}
           >

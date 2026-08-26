@@ -57,7 +57,12 @@ export function SiteNav({ projects }: { profile: typeof ProfileType; projects: P
       }`}
     >
       <div className={activeIndex === 0 ? "" : "pointer-events-auto"}>
-        <LineSidebar items={labels} activeIndex={activeIndex} onItemClick={handleItemClick} />
+        <LineSidebar
+          items={labels}
+          activeIndex={activeIndex}
+          onItemClick={handleItemClick}
+          accentColor="#2c8177"
+        />
       </div>
     </div>
   );

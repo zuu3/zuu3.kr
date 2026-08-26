@@ -71,7 +71,16 @@ export function Hero() {
         <ArrowDown className="h-5 w-5" strokeWidth={1.5} />
       </motion.div>
 
-      <GradualBlur target="parent" position="bottom" height="9rem" strength={1.5} divCount={6} curve="bezier" opacity={0.9} />
+      <GradualBlur
+        target="parent"
+        position="bottom"
+        height="14rem"
+        strength={4}
+        divCount={8}
+        curve="bezier"
+        exponential
+        opacity={1}
+      />
     </section>
   );
 }

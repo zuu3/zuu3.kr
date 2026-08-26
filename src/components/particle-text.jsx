@@ -96,6 +96,7 @@ const ParticleText = ({
     let width = 0;
     let height = 0;
     let dpr = 1;
+    let isVisible = true;
 
     const pointer = {
       active: false,
@@ -201,11 +202,11 @@ const ParticleText = ({
         gathering = false;
       }
 
-      animationFrame = window.requestAnimationFrame(render);
+      animationFrame = isVisible ? window.requestAnimationFrame(render) : null;
     };
 
     const ensureRenderLoop = () => {
-      if (animationFrame === null) {
+      if (animationFrame === null && isVisible) {
         animationFrame = window.requestAnimationFrame(render);
       }
     };
@@ -376,11 +377,22 @@ const ParticleText = ({
 
     const resizeObserver = new ResizeObserver(queueSample);
     resizeObserver.observe(container);
+
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) ensureRenderLoop();
+      },
+      { threshold: 0 },
+    );
+    visibilityObserver.observe(container);
+
     sampleText();
 
     return () => {
       buildId += 1;
       resizeObserver.disconnect();
+      visibilityObserver.disconnect();
       reduceMotionQuery?.removeEventListener("change", handleReduceMotionChange);
       canvas.removeEventListener("pointerenter", handlePointerEnter);
       canvas.removeEventListener("pointermove", handlePointerMove);

@@ -1,0 +1,17 @@
+# 오주현
+
+> 프론트엔드 개발자 오주현의 포트폴리오. 부산소프트웨어마이스터고등학교 재학 중이며,
+> React/Next.js/TypeScript 기반 프로젝트를 만든다.
+
+- 연락처: me@zuu3.kr
+- GitHub: https://github.com/zuu3
+
+## 프로젝트
+
+- TeachMon(티치몬): 교내 방과후 자습/이석 관리 서비스. TypeScript, React, TanStack Query, Zustand.
+- Nuri(누리): 외국인 유학생을 위한 한국 문화 적응 서비스. TypeScript, Next.js, GraphQL, Zustand.
+- M-ADP(마듭): 교내 유휴 자원 활용 관리형 배포 클라우드 플랫폼. TypeScript, Next.js, TanStack Query, Zustand.
+- 순복음범천교회 외주: 매주 바뀌는 주보와 월간 일정을 관리하는 교회 웹. TypeScript, Next.js, TanStack Query, MySQL, Docker, Zustand.
+
+각 프로젝트의 기간, 기여 내역, 기능, 트러블슈팅은 https://zuu3.kr 의 해당 섹션에서
+전체 텍스트로 확인 가능하다(정적 렌더링, 로그인/페이월 없음).

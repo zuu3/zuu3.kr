@@ -4,7 +4,6 @@ import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Sparkle } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import type { Project } from "@/lib/content";
 import { TECH_ICON_MAP } from "@/lib/tech-icons";
@@ -173,17 +172,17 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
               <div>
                 <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">기여</p>
                 <ul className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {project.contributions.map((item) => (
+                  {project.contributions.map((item, i) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2.5 rounded-[var(--radius-control)] border border-neutral-200 bg-neutral-50 px-3 py-2.5 text-sm leading-snug text-neutral-700"
+                      className="flex items-start gap-2.5 rounded-[var(--radius-control)] border border-neutral-200 px-3 py-2.5 text-sm leading-snug text-neutral-700"
                     >
                       <span
                         aria-hidden
-                        className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
-                        style={{ backgroundColor: `${project.brandColor}1a` }}
+                        className="text-xs font-black tabular-nums [font-family:var(--font-display)]"
+                        style={{ color: project.brandColor }}
                       >
-                        <Sparkle className="h-3 w-3" strokeWidth={2.5} style={{ color: project.brandColor }} />
+                        {String(i + 1).padStart(2, "0")}
                       </span>
                       {item}
                     </li>

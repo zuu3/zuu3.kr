@@ -20,6 +20,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
           <Button
             variant="ghost"
             className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#0cefd3]"
+            nativeButton={false}
             render={<a href={`mailto:${profile.email}`} />}
           >
             <Mail className="h-4 w-4" strokeWidth={1.75} />
@@ -28,6 +29,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
           <Button
             variant="ghost"
             className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#0cefd3]"
+            nativeButton={false}
             render={<a href="https://github.com/zuu3" target="_blank" rel="noreferrer" />}
           >
             <GithubIcon className="h-4 w-4" />

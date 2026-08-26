@@ -364,3 +364,48 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/pro
 ```
 
 Introduced off-palette color(s) #6c6d6f in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx — not in DESIGN.md
+
+## 2026-08-26T08:40:03.026Z — introduced-off-palette-color-s-2d2d2d-in
+
+```omd-meta
+id: pref_mt9ufgeq_f1374d29
+timestamp: 2026-08-26T08:40:03.026Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/tilted-card.css"
+```
+
+Introduced off-palette color(s) #2d2d2d in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/tilted-card.css — not in DESIGN.md
+
+## 2026-08-26T08:40:03.028Z — introduced-off-scale-border-radius-borde
+
+```omd-meta
+id: pref_mt9ufges_a7c61cd3
+timestamp: 2026-08-26T08:40:03.028Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/tilted-card.css"
+```
+
+Introduced off-scale border radius border-radius:15px, border-radius:4px in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/tilted-card.css — not in DESIGN.md radius scale
+
+## 2026-08-26T08:47:41.433Z — introduced-off-palette-color-s-8b5cf6-in
+
+```omd-meta
+id: pref_mt9upa49_70daf7ae
+timestamp: 2026-08-26T08:47:41.433Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/particle-text.jsx"
+```
+
+Introduced off-palette color(s) #8b5cf6 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/particle-text.jsx — not in DESIGN.md

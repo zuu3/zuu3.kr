@@ -2,6 +2,7 @@
 
 import { ArrowDown } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
+import ParticleText from "@/components/particle-text";
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
@@ -25,16 +26,36 @@ export function Hero() {
         <div className="absolute inset-0 opacity-[0.06] mix-blend-overlay [background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>')]" />
       </div>
 
-      <motion.h1
+      <motion.div
         initial={reduceMotion ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-7xl leading-[0.95] font-black text-white [font-family:var(--font-display)] sm:text-8xl md:text-[11vw]"
+        className="w-full max-w-5xl [font-family:var(--font-display)]"
       >
-        Frontend
-        <br />
-        Engineer
-      </motion.h1>
+        <h1 className="sr-only">Frontend Engineer</h1>
+        {["Frontend", "Engineer"].map((word) => (
+          <ParticleText
+            key={word}
+            text={word}
+            aria-hidden
+            style={{ height: "clamp(4.5rem, 11vw, 11rem)" }}
+            fontSize="clamp(4.5rem, 11vw, 11rem)"
+            fontWeight={900}
+            color="#ffffff"
+            highlightColor="#0cefd3"
+            particleSize={2.2}
+            density={3}
+            scatter={220}
+            gatherDuration={1400}
+            stagger={500}
+            pointerRepel={36}
+            repelRadius={110}
+            idleDrift={0.5}
+            trigger="mount"
+            glow
+          />
+        ))}
+      </motion.div>
 
       <motion.div
         aria-hidden

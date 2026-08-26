@@ -8,6 +8,7 @@ import { SiGithub } from "react-icons/si";
 import type { Project } from "@/lib/content";
 import { TECH_ICON_MAP } from "@/lib/tech-icons";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 
 function splitSentences(text: string): string[] {
   return text.split(/(?<=\.)\s+/).filter(Boolean);
@@ -92,22 +93,20 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
     <section id={`project-${project.slug}`} className="border-t border-neutral-200 first:border-t-0">
       <div ref={hookRef} className="flex min-h-[70vh] flex-col justify-center px-6 py-16 md:px-16 lg:pl-72 lg:pr-24">
         <div className="mx-auto w-full max-w-3xl">
-          <div className="flex items-baseline gap-3 text-neutral-400">
-            <span className="text-sm font-black tabular-nums [font-family:var(--font-display)]">
-              {String(index + 1).padStart(2, "0")}
-            </span>
+          <div className="flex items-center gap-2 text-neutral-400">
+            <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: project.brandColor }} />
+            <span className="text-xs font-bold tracking-[0.15em] uppercase">Project {String(index + 1).padStart(2, "0")}</span>
+            <span aria-hidden className="text-neutral-300">·</span>
             <span className="text-xs tracking-wide uppercase">{project.period}</span>
           </div>
-          <h2 className="mt-3 flex flex-wrap items-baseline gap-x-3">
-            <span
-              className="text-4xl font-black [font-family:var(--font-display)] md:text-5xl"
-              style={{ color: project.brandColor }}
-            >
-              {main}
-            </span>
-            {alias && <span className="text-xl font-medium text-neutral-400">{alias}</span>}
+          <h2
+            className="mt-4 text-5xl font-black tracking-tight [font-family:var(--font-display)] md:text-6xl"
+            style={{ color: project.brandColor }}
+          >
+            {main}
           </h2>
-          <p className="mt-1 text-base text-neutral-500">{project.tagline}</p>
+          {alias && <p className="mt-1 text-base font-medium text-neutral-400">{alias}</p>}
+          <p className="mt-3 text-base text-neutral-500">{project.tagline}</p>
 
           <div className="mt-8 space-y-2">
             {sentences.map((sentence) => (
@@ -158,13 +157,14 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
               {project.techStack.map((tech) => {
                 const Icon = TECH_ICON_MAP[tech];
                 return (
-                  <span
+                  <Badge
                     key={tech}
-                    className="flex items-center gap-1.5 rounded-lg bg-[#f3f4f5] px-3 py-1.5 text-xs font-bold tracking-tight text-neutral-700"
+                    variant="outline"
+                    className="h-auto gap-1.5 rounded-lg border-none bg-[#f3f4f5] px-3 py-1.5 text-xs font-bold tracking-tight text-neutral-700"
                   >
                     {Icon && <Icon className="h-3.5 w-3.5" />}
                     {tech}
-                  </span>
+                  </Badge>
                 );
               })}
             </div>

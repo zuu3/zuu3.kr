@@ -4,6 +4,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Check } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import type { Project } from "@/lib/content";
 import { TECH_ICON_MAP } from "@/lib/tech-icons";
@@ -182,16 +183,17 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
             {project.contributions.length > 0 && (
               <div>
                 <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">기여</p>
-                <ul className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                <ul className="mt-2.5 grid grid-cols-1 gap-x-6 sm:grid-cols-2">
                   {project.contributions.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2 rounded-[var(--radius-control)] bg-neutral-100/80 px-3 py-2 text-sm leading-snug text-neutral-700"
+                      className="flex items-start gap-2.5 border-b border-neutral-200 py-2.5 text-sm leading-snug text-neutral-700 first:pt-0 last:border-b-0"
                     >
-                      <span
+                      <Check
                         aria-hidden
-                        className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
-                        style={{ backgroundColor: project.brandColor }}
+                        className="mt-0.5 h-3.5 w-3.5 shrink-0"
+                        strokeWidth={2.5}
+                        style={{ color: project.brandColor }}
                       />
                       {item}
                     </li>
@@ -201,20 +203,13 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
             )}
           </div>
 
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute -inset-8 -z-10 rounded-[3rem] blur-3xl"
-              style={{ backgroundColor: project.brandColor, opacity: 0.16 }}
-            />
-            <Image
-              src={project.image}
-              alt={`${main} 화면`}
-              width={1524}
-              height={1293}
-              className={`h-auto w-full drop-shadow-2xl ${index % 2 === 1 ? "-rotate-2" : "rotate-2"}`}
-            />
-          </div>
+          <Image
+            src={project.image}
+            alt={`${main} 화면`}
+            width={1524}
+            height={1293}
+            className="h-auto w-full"
+          />
         </div>
       </div>
 

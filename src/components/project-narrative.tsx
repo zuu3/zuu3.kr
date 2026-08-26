@@ -159,7 +159,7 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
                 return (
                   <span
                     key={tech}
-                    className="flex items-center gap-1.5 rounded-[var(--radius-control)] border border-neutral-200 px-2.5 py-1.5 text-xs font-medium text-neutral-600"
+                    className="flex items-center gap-1.5 rounded-lg bg-[#f3f4f5] px-3 py-1.5 text-xs font-bold tracking-tight text-neutral-700"
                   >
                     {Icon && <Icon className="h-3.5 w-3.5" />}
                     {tech}
@@ -175,7 +175,7 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
                   {project.contributions.map((item, i) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2.5 rounded-[var(--radius-control)] border border-neutral-200 px-3 py-2.5 text-sm leading-snug text-neutral-700"
+                      className="flex items-start gap-2.5 rounded-lg bg-[#f3f4f5] px-3.5 py-3 text-sm leading-snug font-medium tracking-tight text-neutral-800"
                     >
                       <span
                         aria-hidden
@@ -207,23 +207,23 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
 
           {project.features.length > 0 && (
             <div>
-              <h3 className="text-xl font-bold text-neutral-900">Features</h3>
-              <div className="mt-4 space-y-4">
+              <h3 className="text-xl font-bold tracking-tight text-neutral-900">Features</h3>
+              <div className="mt-4 space-y-3">
                 {project.features.map((feature, i) => (
                   <div
                     key={feature.title}
-                    className="flex gap-4 rounded-[var(--radius-card)] border border-neutral-200 p-5"
+                    className="flex gap-5 rounded-2xl bg-[#f6f6f6] p-6 transition-colors hover:bg-[#f0f0f0]"
                   >
                     <span
                       aria-hidden
-                      className="text-2xl font-black tabular-nums [font-family:var(--font-display)]"
+                      className="text-3xl font-black tabular-nums [font-family:var(--font-display)]"
                       style={{ color: project.brandColor }}
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
-                      <p className="font-semibold text-neutral-900">{feature.title}</p>
-                      <p className="mt-1 text-base leading-relaxed text-neutral-600">{feature.description}</p>
+                      <p className="text-lg font-bold tracking-tight text-neutral-900">{feature.title}</p>
+                      <p className="mt-1.5 text-base leading-relaxed text-neutral-600">{feature.description}</p>
                     </div>
                   </div>
                 ))}
@@ -233,27 +233,26 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
 
           {project.troubleshooting.length > 0 && (
             <div>
-              <h3 className="text-xl font-bold text-neutral-900">Troubleshooting</h3>
-              <div className="mt-3 space-y-10">
+              <h3 className="text-xl font-bold tracking-tight text-neutral-900">Troubleshooting</h3>
+              <div className="mt-4 space-y-8">
                 {project.troubleshooting.map((entry) => {
                   const stages = [
-                    { label: "Problem", text: entry.problem, dot: "#EF4444", emphasize: true },
-                    { label: "Cause", text: entry.cause, dot: "#F59E0B", emphasize: false },
-                    { label: "Solution", text: entry.solution, dot: "#3B82F6", emphasize: true },
-                    { label: "Result", text: entry.result, dot: "#10B981", emphasize: false },
+                    { label: "Problem", text: entry.problem, emphasize: true },
+                    { label: "Cause", text: entry.cause, emphasize: false },
+                    { label: "Solution", text: entry.solution, emphasize: true },
+                    { label: "Result", text: entry.result, emphasize: false },
                   ];
                   return (
                     <div key={entry.title}>
-                      <p className="font-semibold text-neutral-900">{entry.title}</p>
+                      <p className="text-lg font-bold tracking-tight text-neutral-900">{entry.title}</p>
 
-                      <dl
-                        className="mt-3 max-w-2xl space-y-4 rounded-[var(--radius-card)] border-l-4 bg-neutral-50 p-6"
-                        style={{ borderColor: project.brandColor }}
-                      >
+                      <dl className="mt-3 max-w-2xl space-y-5 rounded-2xl bg-[#f6f6f6] p-6">
                         {stages.map((stage) => (
                           <div key={stage.label}>
-                            <dt className="flex items-center gap-1.5 text-xs font-bold tracking-wide text-neutral-400 uppercase">
-                              <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: stage.dot }} />
+                            <dt
+                              className="text-xs font-black tracking-wide uppercase"
+                              style={{ color: stage.emphasize ? project.brandColor : "#6c6d6f" }}
+                            >
                               {stage.label}
                             </dt>
                             <dd

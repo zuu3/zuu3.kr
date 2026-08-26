@@ -208,7 +208,7 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
 
           {project.features.length > 0 && (
             <div>
-              <h3 className="text-xl font-bold tracking-tight text-neutral-900">Features</h3>
+              <h3 className="text-xl font-bold tracking-tight text-neutral-900">Features & Contribution</h3>
               <div className="mt-2 divide-y divide-neutral-200">
                 {project.features.map((feature, i) => (
                   <div key={feature.title} className="relative py-8 first:pt-6">
@@ -235,11 +235,11 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
             <div>
               <h3 className="text-xl font-bold tracking-tight text-neutral-900">Troubleshooting</h3>
               <div className="mt-4 space-y-3">
-                {project.troubleshooting.map((entry, i) => (
+                {project.troubleshooting.map((entry) => (
                   <details
                     key={entry.title}
                     className="group rounded-2xl bg-[#f6f6f6] px-6 py-5 open:pb-6"
-                    open={i === 0}
+                    open
                   >
                     <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
                       <span className="text-lg font-bold tracking-tight text-neutral-900">{entry.title}</span>

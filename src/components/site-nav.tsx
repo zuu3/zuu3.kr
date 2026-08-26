@@ -50,10 +50,12 @@ export function SiteNav({ projects }: { profile: typeof ProfileType; projects: P
 
   return (
     <div
-      aria-hidden={false}
-      className="pointer-events-none fixed top-1/2 left-8 z-40 hidden -translate-y-1/2 lg:block xl:left-12"
+      aria-hidden={activeIndex === 0}
+      className={`pointer-events-none fixed top-1/2 left-8 z-40 hidden -translate-y-1/2 transition-opacity duration-300 lg:block xl:left-12 ${
+        activeIndex === 0 ? "opacity-0" : "opacity-100"
+      }`}
     >
-      <div className="pointer-events-auto">
+      <div className={activeIndex === 0 ? "" : "pointer-events-auto"}>
         <LineSidebar items={labels} activeIndex={activeIndex} onItemClick={handleItemClick} />
       </div>
     </div>

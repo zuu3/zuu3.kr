@@ -57,7 +57,10 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
                 className="object-cover"
               />
             </div>
-            <h2 className="mt-8 text-2xl font-black [font-family:var(--font-display)]">About</h2>
+            <p className="mt-8 text-xs font-bold tracking-wide text-neutral-400 uppercase">About</p>
+            <h2 className="mt-1 max-w-[24ch] text-2xl leading-snug font-bold text-neutral-900">
+              {profile.tagline}
+            </h2>
             <p className="mt-3 max-w-[38ch] text-sm leading-relaxed text-neutral-500">{profile.bio}</p>
             <div className="mt-5 space-y-1 text-sm text-neutral-500">
               <p>{profile.school}</p>

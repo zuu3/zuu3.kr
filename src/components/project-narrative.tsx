@@ -1,12 +1,38 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Project } from "@/lib/content";
 
 function splitSentences(text: string): string[] {
   return text.split(/(?<=\.)\s+/).filter(Boolean);
+}
+
+// Renders `code`-quoted tokens as inline code, and weights the closing
+// sentence a touch heavier so a scan of the paragraph lands somewhere.
+function renderRichText(text: string): ReactNode {
+  const sentences = splitSentences(text);
+  return sentences.map((sentence, i) => {
+    const isLast = i === sentences.length - 1;
+    const parts = sentence.split(/(`[^`]+`)/g).map((part, j) =>
+      part.startsWith("`") && part.endsWith("`") ? (
+        <code
+          key={j}
+          className="rounded bg-neutral-200/70 px-1 py-0.5 font-mono text-[0.9em] text-neutral-800"
+        >
+          {part.slice(1, -1)}
+        </code>
+      ) : (
+        part
+      ),
+    );
+    return (
+      <span key={i} className={isLast ? "font-semibold" : undefined}>
+        {parts}{" "}
+      </span>
+    );
+  });
 }
 
 // "TeachMon(티치몬)" -> { main: "TeachMon", alias: "티치몬" }. Names without
@@ -146,26 +172,30 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
                     <div key={entry.title}>
                       <p className="font-semibold text-neutral-900">{entry.title}</p>
 
-                      <dl className="mt-3 space-y-4 rounded-[var(--radius-card)] bg-neutral-50 p-6">
+                      <dl className="mt-3 max-w-2xl space-y-4 rounded-[var(--radius-card)] bg-neutral-50 p-6">
                         <div>
                           <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Problem</dt>
                           <dd className="mt-1.5 text-base leading-relaxed font-medium text-neutral-900">
-                            {entry.problem}
+                            {renderRichText(entry.problem)}
                           </dd>
                         </div>
                         <div>
                           <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Cause</dt>
-                          <dd className="mt-1.5 text-base leading-relaxed text-neutral-500">{entry.cause}</dd>
+                          <dd className="mt-1.5 text-base leading-relaxed text-neutral-500">
+                            {renderRichText(entry.cause)}
+                          </dd>
                         </div>
                         <div>
                           <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Solution</dt>
                           <dd className="mt-1.5 text-base leading-relaxed font-medium text-neutral-900">
-                            {entry.solution}
+                            {renderRichText(entry.solution)}
                           </dd>
                         </div>
                         <div>
                           <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Result</dt>
-                          <dd className="mt-1.5 text-base leading-relaxed text-neutral-500">{entry.result}</dd>
+                          <dd className="mt-1.5 text-base leading-relaxed text-neutral-500">
+                            {renderRichText(entry.result)}
+                          </dd>
                         </div>
                       </dl>
 

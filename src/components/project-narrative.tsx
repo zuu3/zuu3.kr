@@ -67,6 +67,17 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
           </h2>
           <p className="mt-1 text-base text-neutral-500">{project.tagline}</p>
 
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {project.techStack.map((tech) => (
+              <span
+                key={tech}
+                className="rounded-[var(--radius-control)] border border-neutral-200 px-2.5 py-1 text-xs font-medium text-neutral-600"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
           <div className="mt-8 space-y-2">
             {sentences.map((sentence) => (
               <p
@@ -85,9 +96,19 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
           {project.contributions.length > 0 && (
             <div>
               <h3 className="text-lg font-bold text-neutral-900 [font-family:var(--font-display)]">기여</h3>
-              <ul className="mt-3 list-disc space-y-1.5 pl-5 text-base leading-relaxed text-neutral-600">
+              <ul
+                className="mt-3 space-y-2 rounded-[var(--radius-card)] border border-neutral-200 p-5 text-base leading-relaxed text-neutral-700"
+                style={{ backgroundColor: `${project.brandColor}0d` }}
+              >
                 {project.contributions.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={item} className="flex gap-2.5">
+                    <span
+                      aria-hidden
+                      className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: project.brandColor }}
+                    />
+                    {item}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -119,19 +140,23 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
                     <dl className="mt-3 space-y-3 border-l-2 pl-4" style={{ borderColor: project.brandColor }}>
                       <div>
                         <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Problem</dt>
-                        <dd className="mt-1 text-base leading-relaxed text-neutral-600">{entry.problem}</dd>
+                        <dd className="mt-1 text-base leading-relaxed font-medium text-neutral-900">
+                          {entry.problem}
+                        </dd>
                       </div>
                       <div>
                         <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Cause</dt>
-                        <dd className="mt-1 text-base leading-relaxed text-neutral-600">{entry.cause}</dd>
+                        <dd className="mt-1 text-base leading-relaxed text-neutral-500">{entry.cause}</dd>
                       </div>
                       <div>
                         <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Solution</dt>
-                        <dd className="mt-1 text-base leading-relaxed text-neutral-600">{entry.solution}</dd>
+                        <dd className="mt-1 text-base leading-relaxed font-medium text-neutral-900">
+                          {entry.solution}
+                        </dd>
                       </div>
                       <div>
                         <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Result</dt>
-                        <dd className="mt-1 text-base leading-relaxed text-neutral-600">{entry.result}</dd>
+                        <dd className="mt-1 text-base leading-relaxed text-neutral-500">{entry.result}</dd>
                       </div>
                     </dl>
                   </div>
@@ -139,10 +164,6 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
               </div>
             </div>
           )}
-
-          <p className="text-xs tracking-wide text-neutral-400 uppercase">
-            {project.techStack.join(" · ")}
-          </p>
         </div>
       </div>
     </section>

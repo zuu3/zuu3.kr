@@ -146,26 +146,26 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
                     <div key={entry.title}>
                       <p className="font-semibold text-neutral-900">{entry.title}</p>
 
-                      <dl className="mt-3 space-y-3 border-l-2 pl-4" style={{ borderColor: project.brandColor }}>
+                      <dl className="mt-3 space-y-4 rounded-[var(--radius-card)] bg-neutral-50 p-6">
                         <div>
                           <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Problem</dt>
-                          <dd className="mt-1 text-base leading-relaxed font-medium text-neutral-900">
+                          <dd className="mt-1.5 text-base leading-relaxed font-medium text-neutral-900">
                             {entry.problem}
                           </dd>
                         </div>
                         <div>
                           <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Cause</dt>
-                          <dd className="mt-1 text-base leading-relaxed text-neutral-500">{entry.cause}</dd>
+                          <dd className="mt-1.5 text-base leading-relaxed text-neutral-500">{entry.cause}</dd>
                         </div>
                         <div>
                           <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Solution</dt>
-                          <dd className="mt-1 text-base leading-relaxed font-medium text-neutral-900">
+                          <dd className="mt-1.5 text-base leading-relaxed font-medium text-neutral-900">
                             {entry.solution}
                           </dd>
                         </div>
                         <div>
                           <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Result</dt>
-                          <dd className="mt-1 text-base leading-relaxed text-neutral-500">{entry.result}</dd>
+                          <dd className="mt-1.5 text-base leading-relaxed text-neutral-500">{entry.result}</dd>
                         </div>
                       </dl>
 

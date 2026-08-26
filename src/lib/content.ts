@@ -80,7 +80,7 @@ export const projects: Project[] = [
     operatingPeriod: "2025.03 ~",
     image: "/projects/teachmon.png",
     githubUrl: "https://github.com/Team-Teachmon/Teachmon-Client-V2",
-    techStack: ["TypeScript", "React", "TanStack Query"],
+    techStack: ["TypeScript", "React", "TanStack Query", "Zustand"],
     role: "Frontend Engineer",
     contributions: [
       "홈·운영 대시보드 구현",
@@ -163,7 +163,7 @@ export const projects: Project[] = [
     operatingPeriod: "2025.10. ~ 2025.11.",
     image: "/projects/nuri.png",
     githubUrl: "https://github.com/Team-Solvit/Nuri-Client",
-    techStack: ["TypeScript", "Next.js", "TanStack Query", "GraphQL"],
+    techStack: ["TypeScript", "Next.js", "GraphQL", "Zustand"],
     role: "Frontend Engineer",
     contributions: [
       "OAuth 로그인 및 멀티스텝 회원가입 구현",
@@ -279,7 +279,7 @@ export async function withRefreshLock(refreshFn: () => Promise<string | null>) {
     operatingPeriod: "2026.04 ~ 현재",
     image: "/projects/m-adp.png",
     githubUrl: "https://github.com/M-ADP/M-ADP-CLIENT",
-    techStack: ["TypeScript", "Next.js", "TanStack Query"],
+    techStack: ["TypeScript", "Next.js", "TanStack Query", "Zustand"],
     role: "Frontend Engineer",
     contributions: [
       "Google/Github OAuth 연동 로그인 구현",
@@ -387,7 +387,7 @@ const reader = res.body!.getReader();`,
     operatingPeriod: "2026.05 ~ 현재",
     image: "/projects/church.png",
     githubUrl: "https://github.com/zuu3/fgbc-fe",
-    techStack: ["TypeScript", "Next.js", "TanStack Query", "GraphQL", "MySQL", "Docker"],
+    techStack: ["TypeScript", "Next.js", "TanStack Query", "MySQL", "Docker", "Zustand"],
     role: "Full-Stack Engineer",
     contributions: [
       "교회 소개·예배 안내 등 전체 페이지 구현",

@@ -14,18 +14,22 @@ export function Hero() {
           <div className="absolute -top-24 -right-24 h-[26rem] w-[26rem] rounded-full bg-[#0cefd3]/25 blur-[110px]" />
         ) : (
           <GradientWaves
-            horizonColor="#ffffff"
+            horizonColor="#e3fbf6"
             waveColor="#0cefd3"
             crestColor="#ffffff"
             speed={0.3}
-            amplitude={4}
-            waveScale={0.6}
-            swell={38}
-            turbulence={22}
-            tilt={0.75}
-            fogDepth={22}
+            amplitude={4.5}
+            waveScale={0.65}
+            waveRatio={0.9}
+            swell={40}
+            turbulence={24}
+            tilt={1.05}
+            zoom={1.15}
+            height={4.5}
+            fogDepth={40}
+            detail="high"
             opacity={1}
-            brightness={1.1}
+            brightness={1.05}
             parallaxStrength={0.3}
             grainIntensity={0.04}
           />

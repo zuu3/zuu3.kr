@@ -25,9 +25,5 @@ export function MobileMenu({ projects }: { profile: typeof ProfileType; projects
     },
   }));
 
-  return (
-    <div className="lg:hidden">
-      <BubbleMenu logo="Z" menuBg="#ffffff" menuContentColor="#171717" items={items} />
-    </div>
-  );
+  return <BubbleMenu logo="Z" menuBg="#ffffff" menuContentColor="#171717" items={items} />;
 }

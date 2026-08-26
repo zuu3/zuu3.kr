@@ -45,8 +45,8 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
 
   return (
     <section ref={sectionRef} className="border-t border-neutral-200 px-6 py-24 md:px-16 lg:px-24">
-      <div className="mx-auto max-w-5xl">
-        <div className="grid gap-x-14 gap-y-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-x-14 gap-y-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1.5fr)]">
           <div>
             <div className="relative aspect-3/4 w-40 overflow-hidden rounded-[var(--radius-control)] bg-neutral-100">
               <Image
@@ -58,10 +58,10 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
               />
             </div>
             <p className="mt-8 text-xs font-bold tracking-wide text-neutral-400 uppercase">About</p>
-            <h2 className="mt-1 max-w-[22ch] text-2xl leading-snug font-bold text-neutral-900 [font-family:var(--font-display)] md:text-[1.75rem]">
+            <h2 className="mt-1 text-2xl leading-snug font-bold text-neutral-900 [font-family:var(--font-display)] md:text-[1.75rem]">
               {profile.tagline}
             </h2>
-            <p className="mt-4 max-w-[40ch] text-base leading-relaxed font-normal text-neutral-500">
+            <p className="mt-4 text-base leading-relaxed font-medium text-neutral-500 [font-family:var(--font-display)]">
               {profile.bio}
             </p>
             <div className="mt-5 space-y-1 text-sm text-neutral-500">

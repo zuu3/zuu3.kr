@@ -134,7 +134,7 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
 
       <div className="px-6 pb-20 md:px-16 lg:pl-72 lg:pr-24">
         <div
-          className={`grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16 ${
+          className={`grid items-center gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-20 ${
             index % 2 === 1 ? "lg:[&>:first-child]:order-2" : ""
           }`}
         >
@@ -202,13 +202,18 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
             )}
           </div>
 
-          <div className="overflow-hidden rounded-[var(--radius-control)] border border-neutral-200 bg-neutral-50">
+          <div className="relative">
+            <div
+              aria-hidden
+              className="absolute -inset-8 -z-10 rounded-[3rem] blur-3xl"
+              style={{ backgroundColor: project.brandColor, opacity: 0.16 }}
+            />
             <Image
               src={project.image}
               alt={`${main} 화면`}
               width={1524}
               height={1293}
-              className="h-auto w-full"
+              className={`h-auto w-full drop-shadow-2xl ${index % 2 === 1 ? "-rotate-2" : "rotate-2"}`}
             />
           </div>
         </div>

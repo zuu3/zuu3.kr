@@ -95,11 +95,8 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
         <div className="mx-auto w-full max-w-3xl space-y-14">
           {project.contributions.length > 0 && (
             <div>
-              <h3 className="text-lg font-bold text-neutral-900 [font-family:var(--font-display)]">기여</h3>
-              <ul
-                className="mt-3 space-y-2 rounded-[var(--radius-card)] border border-neutral-200 p-5 text-base leading-relaxed text-neutral-700"
-                style={{ backgroundColor: `${project.brandColor}0d` }}
-              >
+              <h3 className="text-xl font-bold text-neutral-900">Contribution</h3>
+              <ul className="mt-3 space-y-2 text-base leading-relaxed text-neutral-600">
                 {project.contributions.map((item) => (
                   <li key={item} className="flex gap-2.5">
                     <span
@@ -116,7 +113,7 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
 
           {project.features.length > 0 && (
             <div>
-              <h3 className="text-lg font-bold text-neutral-900 [font-family:var(--font-display)]">기능</h3>
+              <h3 className="text-xl font-bold text-neutral-900">Features</h3>
               <div className="mt-3 space-y-5">
                 {project.features.map((feature) => (
                   <div key={feature.title}>
@@ -130,9 +127,7 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
 
           {project.troubleshooting.length > 0 && (
             <div>
-              <h3 className="text-lg font-bold text-neutral-900 [font-family:var(--font-display)]">
-                트러블슈팅
-              </h3>
+              <h3 className="text-xl font-bold text-neutral-900">Troubleshooting</h3>
               <div className="mt-3 space-y-10">
                 {project.troubleshooting.map((entry) => (
                   <div key={entry.title}>

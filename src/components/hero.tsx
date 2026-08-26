@@ -8,48 +8,39 @@ export function Hero({ profile }: { profile: typeof ProfileType }) {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="flex min-h-screen flex-col justify-center px-6 py-24 md:px-16 lg:px-24">
-      <motion.p
-        initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-sm font-medium tracking-wide text-neutral-400 uppercase"
-      >
-        Frontend Engineer
-      </motion.p>
+    <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-24 md:px-16 lg:px-24">
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-24 -right-24 h-[26rem] w-[26rem] rounded-full bg-[#0cefd3]/25 blur-[110px]" />
+        <div className="absolute -bottom-32 -left-16 h-[22rem] w-[22rem] rounded-full bg-neutral-200/70 blur-[110px]" />
+      </div>
+
       <motion.h1
         initial={reduceMotion ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="mt-4 max-w-3xl text-4xl leading-[1.15] font-black text-neutral-900 [font-family:var(--font-display)] sm:text-5xl md:text-6xl"
+        transition={{ duration: 0.6 }}
+        className="text-7xl leading-[0.95] font-black text-neutral-900 [font-family:var(--font-display)] sm:text-8xl md:text-[11vw]"
       >
-        {profile.tagline}
+        Frontend
+        <br />
+        Engineer
       </motion.h1>
+
       <motion.p
         initial={reduceMotion ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        transition={{ duration: 0.6, delay: 0.15 }}
         className="mt-6 max-w-xl text-base leading-relaxed text-neutral-500"
       >
-        {profile.bio}
+        <span className="font-semibold text-neutral-900">{profile.tagline}</span> {profile.bio}
       </motion.p>
-      <motion.a
-        initial={reduceMotion ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        href={`mailto:${profile.email}`}
-        className="mt-8 inline-flex w-fit items-center gap-2 rounded-[var(--radius-control)] bg-[#0cefd3] px-5 py-2.5 text-sm font-bold text-neutral-900 transition-transform hover:scale-105"
-      >
-        연락하기
-      </motion.a>
 
       <motion.div
         aria-hidden
         initial={reduceMotion ? false : { opacity: 0 }}
         animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: [0, 6, 0] }}
         transition={{
-          opacity: { duration: 0.6, delay: 0.5 },
-          y: { duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+          opacity: { duration: 0.6, delay: 0.4 },
+          y: { duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.4 },
         }}
         className="mt-16 text-neutral-300"
       >

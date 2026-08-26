@@ -4,7 +4,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Check } from "lucide-react";
+import { Sparkle } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import type { Project } from "@/lib/content";
 import { TECH_ICON_MAP } from "@/lib/tech-icons";
@@ -109,17 +109,6 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
           </h2>
           <p className="mt-1 text-base text-neutral-500">{project.tagline}</p>
 
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="rounded-[var(--radius-control)] border border-neutral-200 px-2.5 py-1 text-xs font-medium text-neutral-600"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-
           <div className="mt-8 space-y-2">
             {sentences.map((sentence) => (
               <p
@@ -183,18 +172,19 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
             {project.contributions.length > 0 && (
               <div>
                 <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">기여</p>
-                <ul className="mt-2.5 grid grid-cols-1 gap-x-6 sm:grid-cols-2">
+                <ul className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {project.contributions.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2.5 border-b border-neutral-200 py-2.5 text-sm leading-snug text-neutral-700 first:pt-0 last:border-b-0"
+                      className="flex items-start gap-2.5 rounded-[var(--radius-control)] border border-neutral-200 bg-neutral-50 px-3 py-2.5 text-sm leading-snug text-neutral-700"
                     >
-                      <Check
+                      <span
                         aria-hidden
-                        className="mt-0.5 h-3.5 w-3.5 shrink-0"
-                        strokeWidth={2.5}
-                        style={{ color: project.brandColor }}
-                      />
+                        className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
+                        style={{ backgroundColor: `${project.brandColor}1a` }}
+                      >
+                        <Sparkle className="h-3 w-3" strokeWidth={2.5} style={{ color: project.brandColor }} />
+                      </span>
                       {item}
                     </li>
                   ))}
@@ -219,11 +209,23 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
           {project.features.length > 0 && (
             <div>
               <h3 className="text-xl font-bold text-neutral-900">Features</h3>
-              <div className="mt-3 space-y-5">
-                {project.features.map((feature) => (
-                  <div key={feature.title}>
-                    <p className="font-semibold text-neutral-900">{feature.title}</p>
-                    <p className="mt-1 text-base leading-relaxed text-neutral-600">{feature.description}</p>
+              <div className="mt-4 space-y-4">
+                {project.features.map((feature, i) => (
+                  <div
+                    key={feature.title}
+                    className="flex gap-4 rounded-[var(--radius-card)] border border-neutral-200 p-5"
+                  >
+                    <span
+                      aria-hidden
+                      className="text-2xl font-black tabular-nums [font-family:var(--font-display)]"
+                      style={{ color: project.brandColor }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <p className="font-semibold text-neutral-900">{feature.title}</p>
+                      <p className="mt-1 text-base leading-relaxed text-neutral-600">{feature.description}</p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -235,35 +237,35 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
               <h3 className="text-xl font-bold text-neutral-900">Troubleshooting</h3>
               <div className="mt-3 space-y-10">
                 {project.troubleshooting.map((entry) => {
+                  const stages = [
+                    { label: "Problem", text: entry.problem, dot: "#EF4444", emphasize: true },
+                    { label: "Cause", text: entry.cause, dot: "#F59E0B", emphasize: false },
+                    { label: "Solution", text: entry.solution, dot: "#3B82F6", emphasize: true },
+                    { label: "Result", text: entry.result, dot: "#10B981", emphasize: false },
+                  ];
                   return (
                     <div key={entry.title}>
                       <p className="font-semibold text-neutral-900">{entry.title}</p>
 
-                      <dl className="mt-3 max-w-2xl space-y-4 rounded-[var(--radius-card)] bg-neutral-50 p-6">
-                        <div>
-                          <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Problem</dt>
-                          <dd className="mt-1.5 text-base leading-relaxed font-medium text-neutral-900">
-                            {renderRichText(entry.problem)}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Cause</dt>
-                          <dd className="mt-1.5 text-base leading-relaxed text-neutral-500">
-                            {renderRichText(entry.cause)}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Solution</dt>
-                          <dd className="mt-1.5 text-base leading-relaxed font-medium text-neutral-900">
-                            {renderRichText(entry.solution)}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Result</dt>
-                          <dd className="mt-1.5 text-base leading-relaxed text-neutral-500">
-                            {renderRichText(entry.result)}
-                          </dd>
-                        </div>
+                      <dl
+                        className="mt-3 max-w-2xl space-y-4 rounded-[var(--radius-card)] border-l-4 bg-neutral-50 p-6"
+                        style={{ borderColor: project.brandColor }}
+                      >
+                        {stages.map((stage) => (
+                          <div key={stage.label}>
+                            <dt className="flex items-center gap-1.5 text-xs font-bold tracking-wide text-neutral-400 uppercase">
+                              <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: stage.dot }} />
+                              {stage.label}
+                            </dt>
+                            <dd
+                              className={`mt-1.5 text-base leading-relaxed ${
+                                stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-500"
+                              }`}
+                            >
+                              {renderRichText(stage.text)}
+                            </dd>
+                          </div>
+                        ))}
                       </dl>
 
                       {(entry.codeBefore || entry.codeAfter) && (

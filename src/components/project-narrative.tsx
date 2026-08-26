@@ -138,60 +138,59 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
             index % 2 === 1 ? "lg:[&>:first-child]:order-2" : ""
           }`}
         >
-          <div className="flex flex-col gap-8">
-            <div className="grid grid-cols-2 gap-6">
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-wrap gap-x-10 gap-y-4">
               <div>
                 <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">제작 기간</p>
-                <p className="mt-1.5 text-sm font-medium text-neutral-700">{project.period}</p>
+                <p className="mt-1 text-sm font-medium text-neutral-700">{project.period}</p>
               </div>
               <div>
                 <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">운영 기간</p>
-                <p className="mt-1.5 text-sm font-medium text-neutral-700">{project.operatingPeriod}</p>
+                <p className="mt-1 text-sm font-medium text-neutral-700">{project.operatingPeriod}</p>
               </div>
+              {project.githubUrl && (
+                <div>
+                  <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">깃허브</p>
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1 flex w-fit items-center gap-1.5 text-sm font-medium text-neutral-700 transition-colors hover:text-[#0cefd3]"
+                  >
+                    <SiGithub className="h-4 w-4" />
+                    바로가기
+                  </a>
+                </div>
+              )}
             </div>
 
-            <div>
-              <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">기술스택</p>
-              <div className="mt-2.5 flex flex-wrap gap-2">
-                {project.techStack.map((tech) => {
-                  const Icon = TECH_ICON_MAP[tech];
-                  return (
-                    <span
-                      key={tech}
-                      className="flex items-center gap-1.5 rounded-[var(--radius-control)] border border-neutral-200 px-2.5 py-1.5 text-xs font-medium text-neutral-600"
-                    >
-                      {Icon && <Icon className="h-3.5 w-3.5" />}
-                      {tech}
-                    </span>
-                  );
-                })}
-              </div>
+            <div className="flex flex-wrap gap-2">
+              {project.techStack.map((tech) => {
+                const Icon = TECH_ICON_MAP[tech];
+                return (
+                  <span
+                    key={tech}
+                    className="flex items-center gap-1.5 rounded-[var(--radius-control)] border border-neutral-200 px-2.5 py-1.5 text-xs font-medium text-neutral-600"
+                  >
+                    {Icon && <Icon className="h-3.5 w-3.5" />}
+                    {tech}
+                  </span>
+                );
+              })}
             </div>
-
-            {project.githubUrl && (
-              <div>
-                <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">깃허브</p>
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-1.5 flex w-fit items-center gap-1.5 text-sm font-medium text-neutral-700 transition-colors hover:text-[#0cefd3]"
-                >
-                  <SiGithub className="h-4 w-4" />
-                  깃허브 바로가기
-                </a>
-              </div>
-            )}
 
             {project.contributions.length > 0 && (
               <div>
                 <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">기여</p>
-                <ul className="mt-2.5 space-y-2 text-base leading-relaxed text-neutral-600">
+                <ul className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {project.contributions.map((item) => (
-                    <li key={item} className="flex gap-2.5">
+                    <li
+                      key={item}
+                      className="flex items-start gap-2 rounded-[var(--radius-control)] bg-neutral-100/80 px-3 py-2 text-sm leading-snug text-neutral-700"
+                    >
                       <span
                         aria-hidden
-                        className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full"
+                        className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
                         style={{ backgroundColor: project.brandColor }}
                       />
                       {item}

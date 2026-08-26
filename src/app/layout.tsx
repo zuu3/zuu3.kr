@@ -12,8 +12,15 @@ const pretendard = localFont({
 
 const paperlogy = localFont({
   src: [
-    { path: "./fonts/Paperlogy-Bold.woff2", weight: "700" },
-    { path: "./fonts/Paperlogy-Black.woff2", weight: "900" },
+    { path: "./fonts/paperlogy/Paperlogy-1Thin.woff2", weight: "100" },
+    { path: "./fonts/paperlogy/Paperlogy-2ExtraLight.woff2", weight: "200" },
+    { path: "./fonts/paperlogy/Paperlogy-3Light.woff2", weight: "300" },
+    { path: "./fonts/paperlogy/Paperlogy-4Regular.woff2", weight: "400" },
+    { path: "./fonts/paperlogy/Paperlogy-5Medium.woff2", weight: "500" },
+    { path: "./fonts/paperlogy/Paperlogy-6SemiBold.woff2", weight: "600" },
+    { path: "./fonts/paperlogy/Paperlogy-7Bold.woff2", weight: "700" },
+    { path: "./fonts/paperlogy/Paperlogy-8ExtraBold.woff2", weight: "800" },
+    { path: "./fonts/paperlogy/Paperlogy-9Black.woff2", weight: "900" },
   ],
   variable: "--font-display",
   display: "swap",

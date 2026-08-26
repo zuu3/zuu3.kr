@@ -13,14 +13,16 @@ export function Hero() {
     >
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div
-          className={`absolute -bottom-24 left-[12%] h-[38rem] w-[38rem] rounded-full bg-white/35 blur-[100px] mix-blend-screen ${reduceMotion ? "" : "animate-[smoke-a_18s_ease-in-out_infinite]"}`}
+          className={`absolute -bottom-24 left-[12%] h-[44rem] w-[44rem] rounded-full bg-white/55 blur-[90px] mix-blend-screen ${reduceMotion ? "" : "animate-[smoke-a_18s_ease-in-out_infinite]"}`}
         />
         <div
-          className={`absolute -bottom-32 right-[8%] h-[32rem] w-[32rem] rounded-full bg-[#dff9f4]/40 blur-[105px] mix-blend-screen ${reduceMotion ? "" : "animate-[smoke-b_22s_ease-in-out_infinite]"}`}
+          className={`absolute -bottom-32 right-[8%] h-[36rem] w-[36rem] rounded-full bg-[#0cefd3]/40 blur-[95px] mix-blend-screen ${reduceMotion ? "" : "animate-[smoke-b_22s_ease-in-out_infinite]"}`}
         />
         <div
-          className={`absolute bottom-0 left-1/2 ml-[-26rem] h-[28rem] w-[52rem] rounded-full bg-white/25 blur-[120px] mix-blend-screen ${reduceMotion ? "" : "animate-[smoke-c_26s_ease-in-out_infinite]"}`}
+          className={`absolute bottom-0 left-1/2 ml-[-26rem] h-[30rem] w-[52rem] rounded-full bg-[#b8a4ff]/35 blur-[110px] mix-blend-screen ${reduceMotion ? "" : "animate-[smoke-c_26s_ease-in-out_infinite]"}`}
         />
+        <div className="absolute inset-0 bg-radial-[at_50%_45%] from-transparent via-transparent to-[#0b0b12] to-85%" />
+        <div className="absolute inset-0 opacity-[0.06] mix-blend-overlay [background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>')]" />
       </div>
 
       <motion.h1

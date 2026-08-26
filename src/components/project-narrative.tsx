@@ -141,33 +141,57 @@ export function ProjectNarrative({ project, index }: { project: Project; index: 
             <div>
               <h3 className="text-xl font-bold text-neutral-900">Troubleshooting</h3>
               <div className="mt-3 space-y-10">
-                {project.troubleshooting.map((entry) => (
-                  <div key={entry.title}>
-                    <p className="font-semibold text-neutral-900">{entry.title}</p>
-                    <dl className="mt-3 space-y-3 border-l-2 pl-4" style={{ borderColor: project.brandColor }}>
-                      <div>
-                        <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Problem</dt>
-                        <dd className="mt-1 text-base leading-relaxed font-medium text-neutral-900">
-                          {entry.problem}
-                        </dd>
-                      </div>
-                      <div>
-                        <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Cause</dt>
-                        <dd className="mt-1 text-base leading-relaxed text-neutral-500">{entry.cause}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Solution</dt>
-                        <dd className="mt-1 text-base leading-relaxed font-medium text-neutral-900">
-                          {entry.solution}
-                        </dd>
-                      </div>
-                      <div>
-                        <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Result</dt>
-                        <dd className="mt-1 text-base leading-relaxed text-neutral-500">{entry.result}</dd>
-                      </div>
-                    </dl>
-                  </div>
-                ))}
+                {project.troubleshooting.map((entry) => {
+                  return (
+                    <div key={entry.title}>
+                      <p className="font-semibold text-neutral-900">{entry.title}</p>
+
+                      <dl className="mt-3 space-y-3 border-l-2 pl-4" style={{ borderColor: project.brandColor }}>
+                        <div>
+                          <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Problem</dt>
+                          <dd className="mt-1 text-base leading-relaxed font-medium text-neutral-900">
+                            {entry.problem}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Cause</dt>
+                          <dd className="mt-1 text-base leading-relaxed text-neutral-500">{entry.cause}</dd>
+                        </div>
+                        <div>
+                          <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Solution</dt>
+                          <dd className="mt-1 text-base leading-relaxed font-medium text-neutral-900">
+                            {entry.solution}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Result</dt>
+                          <dd className="mt-1 text-base leading-relaxed text-neutral-500">{entry.result}</dd>
+                        </div>
+                      </dl>
+
+                      {(entry.codeBefore || entry.codeAfter) && (
+                        <div className="mt-4 grid gap-3 md:grid-cols-2">
+                          {entry.codeBefore && (
+                            <div>
+                              <p className="text-xs font-semibold text-neutral-400">Before</p>
+                              <pre className="mt-1 overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 p-4 text-xs text-neutral-100">
+                                <code>{entry.codeBefore.code}</code>
+                              </pre>
+                            </div>
+                          )}
+                          {entry.codeAfter && (
+                            <div>
+                              <p className="text-xs font-semibold text-neutral-400">After</p>
+                              <pre className="mt-1 overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 p-4 text-xs text-neutral-100">
+                                <code>{entry.codeAfter.code}</code>
+                              </pre>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}

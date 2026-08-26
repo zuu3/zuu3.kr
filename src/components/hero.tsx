@@ -42,7 +42,7 @@ export function Hero() {
             fontSize="clamp(4.5rem, 11vw, 11rem)"
             fontWeight={900}
             color="#ffffff"
-            highlightColor="#0cefd3"
+            highlightColor="#ffffff"
             particleSize={2.2}
             density={3}
             scatter={220}

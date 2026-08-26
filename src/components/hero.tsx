@@ -1,14 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import { useRef } from "react";
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-} from "motion/react";
+import { ArrowDown, Mail } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import type { profile as ProfileType } from "@/lib/content";
 import { HeroShaderBg } from "@/components/hero-shader-bg";
 
@@ -28,82 +21,58 @@ const item = {
 };
 
 export function Hero({ profile }: { profile: typeof ProfileType }) {
-  const panelRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
 
-  const px = useMotionValue(0.5);
-  const py = useMotionValue(0.5);
-  const springPx = useSpring(px, { stiffness: 150, damping: 18 });
-  const springPy = useSpring(py, { stiffness: 150, damping: 18 });
-
-  const rotateY = useTransform(springPx, [0, 1], [-6, 6]);
-  const rotateX = useTransform(springPy, [0, 1], [5, -5]);
-
-  function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
-    if (reduceMotion) return;
-    const rect = panelRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    px.set((e.clientX - rect.left) / rect.width);
-    py.set((e.clientY - rect.top) / rect.height);
-  }
-
-  function handlePointerLeave() {
-    px.set(0.5);
-    py.set(0.5);
-  }
-
   return (
-    <section className="relative grid items-center gap-12 md:grid-cols-[3fr_2fr]">
+    <section className="relative flex min-h-[92vh] flex-col overflow-hidden px-6 py-8 md:min-h-screen md:px-16 md:py-10 lg:px-24">
       <HeroShaderBg />
+
       <motion.div
         variants={reduceMotion ? undefined : container}
         initial={reduceMotion ? false : "hidden"}
         animate="show"
+        className="flex flex-1 flex-col items-center justify-center gap-6 text-center"
       >
         <motion.h1
           variants={item}
-          className="text-4xl leading-[1.15] font-black text-balance text-neutral-900 [font-family:var(--font-display)] md:text-6xl"
+          className="text-7xl leading-[0.95] font-black text-neutral-900 [font-family:var(--font-display)] sm:text-8xl md:text-[9vw]"
         >
-          <span className="text-amber-700">스펀지</span> 같은
-          <br />
-          개발자, {profile.name}
+          {profile.name}
         </motion.h1>
-        <motion.p variants={item} className="mt-3 text-sm text-muted-foreground">
-          Frontend Engineer · {profile.school}
+        <motion.p
+          variants={item}
+          className="max-w-xl text-lg font-bold text-balance text-neutral-900 md:text-2xl"
+        >
+          {profile.tagline}
         </motion.p>
         <motion.p
           variants={item}
-          className="mt-8 max-w-[52ch] text-base leading-relaxed text-muted-foreground md:text-lg"
+          className="max-w-md text-sm leading-relaxed text-balance text-neutral-500 md:text-base"
         >
           {profile.bio}
         </motion.p>
-        <motion.p
-          variants={item}
-          className="mt-8 border-t border-neutral-200 pt-4 text-sm text-neutral-500"
-        >
-          {profile.email} &nbsp;·&nbsp; {profile.phone}
-        </motion.p>
+        <motion.div variants={item} className="mt-2 flex items-center gap-3">
+          <a
+            href={`mailto:${profile.email}`}
+            className="inline-flex items-center gap-2 rounded-[var(--radius-control)] bg-[#0cefd3] px-5 py-2.5 text-sm font-bold text-neutral-900 transition-transform hover:scale-105"
+          >
+            <Mail className="h-4 w-4" strokeWidth={2} />
+            연락하기
+          </a>
+        </motion.div>
       </motion.div>
 
       <motion.div
-        ref={panelRef}
-        onPointerMove={handlePointerMove}
-        onPointerLeave={handlePointerLeave}
-        initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-        style={{ rotateX, rotateY, transformPerspective: 1000 }}
-        className="group relative aspect-square touch-none overflow-hidden rounded-2xl bg-neutral-100 md:aspect-4/5"
+        aria-hidden
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: [0, 6, 0] }}
+        transition={{
+          opacity: { duration: 0.6, delay: 0.4 },
+          y: { duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.4 },
+        }}
+        className="self-center text-neutral-400"
       >
-        <Image
-          src="/profile-photo.jpg"
-          alt={`${profile.name} 프로필 사진`}
-          fill
-          sizes="(min-width: 768px) 40vw, 90vw"
-          className="object-cover"
-          priority
-        />
-        <div aria-hidden className="pointer-events-none absolute inset-0 ring-1 ring-black/5" />
+        <ArrowDown className="h-5 w-5" strokeWidth={1.5} />
       </motion.div>
     </section>
   );

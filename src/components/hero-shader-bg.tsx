@@ -13,53 +13,41 @@ const VERTEX = /* glsl */ `
   }
 `;
 
-// ponytail: single-octave value noise, enough for a soft moving gradient blob at hero scale
+// ponytail: flat soft-edged gradient blobs, barely drifting, plus a dithered
+// film-grain overlay — that grain is what reads as "3D texture" in the
+// florent-biffi reference, not glossy sphere lighting (tried that, too
+// literal/too much motion — reverted).
 const FRAGMENT = /* glsl */ `
   precision highp float;
   uniform float uTime;
-  uniform vec2 uMouse;
+  uniform float uScroll;
   uniform vec2 uResolution;
   varying vec2 vUv;
 
-  float hash(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+  float blob(vec2 p, vec2 center, float r) {
+    return smoothstep(r, 0.0, length(p - center));
   }
 
-  float noise(vec2 p) {
-    vec2 i = floor(p);
-    vec2 f = fract(p);
-    vec2 u = f * f * (3.0 - 2.0 * f);
-    return mix(
-      mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
-      mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
-      u.y
-    );
+  float grain(vec2 co) {
+    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
   }
 
   void main() {
     vec2 uv = vUv;
     float aspect = uResolution.x / uResolution.y;
     vec2 p = (uv - 0.5) * vec2(aspect, 1.0);
-    vec2 mouse = (uMouse - 0.5) * vec2(aspect, 1.0);
 
-    float t = uTime * 0.06;
-    float n = noise(p * 2.2 + vec2(t, -t));
-    n += 0.5 * noise(p * 4.0 - vec2(t * 1.6, t));
+    // Very slow, very small drift — this should read as "barely moving",
+    // not swinging blobs.
+    float t = uTime * 0.02;
+    float s = uScroll * 0.15;
 
-    float d = length(p - mouse * 0.4);
-    float glow = smoothstep(0.9, 0.0, d) * 0.4;
+    vec3 color = vec3(1.0);
+    color = mix(color, vec3(0.93, 0.99, 0.97), blob(p, vec2(-0.55 + sin(t) * 0.04, -0.3 + s), 0.9));
+    color = mix(color, vec3(0.85, 0.97, 0.94), blob(p, vec2(0.6 + cos(t * 0.7) * 0.03, 0.35 - s * 0.6), 0.75));
+    color = mix(color, vec3(0.70, 0.93, 0.87), blob(p, vec2(0.05, -0.55 + s * 0.4), 0.55) * 0.7);
 
-    // white base so the canvas edges match the page background exactly —
-    // no dark vignette, just a warm tint that brightens toward the cursor.
-    vec3 white = vec3(1.0);
-    vec3 cream = vec3(0.99, 0.91, 0.76);
-    vec3 amber = vec3(0.98, 0.78, 0.46);
-
-    vec3 base = mix(white, cream, clamp(n * 0.55, 0.0, 1.0));
-    vec3 color = mix(base, amber, glow);
-
-    float vignette = smoothstep(1.3, 0.1, length(p));
-    color = mix(white, color, vignette);
+    color += (grain(gl_FragCoord.xy) - 0.5) * 0.025;
 
     gl_FragColor = vec4(color, 1.0);
   }
@@ -85,7 +73,7 @@ export function HeroShaderBg() {
       fragment: FRAGMENT,
       uniforms: {
         uTime: { value: 0 },
-        uMouse: { value: [0.5, 0.5] },
+        uScroll: { value: 0 },
         uResolution: { value: [1, 1] },
       },
     });
@@ -99,16 +87,13 @@ export function HeroShaderBg() {
     resize();
     window.addEventListener("resize", resize);
 
-    // pointer-events-none on the container (so it never blocks clicks), so
-    // mouse position is tracked from window and mapped onto its rect instead.
-    function handlePointerMove(e: PointerEvent) {
-      const rect = container!.getBoundingClientRect();
-      program.uniforms.uMouse.value = [
-        (e.clientX - rect.left) / rect.width,
-        1 - (e.clientY - rect.top) / rect.height,
-      ];
+    // Blobs drift with scroll too, not just time — normalized against
+    // one viewport height so the shift stays gentle instead of racing off
+    // past the fold.
+    function handleScroll() {
+      program.uniforms.uScroll.value = window.scrollY / window.innerHeight;
     }
-    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     let raf = 0;
     const start = performance.now();
@@ -122,7 +107,7 @@ export function HeroShaderBg() {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("scroll", handleScroll);
       gl.canvas.remove();
     };
   }, []);
@@ -131,7 +116,7 @@ export function HeroShaderBg() {
     <div
       ref={containerRef}
       aria-hidden
-      className="pointer-events-none absolute -inset-16 -z-10 overflow-hidden opacity-70 blur-2xl md:-inset-24"
+      className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
     />
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { TroubleshootingBlock } from "@/components/troubleshooting-block";
 import { Badge } from "@/components/ui/badge";
 import type { Project } from "@/lib/content";
@@ -21,9 +22,13 @@ export function ProjectDetail({ project }: { project: Project }) {
       <div className="mx-auto max-w-4xl">
         <Link
           href="/"
-          className="text-sm text-muted-foreground hover:text-foreground"
+          className="group inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-xs font-medium tracking-wide text-neutral-600 uppercase transition-colors hover:border-[var(--brand)] hover:bg-[var(--brand)] hover:text-white"
         >
-          ← 목록으로
+          <ArrowLeft
+            className="h-4 w-4 -translate-x-0.5 transition-transform duration-200 group-hover:-translate-x-1.5"
+            strokeWidth={2}
+          />
+          목록으로
         </Link>
         <div
           className="mt-6 h-1.5 w-16 rounded-full"
@@ -32,7 +37,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         <p className="mt-4 text-sm font-medium" style={{ color: darken(project.brandColor) }}>
           {project.tagline}
         </p>
-        <h1 className="mt-2 text-4xl font-black md:text-5xl">{project.name}</h1>
+        <h1 className="mt-2 text-4xl font-black [font-family:var(--font-display)] md:text-5xl">{project.name}</h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
           {project.description}
         </p>
@@ -70,7 +75,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
         {project.contributions.length > 0 && (
           <section className="mt-12">
-            <h2 className="text-xl font-bold" style={{ color: project.brandColor }}>
+            <h2 className="text-xl font-bold [font-family:var(--font-display)]" style={{ color: project.brandColor }}>
               기여
             </h2>
             <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">
@@ -83,7 +88,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
         {project.features.length > 0 && (
           <section className="mt-12">
-            <h2 className="text-xl font-bold" style={{ color: project.brandColor }}>
+            <h2 className="text-xl font-bold [font-family:var(--font-display)]" style={{ color: project.brandColor }}>
               Main features & Contribution
             </h2>
             <div className="mt-4 space-y-6">
@@ -105,7 +110,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
         {project.troubleshooting.length > 0 && (
           <section className="mt-12 space-y-10">
-            <h2 className="text-xl font-bold" style={{ color: project.brandColor }}>
+            <h2 className="text-xl font-bold [font-family:var(--font-display)]" style={{ color: project.brandColor }}>
               Troubleshooting
             </h2>
             {project.troubleshooting.map((entry) => (

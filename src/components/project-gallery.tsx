@@ -31,9 +31,22 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
         ease: "none",
         scrollTrigger: {
           trigger: pinEl,
-          start: "top top",
-          end: () => `+=${distance}`,
-          scrub: 0.6,
+          start: "top 12%",
+          // Scroll input needed to finish the slide is stretched to 1.6x the
+          // raw overflow so the scrub doesn't blow through in a couple of
+          // wheel ticks — same pin, more room to feel it happen. Clamped to
+          // whatever page length is actually left after the pin's start, so
+          // a short footer can never truncate the slide before it finishes
+          // (this is what silently broke once already when the footer got
+          // shorter).
+          end: () => {
+            const startAbs =
+              pinEl.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.12;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const available = Math.max(distance, maxScroll - startAbs);
+            return `+=${Math.min(distance * 1.6, available)}`;
+          },
+          scrub: true,
           pin: true,
           invalidateOnRefresh: true,
         },
@@ -57,9 +70,9 @@ export function ProjectGallery({ projects }: { projects: Project[] }) {
         ref={trackRef}
         className="flex w-max gap-6 px-6 pb-4 md:px-16 md:pb-0 lg:px-24"
       >
-        {projects.map((project) => (
-          <div key={project.slug} className="w-[85vw] max-w-[520px] shrink-0 md:w-[440px]">
-            <ProjectCard project={project} />
+        {projects.map((project, index) => (
+          <div key={project.slug} className="w-[85vw] max-w-[420px] shrink-0 md:w-[360px]">
+            <ProjectCard project={project} index={index} />
           </div>
         ))}
         <div aria-hidden className="w-px shrink-0 md:w-8 lg:w-16" />

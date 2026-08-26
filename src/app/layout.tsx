@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
-import { CustomCursor } from "@/components/custom-cursor";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -33,7 +32,6 @@ export default function RootLayout({
     <html lang="ko" className={`${pretendard.variable} ${paperlogy.variable}`}>
       <body>
         <SmoothScroll />
-        <CustomCursor />
         {children}
       </body>
     </html>

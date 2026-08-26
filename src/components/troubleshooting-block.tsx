@@ -3,7 +3,7 @@ import type { TroubleshootingEntry } from "@/lib/content";
 export function TroubleshootingBlock({ entry }: { entry: TroubleshootingEntry }) {
   return (
     <div className="border-t pt-8">
-      <h4 className="text-xl font-bold">{entry.title}</h4>
+      <h4 className="text-xl font-bold [font-family:var(--font-display)]">{entry.title}</h4>
       <div className="mt-4 grid gap-4">
         <div>
           <span className="font-semibold">Problem</span>

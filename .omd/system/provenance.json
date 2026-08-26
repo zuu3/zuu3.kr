@@ -33,8 +33,8 @@
     },
     {
       "evidence": [
-        "docs/superpowers/specs/2026-08-26-portfolio-redesign-design.md",
-        "src/components/hero.tsx"
+        "src/app/layout.tsx",
+        "src/components/about-section.tsx"
       ],
       "path": "typography_assets.rules",
       "source_class": "prompt-fact"
@@ -58,7 +58,7 @@
       "source_class": "repository-fact"
     }
   ],
-  "design_md_sha256": "8b30b76a0052cce297e21904c66d434960ada182f5f2aceb3f142c87dddc4047",
-  "graph_sha256": "37a494d9250bdc52b83f4d1a65da1c01fec3b6d6cada59a86a897290c8faf6b5",
+  "design_md_sha256": "61177ca816f254e13ad23dd84049acda51505b62047c33eaaedd3b5fa456d453",
+  "graph_sha256": "4c1336a3e2d8762c70f101f47233ff135ffeb2379c080942c613a815bf341aa3",
   "schema_version": "2.0.0"
 }

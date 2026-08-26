@@ -12,13 +12,13 @@
 <!-- design-md:claim primary-tasks kind=user-outcomes count=5 lang=en -->
 ### Primary tasks
 
-- 방문자가 히어로에서 이름과 한 줄 소개를 빠르게 파악한다
+- 방문자가 히어로에서 role을 빠르게 파악한다
 
-- About에서 수상/활동/자격/리더십 이력을 연도순으로 훑어본다
+- About에서 이름·태그라인·수상/활동/자격/리더십 이력을 연도순으로 훑어본다
 
 - 각 프로젝트의 도입부(왜 만들었는지)를 스크롤 강조로 읽는다
 
-- 프로젝트의 기여/기능/트러블슈팅을 이어서 읽는다
+- 프로젝트의 기여/기능/트러블슈팅(코드 diff 포함)을 이어서 읽는다
 
 - 이메일로 연락한다
 <!-- design-md:claim-end -->
@@ -31,6 +31,8 @@
 
 - About과 히어로는 기본적으로 흑백/그레이스케일로 두고, 색은 프로젝트 섹션의 브랜드 컬러와 히어로 CTA 버튼에만 남긴다
 
+- 이름은 About의 태그라인 헤드라인으로 노출한다 — 별도 라벨로 이름만 반복하지 않는다
+
 ### Principles
 
 - primary(민트)는 실제 클릭 가능한 행동(CTA)에만 사용한다 — 배지, 보더, 장식용 프레임, 라벨 텍스트에 습관적으로 채워 넣지 않는다
@@ -41,6 +43,8 @@
 
 - 여백과 타이포 크기 대비로 위계를 만들고, 색·배지·프레임 같은 장식적 강조 수단은 최후에 검토한다
 
+- 본문 속 실제 코드/API 식별자는 인라인 코드 스타일로 구분해 스캔 포인트를 만든다
+
 ### Avoid
 
 - primary 컬러를 히어로 eyebrow 텍스트, About 사진 프레임, 카테고리 라벨처럼 매 섹션에 반복 사용하지 않는다
@@ -50,6 +54,10 @@
 - 트러블슈팅을 problem/cause/solution/result 필드 구분 없이 하나의 문단으로 합치지 않는다
 
 - 기술 스택을 프로젝트 섹션 맨 끝에 텍스트로만 나열하지 않는다 — 태그라인 아래 박스형 칩으로 배치한다
+
+- 기여(Contribution) 목록을 틴트 배경 카드로 감싸지 않는다 — 기능/트러블슈팅과 같은 평문 리스트로 유지한다
+
+- Before/After 코드를 별도 박스 두 개로 나란히 배치하지 않는다 — 하나의 diff 블록(삭제 빨강 -, 추가 초록 +)으로 합친다
 
 <!-- design-md:section foundations -->
 ## 2. Foundations
@@ -62,13 +70,15 @@
 - **color.foreground**: `#171717` — 본문 텍스트
 - **color.muted**: `#737373` — 보조 텍스트, 캡션, 라벨
 - **color.primary**: `#0cefd3` — baemin 2.0 브라이트 민트. 실제 행동(CTA 버튼)에만 사용 — 배지/보더/장식 금지
-- **radius.card**: `12px` — 기여 콜아웃 박스 등 카드형 컨테이너
-- **radius.control**: `8px` — 버튼, 칩, 작은 컨트롤
+- **color.surface**: `#fafafa` — 트러블슈팅 카드 등 옅은 패널 배경 (neutral-50)
+- **radius.card**: `12px` — 트러블슈팅 Problem/Cause/Solution/Result 패널 등 카드형 컨테이너
+- **radius.control**: `8px` — 버튼, 칩, 작은 컨트롤, 코드 diff 블록
 
 ### Contrast pairs
 
 - color.foreground on color.canvas: minimum 7:1
 - color.foreground on color.primary: minimum 4.5:1
+- color.foreground on color.surface: minimum 7:1
 
 ### Reduced motion
 
@@ -81,6 +91,8 @@ Required.
 - 본문 텍스트는 color.foreground, 보조 텍스트는 color.muted만 사용한다
 
 - 히어로와 About 섹션은 프로젝트별 brandColor를 쓰지 않는다 — 색은 프로젝트 섹션 안에서만 등장한다
+
+- 히어로 배경의 그레인 텍스처는 SVG feTurbulence로 구현하고 WebGL/외부 라이브러리를 쓰지 않는다
 <!-- design-md:claim-end -->
 
 <!-- design-md:section typography-assets -->
@@ -90,15 +102,18 @@ Required.
 
 | Role | Usage | Family | Size | Weight | Line height | Tracking |
 |---|---|---|---|---|---|---|
-| display | 히어로/프로젝트/섹션 타이틀 | Paperlogy | clamp(1.5rem, 4vw, 3.75rem) | 900 | 1.15 | normal |
+| display | 히어로 타이틀, 프로젝트 이름 | Paperlogy | clamp(1.5rem, 4vw, 3.75rem) | 900 | 1.15 | normal |
+| display-secondary | About 태그라인 헤드라인(이름 포함) | Paperlogy | 1.75rem | 700 | 1.35 | normal |
+| body-display | About bio 문단 | Paperlogy | 1rem | 500 | 1.6 |  |
 | body | 본문 텍스트 | Pretendard | 1rem | 400 | 1.6 |  |
 | label | 라벨/캡션/칩 | Pretendard | 0.75rem | 700 | 1.3 | 0.02em |
+| inline-code | 본문 속 코드/API 식별자 | monospace | 0.9em | 400 |  |  |
 
 ### Assets
 
 | Asset | Kind | Source status | License status | Notes |
 |---|---|---|---|---|
-| paperlogy | font | project-owned | verified | display 폰트, 로컬 woff2로 이미 프로젝트에 포함 |
+| paperlogy | font | project-owned | verified | display 폰트. src/app/fonts/paperlogy/에 100~900 전체 9웨이트 self-host, 실제 렌더는 500/700/900만 사용 |
 | pretendard | font | project-owned | verified | 본문 폰트, 로컬 woff2로 이미 프로젝트에 포함 |
 
 ### Rules
@@ -106,6 +121,8 @@ Required.
 - display 롤(Paperlogy)에는 한글 조합 시 음수 tracking을 적용하지 않는다 — 기본 tracking 유지
 
 - baemin 공식 WORK 서체는 라이선스 미확보로 이식하지 않는다
+
+- 본문 단락은 body-display(Paperlogy 500) 또는 body(Pretendard 400) 중 섹션 성격에 맞게 선택하고 Paperlogy Black(900)을 문단에 쓰지 않는다
 
 <!-- design-md:section components-states -->
 ## 4. Components & States
@@ -133,11 +150,34 @@ Required.
 | error | not-applicable | 실패 상태가 없는 mailto 링크 |
 | success | not-applicable | 성공 상태 표시가 없는 mailto 링크 |
 
+### Component: about-profile
+
+**Semantics:** About 좌측 프로필 패널. 태그라인(이름 포함)이 헤드라인 역할을 한다
+
+- Anatomy: photo, eyebrow, tagline-headline, bio, birthdate, school, email, phone
+- Variants: default
+- States: default
+- Token references: radius.control
+
+- Interaction kind: non-interactive
+- Interaction reason: 정보 표시 전용 패널
+
+### Component: about-timeline
+
+**Semantics:** Award/Activity/Certificate/Leadership을 하나로 합쳐 연도 역순으로 정렬한 리스트. 카테고리별로 분리된 4개 박스를 쓰지 않는다
+
+- Anatomy: year, category-label, item
+- Variants: default
+- States: default
+
+- Interaction kind: non-interactive
+- Interaction reason: 정보 표시 전용 리스트
+
 ### Component: project-hook
 
-**Semantics:** 프로젝트 섹션 상단, 스크롤 고정된 채 도입부 문장이 순차 강조되는 영역. 문장이 2개 이하이면 강조 애니메이션 없이 그대로 표시
+**Semantics:** 프로젝트 섹션 상단, 스크롤 고정된 채 도입부 문장이 순차 강조되는 영역. 문장이 2개 이하이면 강조 애니메이션 없이 그대로 표시. "Name(alias)" 형식의 프로젝트명은 영문 메인 이름을 brandColor로 크게, 괄호 안 한글 alias는 작고 muted하게 분리해 표시한다
 
-- Anatomy: index, period, name, tagline, tech-chip-row, hook-sentences
+- Anatomy: index, period, name, alias, tagline, tech-chip-row, hook-sentences
 - Variants: default
 - States: default
 - Token references: radius.control
@@ -145,28 +185,40 @@ Required.
 - Interaction kind: non-interactive
 - Interaction reason: 스크롤에 반응하는 표시 영역이며 클릭 가능한 컨트롤이 아니다
 
-### Component: contribution-callout
+### Component: contribution-list
 
-**Semantics:** 기여 목록을 담는 프로젝트 brandColor 5% 틴트 배경의 카드
+**Semantics:** 기여(Contribution) 목록. 카드/틴트 배경 없이 기능·트러블슈팅과 동일한 평문 리스트로 표시한다
 
 - Anatomy: heading, item-list
 - Variants: default
 - States: default
-- Token references: radius.card
 
 - Interaction kind: non-interactive
-- Interaction reason: 정보 표시 전용 카드
+- Interaction reason: 정보 표시 전용 리스트
 
 ### Component: troubleshooting-entry
 
-**Semantics:** problem/solution은 진하게, cause/result는 보조 톤으로 표시해 핵심을 우선 노출하는 트러블슈팅 항목
+**Semantics:** Problem/Cause/Solution/Result를 옅은 회색 카드(radius.card, color.surface)로 감싼다. Problem/Solution은 진하게, Cause/Result는 보조 톤. 본문 속 코드/API 식별자는 inline-code로 표시하고 각 필드의 마지막 문장은 semibold로 강조한다. codeBefore/codeAfter가 있으면 카드 아래 단일 diff 블록(radius.control)을 붙인다
 
-- Anatomy: title, problem, cause, solution, result
+- Anatomy: title, problem, cause, solution, result, code-diff
 - Variants: default
 - States: default
+- Token references: radius.card, color.surface
 
 - Interaction kind: non-interactive
 - Interaction reason: 정보 표시 전용 항목
+
+### Component: troubleshooting-code-diff
+
+**Semantics:** codeBefore/codeAfter를 Before/After 두 박스로 나누지 않고, 삭제 줄은 빨간 배경 + '-' 마커, 추가 줄은 초록 배경 + '+' 마커로 하나의 다크 코드 블록에 이어 붙인다
+
+- Anatomy: removed-lines, added-lines
+- Variants: default
+- States: default
+- Token references: radius.control
+
+- Interaction kind: non-interactive
+- Interaction reason: 정보 표시 전용 코드 블록
 
 ### Rules
 
@@ -182,7 +234,7 @@ Required.
 
 ### Layout rules
 
-- 전체 폭 컨테이너 없이 각 섹션은 max-w-3xl~5xl 내부 컨텐츠 폭을 사용한다
+- 전체 폭 컨테이너 없이 각 섹션은 max-w-2xl~6xl 내부 컨텐츠 폭을 사용한다 — About은 max-w-6xl, 트러블슈팅 카드는 max-w-2xl로 줄 길이를 좁혀 가독성을 우선한다
 
 - 프로젝트 도입부 pin 스크롤은 prefers-reduced-motion에서 비활성화하고 즉시 전체 텍스트를 표시한다
 
@@ -210,7 +262,7 @@ Required.
 
 ### Locale: ko (supported)
 
-- 모든 UI 카피는 한국어 우선
+- 모든 UI 카피는 한국어 우선. 프로젝트 섹션 소제목(기여/기능/트러블슈팅)은 Contribution/Features/Troubleshooting 영문으로 표기한다
 
 <!-- design-md:section governance -->
 ## 7. Governance
@@ -263,5 +315,6 @@ Record, review, and validate changes before adoption.
 ### Decision provenance
 
 - foundations.tokens.color.primary — agent-proposed-greenfield-decision; evidence: baemin reference catalog verified_v2 2026-07-12, tokens.colors.primary; 사용자 승인 하에 프로젝트 브랜드로 채택
-- experience.avoid — prompt-fact; evidence: 사용자 피드백: 'primary를 계속 넣으려 하니까 그런거같음' — 히어로/About에 민트를 과도하게 반복 사용해 결과물이 나빠짐
-- typography_assets.rules — prompt-fact; evidence: 사용자 피드백: '폰트가 못생겼다' — tracking-tight가 한글+Paperlogy 조합에서 글자를 뭉개뜨림을 확인 후 제거
+- experience.avoid — prompt-fact; evidence: 사용자 피드백 누적: primary 과다 사용, 트러블슈팅 카드 스타일, diff 코드블록, contribution 카드 제거 등
+- typography_assets.rules — prompt-fact; evidence: 사용자 피드백: About 영역 폰트가 다른 헤딩과 안 어울림 — Paperlogy Black 단일 웨이트만 있어 굵기 조절이 불가능했던 게 원인. 100~900 전체 웨이트를 내려받아 해결
+- components_states.components — repository-fact; evidence: src/components/about-section.tsx, project-narrative.tsx, hero.tsx 현재 구현 (2026-08-26 기준)

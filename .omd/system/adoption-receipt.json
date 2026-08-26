@@ -1,36 +1,36 @@
 {
   "authority": "system-graph",
   "inputs": {
-    "coverage_sha256": "1b69d2327dc00123251a19cea362d583e203450aff1890dd9e6875588e27e3fb",
-    "graph_sha256": "58021b336b0af86951cec711d640b7d93f8939cf8f9e71ea0c08c8cbbd9efe12",
-    "provenance_sha256": "e58947eb929f2002e035fc90141f7f46c631105387e89cb458954e188744a910"
+    "coverage_sha256": "b25a973db2144b1a807d94e4f2e701f537fe4e53ea7aceb053e4ee82874a9416",
+    "graph_sha256": "c172241ded5e28f78a9991822fd1d8c67a218e19d84392aa459fbcdd52751faf",
+    "provenance_sha256": "122809ab2b3c64f30935744eacd5503b13960ec845ada22a05e7d3593532b010"
   },
   "kind": "design-md-core-adoption-receipt",
   "outputs": {
     "coverage": {
       "path": ".omd/system/coverage.json",
-      "sha256": "1deda3974269ce942b1ddd514405d1af85029d8eddbccf41fdbd4dfc1fd84727"
+      "sha256": "be984caaad36fb1865d3f2fb84c07dcbba03196f8765d1c4bb679a6dc6916411"
     },
     "design_md": {
       "path": "DESIGN.md",
-      "sha256": "8b30b76a0052cce297e21904c66d434960ada182f5f2aceb3f142c87dddc4047"
+      "sha256": "61177ca816f254e13ad23dd84049acda51505b62047c33eaaedd3b5fa456d453"
     },
     "graph": {
       "path": ".omd/system/graph.json",
-      "sha256": "37a494d9250bdc52b83f4d1a65da1c01fec3b6d6cada59a86a897290c8faf6b5"
+      "sha256": "4c1336a3e2d8762c70f101f47233ff135ffeb2379c080942c613a815bf341aa3"
     },
     "manifest": {
       "path": ".omd/system/manifest.json",
-      "sha256": "3779c88b088e1550702d36243779905514046881ecb4f946e2858c2fb31f8fb9"
+      "sha256": "57fc4df833282f6c9200e503b28069b0683a6071dfc7321beecce3e6bf636ef3"
     },
     "provenance": {
       "path": ".omd/system/provenance.json",
-      "sha256": "f46005cd0d94b231eefce5197a193bd3d6c6b144a305762f255d2471df0767d3"
+      "sha256": "c14352699973b0c30ce2d1235ca10029c2edc7ad69a7b6c9c6152f950897503b"
     }
   },
   "review": {
     "authority_transition_approved": true,
-    "receipt_sha256": "45d737a05e4dbe921301da191ddf57ab3ff3ebbd1bf35938ef714da95605ceca",
+    "receipt_sha256": "778538e1df04febd31dce0196c0d8f57cb55c56a0f59bbb53398f440aca8cba6",
     "reviewer": {
       "identifier": "zuu3",
       "role": "project-owner"

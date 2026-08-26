@@ -145,7 +145,15 @@ export const LineSidebar = ({
             }}
             className="line-sidebar__item"
             aria-current={controlledActiveIndex === index ? "true" : undefined}
+            role="button"
+            tabIndex={0}
             onClick={() => onItemClick?.(index, label)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                onItemClick?.(index, label);
+              }
+            }}
           >
             {showMarker && <span className="line-sidebar__marker" aria-hidden="true" />}
             <span className="line-sidebar__label">

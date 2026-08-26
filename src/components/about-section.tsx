@@ -44,7 +44,7 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
   }, []);
 
   return (
-    <section ref={sectionRef} className="border-t border-neutral-200 px-6 py-24 md:px-16 lg:px-24">
+    <section ref={sectionRef} className="px-6 py-24 md:px-16 lg:px-24">
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-x-14 gap-y-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1.5fr)]">
           <div>

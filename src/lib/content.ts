@@ -423,6 +423,6 @@ const reader = res.body!.getReader();`,
     ],
     troubleshooting: [],
     brandColor: "#171717",
-    tags: ["#교회 실사용 서비스", "#서비스 바로가기"],
+    tags: ["#교회 실사용 서비스"],
   },
 ];

@@ -9,6 +9,8 @@ import type { profile as ProfileType } from "@/lib/content";
 
 type Entry = { year: string; category: string; item: string };
 
+const HIGHLIGHT_KEYWORDS = ["반장", "Tech Excellent상", "정보처리산업기사"];
+
 function mergeTimeline(profile: typeof ProfileType): Entry[] {
   const entries: Entry[] = [];
   const add = (category: string, groups: { year: string; items: string[] }[]) => {
@@ -75,18 +77,29 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
           </div>
 
           <div className="divide-y divide-neutral-200">
-            {timeline.map((entry, i) => (
-              <div
-                key={`${entry.year}-${entry.category}-${i}`}
-                className="about-row flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:gap-4"
-              >
-                <span className="w-12 shrink-0 text-sm font-bold text-neutral-400">{entry.year}</span>
-                <span className="w-24 shrink-0 text-xs font-bold tracking-wide text-neutral-400 uppercase">
-                  {entry.category}
-                </span>
-                <span className="text-sm leading-relaxed text-neutral-700">{entry.item}</span>
-              </div>
-            ))}
+            {timeline.map((entry, i) => {
+              const highlight = HIGHLIGHT_KEYWORDS.some((kw) => entry.item.includes(kw));
+              return (
+                <div
+                  key={`${entry.year}-${entry.category}-${i}`}
+                  className="about-row flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:gap-4"
+                >
+                  <span className="w-12 shrink-0 text-sm font-bold text-neutral-400">{entry.year}</span>
+                  <span className="w-24 shrink-0 text-xs font-bold tracking-wide text-neutral-400 uppercase">
+                    {entry.category}
+                  </span>
+                  <span
+                    className={
+                      highlight
+                        ? "text-sm leading-relaxed font-bold text-neutral-900"
+                        : "text-sm leading-relaxed text-neutral-700"
+                    }
+                  >
+                    {entry.item}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

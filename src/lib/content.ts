@@ -43,7 +43,7 @@ export const profile = {
     {
       year: "2025",
       items: [
-        "SJSU 역량 강화 캠프 프로젝트 Tech Excellent상",
+        "SJSU 역량 강화 캠프 프로젝트 Tech Excellent상(2위)",
         "소프트웨어개발과 웹 프로그래밍 경진대회 우수상",
         "소프트웨어마이스터고등학교 4개교 연합해커톤 우수상",
         "U-BDIA 프로젝트 아이디어상(티치몬)",

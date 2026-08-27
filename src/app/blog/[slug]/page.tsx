@@ -76,7 +76,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {prev && (
                 <Link
                   href={`/blog/${prev.slug}`}
-                  className="group rounded-[var(--radius-card)] bg-white px-4 py-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] sm:text-right"
+                  className="group rounded-2xl bg-white px-4 py-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] sm:text-right"
                 >
                   <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">다음 글</p>
                   <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-neutral-900 group-hover:text-[#ff6f0f] sm:justify-end">
@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {next && (
                 <Link
                   href={`/blog/${next.slug}`}
-                  className="group rounded-[var(--radius-card)] bg-white px-4 py-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] sm:col-start-1 sm:row-start-1"
+                  className="group rounded-2xl bg-white px-4 py-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] sm:col-start-1 sm:row-start-1"
                 >
                   <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">이전 글</p>
                   <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-neutral-900 group-hover:text-[#ff6f0f]">

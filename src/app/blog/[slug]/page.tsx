@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Icon } from "@seed-design/react";
+import { IconChevronLeftSmallLine, IconChevronRightSmallLine } from "@karrotmarket/react-monochrome-icon";
 import { blogPosts } from "@/lib/content";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { toss } from "../toss-tokens";
@@ -61,12 +63,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <p className="text-[13px] font-medium" style={{ color: toss.color.muted }}>
                   다음 글
                 </p>
-                <p
-                  className="mt-1 text-base font-bold transition-colors"
-                  style={{ color: "var(--post-title-color)" }}
-                >
-                  {prev.title}
-                </p>
+                <div className="mt-1 flex items-center gap-1">
+                  <p className="text-base font-bold transition-colors" style={{ color: "var(--post-title-color)" }}>
+                    {prev.title}
+                  </p>
+                  <span className="inline-flex shrink-0 transition-transform group-hover/nav-item:translate-x-0.5">
+                    <Icon svg={<IconChevronRightSmallLine />} size="16px" color="var(--post-title-color)" />
+                  </span>
+                </div>
               </Link>
             )}
             {next && (
@@ -77,12 +81,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <p className="text-[13px] font-medium" style={{ color: toss.color.muted }}>
                   이전 글
                 </p>
-                <p
-                  className="mt-1 text-base font-bold transition-colors"
-                  style={{ color: "var(--post-title-color)" }}
-                >
-                  {next.title}
-                </p>
+                <div className="mt-1 flex items-center justify-end gap-1 sm:justify-start">
+                  <span className="order-first inline-flex shrink-0 transition-transform group-hover/nav-item:-translate-x-0.5">
+                    <Icon svg={<IconChevronLeftSmallLine />} size="16px" color="var(--post-title-color)" />
+                  </span>
+                  <p className="text-base font-bold transition-colors" style={{ color: "var(--post-title-color)" }}>
+                    {next.title}
+                  </p>
+                </div>
               </Link>
             )}
           </div>

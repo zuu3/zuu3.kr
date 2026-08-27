@@ -11,6 +11,9 @@ importers:
       '@base-ui/react':
         specifier: ^1.7.0
         version: 1.7.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@karrotmarket/react-monochrome-icon':
+        specifier: ^1.26.0
+        version: 1.26.0(@types/react@19.2.14)(react@19.2.4)
       '@seed-design/css':
         specifier: ^2.5.0
         version: 2.5.0
@@ -581,6 +584,12 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@karrotmarket/react-monochrome-icon@1.26.0':
+    resolution: {integrity: sha512-3ApTvh7eAj0YqWN5kg6CZ3pqhizk9GlCxNnUuIzTlDnHFMDfrkIE5YNKs5CzM9/2ZMC+z1+Ka6iilShHfob03w==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
 
   '@modelcontextprotocol/sdk@1.30.0':
     resolution: {integrity: sha512-xKd8OIzlqNzcqcNumGAa6g+PW2kjD5vrpcKOnfldAUPP3j7lnqMPwlTXQm8gF+UwH72z0lqaRbjr9hqGz0eITA==}
@@ -4214,6 +4223,11 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@karrotmarket/react-monochrome-icon@1.26.0(@types/react@19.2.14)(react@19.2.4)':
+    dependencies:
+      '@types/react': 19.2.14
+      react: 19.2.4
 
   '@modelcontextprotocol/sdk@1.30.0(zod@3.25.76)':
     dependencies:

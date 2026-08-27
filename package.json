@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
+    "@karrotmarket/react-monochrome-icon": "^1.26.0",
     "@seed-design/css": "^2.5.0",
     "@seed-design/react": "^2.3.0",
     "@shikijs/transformers": "^4.4.3",

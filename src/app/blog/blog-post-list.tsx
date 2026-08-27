@@ -22,7 +22,7 @@ export function BlogPostList({ posts }: { posts: BlogPost[] }) {
           transition={{ duration: 0.4, delay: reduceMotion ? 0 : i * 0.06, ease: "easeOut" }}
         >
           <Link href={`/blog/${post.slug}`} className="group/post-item block">
-            <Card className="rounded-2xl border-none py-0 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
+            <Card className="rounded-2xl border-none bg-neutral-50 py-0 ring-0 shadow-none transition-colors hover:bg-neutral-100">
               <CardContent className="flex items-start gap-4 px-5 py-4">
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">

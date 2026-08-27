@@ -287,74 +287,91 @@ export function ProjectNarrative({
               <Accordion
                 multiple
                 defaultValue={project.troubleshooting.map((entry) => entry.title)}
-                className="mt-2"
+                className="mt-4 space-y-3"
               >
                 {project.troubleshooting.map((entry, i) => (
-                  <AccordionItem key={entry.title} value={entry.title} className="not-last:border-b border-neutral-200">
-                    <AccordionTrigger className="py-5 text-left hover:no-underline focus-visible:ring-0">
-                      <span className="flex items-baseline gap-3">
+                  <AccordionItem
+                    key={entry.title}
+                    value={entry.title}
+                    className="overflow-hidden rounded-2xl border border-neutral-200"
+                  >
+                    <AccordionTrigger className="gap-4 px-5 py-4 text-left hover:no-underline focus-visible:ring-0">
+                      <span className="flex items-center gap-3.5">
                         <span
-                          className="text-sm font-black tabular-nums [font-family:var(--font-display)]"
-                          style={{ color: project.brandColor }}
+                          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-black tabular-nums text-white [font-family:var(--font-display)]"
+                          style={{ backgroundColor: project.brandColor }}
                         >
-                          {String(i + 1).padStart(2, "0")}
+                          {i + 1}
                         </span>
                         <span className="text-lg font-bold tracking-tight text-neutral-900">{entry.title}</span>
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent className="pb-8">
-                      <div className="max-w-3xl space-y-6 pl-8">
-                        {(
-                          [
-                            { label: "Problem", text: entry.problem, emphasize: true },
-                            { label: "Cause", text: entry.cause, emphasize: false },
-                            { label: "Solution", text: entry.solution, emphasize: true },
-                            { label: "Result", text: entry.result, emphasize: false },
-                          ] as const
-                        ).map((stage, si) => (
-                          <div key={stage.label} className="flex gap-4">
-                            <span
-                              className="mt-0.5 shrink-0 text-sm font-black tabular-nums [font-family:var(--font-display)]"
-                              style={{ color: stage.emphasize ? project.brandColor : "#a3a3a3" }}
-                            >
-                              {String(si + 1).padStart(2, "0")}
-                            </span>
-                            <div className="min-w-0">
-                              <p
-                                className="text-xs font-black tracking-wide uppercase"
-                                style={{ color: stage.emphasize ? project.brandColor : "#6c6d6f" }}
-                              >
-                                {stage.label}
-                              </p>
-                              <p
-                                className={`mt-1.5 text-base leading-relaxed ${
-                                  stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-500"
-                                }`}
-                              >
-                                {renderRichText(stage.text)}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
+                    <AccordionContent className="px-5 pb-6">
+                      <div className="max-w-3xl space-y-4 border-t border-neutral-100 pt-5">
+                        <div
+                          className="rounded-xl p-4"
+                          style={{ backgroundColor: `${project.brandColor}0d` }}
+                        >
+                          <p className="text-xs font-black tracking-wide uppercase" style={{ color: project.brandColor }}>
+                            Problem
+                          </p>
+                          <p className="mt-1.5 text-base leading-relaxed font-medium text-neutral-900">
+                            {renderRichText(entry.problem)}
+                          </p>
+                        </div>
+
+                        <div>
+                          <p className="text-xs font-black tracking-wide text-neutral-400 uppercase">Cause</p>
+                          <p className="mt-1.5 text-base leading-relaxed text-neutral-500">
+                            {renderRichText(entry.cause)}
+                          </p>
+                        </div>
+
+                        <div
+                          className="rounded-xl p-4"
+                          style={{ backgroundColor: `${project.brandColor}0d` }}
+                        >
+                          <p className="text-xs font-black tracking-wide uppercase" style={{ color: project.brandColor }}>
+                            Solution
+                          </p>
+                          <p className="mt-1.5 text-base leading-relaxed font-medium text-neutral-900">
+                            {renderRichText(entry.solution)}
+                          </p>
+                        </div>
+
+                        <div>
+                          <p className="text-xs font-black tracking-wide text-neutral-400 uppercase">Result</p>
+                          <p className="mt-1.5 text-base leading-relaxed text-neutral-500">
+                            {renderRichText(entry.result)}
+                          </p>
+                        </div>
                       </div>
 
                       {(entry.codeBefore || entry.codeAfter) && (
-                        <pre className="mt-5 ml-8 max-w-3xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 text-xs leading-relaxed">
-                          <code>
-                            {entry.codeBefore?.code.split("\n").map((line, i) => (
-                              <div key={`b-${i}`} className="bg-red-500/15 px-4 text-red-300">
-                                <span className="mr-2 select-none text-red-400/60">-</span>
-                                {line}
-                              </div>
-                            ))}
-                            {entry.codeAfter?.code.split("\n").map((line, i) => (
-                              <div key={`a-${i}`} className="bg-emerald-500/15 px-4 text-emerald-300">
-                                <span className="mr-2 select-none text-emerald-400/60">+</span>
-                                {line}
-                              </div>
-                            ))}
-                          </code>
-                        </pre>
+                        <div className="mt-5 max-w-3xl overflow-hidden rounded-xl bg-neutral-900">
+                          <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-2.5">
+                            <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                            <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                            <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                            <span className="ml-2 text-[11px] font-medium tracking-wide text-white/40">diff</span>
+                          </div>
+                          <pre className="overflow-x-auto py-3 text-xs leading-relaxed">
+                            <code>
+                              {entry.codeBefore?.code.split("\n").map((line, i) => (
+                                <div key={`b-${i}`} className="bg-red-500/15 px-4 text-red-300">
+                                  <span className="mr-2 select-none text-red-400/60">-</span>
+                                  {line}
+                                </div>
+                              ))}
+                              {entry.codeAfter?.code.split("\n").map((line, i) => (
+                                <div key={`a-${i}`} className="bg-emerald-500/15 px-4 text-emerald-300">
+                                  <span className="mr-2 select-none text-emerald-400/60">+</span>
+                                  {line}
+                                </div>
+                              ))}
+                            </code>
+                          </pre>
+                        </div>
                       )}
                     </AccordionContent>
                   </AccordionItem>

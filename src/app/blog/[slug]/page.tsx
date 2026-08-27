@@ -2,12 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Icon } from "@seed-design/react";
-import {
-  IconCalendarLine,
-  IconChevronLeftSmallLine,
-  IconChevronRightSmallLine,
-  IconClockLine,
-} from "@karrotmarket/react-monochrome-icon";
+import { IconCalendarLine, IconChevronRightSmallLine, IconClockLine } from "@karrotmarket/react-monochrome-icon";
 import { blogPosts } from "@/lib/content";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { toss } from "../toss-tokens";
@@ -66,53 +61,42 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         {(prev || next) && (
-          <div className="mt-20 grid gap-3 sm:grid-cols-2">
+          <div className="mt-20" style={{ borderTop: `1px solid ${toss.color.border}` }}>
             {prev && (
               <Link
                 href={`/blog/${prev.slug}`}
-                className="group/nav-item flex items-center gap-3 rounded-md p-4 transition-colors hover:bg-[#f2f4f6] [--post-title-color:#191f28] hover:[--post-title-color:#3182f6]"
+                className="group/nav-item flex items-center justify-between gap-4 px-1 py-4 transition-colors hover:bg-[#f2f4f6] [--post-title-color:#191f28] hover:[--post-title-color:#3182f6]"
+                style={{ borderBottom: `1px solid ${toss.color.border}` }}
               >
-                <span
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-transform group-hover/nav-item:translate-x-0.5"
-                  style={{ backgroundColor: toss.color.weakBg }}
-                >
-                  <Icon svg={<IconChevronRightSmallLine />} size="16px" color={toss.color.weakFg} />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-[13px] font-medium" style={{ color: toss.color.muted }}>
-                    다음 글
-                  </p>
-                  <p
-                    className="mt-0.5 truncate text-base font-bold transition-colors"
-                    style={{ color: "var(--post-title-color)" }}
-                  >
+                <p className="min-w-0 truncate text-sm">
+                  <span className="font-medium" style={{ color: toss.color.muted }}>
+                    다음 글{"  "}
+                  </span>
+                  <span className="font-bold transition-colors" style={{ color: "var(--post-title-color)" }}>
                     {prev.title}
-                  </p>
-                </div>
+                  </span>
+                </p>
+                <span className="inline-flex shrink-0 transition-transform group-hover/nav-item:translate-x-0.5">
+                  <Icon svg={<IconChevronRightSmallLine />} size="18px" color={toss.color.muted} />
+                </span>
               </Link>
             )}
             {next && (
               <Link
                 href={`/blog/${next.slug}`}
-                className="group/nav-item flex items-center gap-3 rounded-md p-4 transition-colors hover:bg-[#f2f4f6] [--post-title-color:#191f28] hover:[--post-title-color:#3182f6]"
+                className="group/nav-item flex items-center justify-between gap-4 px-1 py-4 transition-colors hover:bg-[#f2f4f6] [--post-title-color:#191f28] hover:[--post-title-color:#3182f6]"
               >
-                <span
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-transform group-hover/nav-item:-translate-x-0.5"
-                  style={{ backgroundColor: toss.color.weakBg }}
-                >
-                  <Icon svg={<IconChevronLeftSmallLine />} size="16px" color={toss.color.weakFg} />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-[13px] font-medium" style={{ color: toss.color.muted }}>
-                    이전 글
-                  </p>
-                  <p
-                    className="mt-0.5 truncate text-base font-bold transition-colors"
-                    style={{ color: "var(--post-title-color)" }}
-                  >
+                <p className="min-w-0 truncate text-sm">
+                  <span className="font-medium" style={{ color: toss.color.muted }}>
+                    이전 글{"  "}
+                  </span>
+                  <span className="font-bold transition-colors" style={{ color: "var(--post-title-color)" }}>
                     {next.title}
-                  </p>
-                </div>
+                  </span>
+                </p>
+                <span className="inline-flex shrink-0 transition-transform group-hover/nav-item:translate-x-0.5">
+                  <Icon svg={<IconChevronRightSmallLine />} size="18px" color={toss.color.muted} />
+                </span>
               </Link>
             )}
           </div>

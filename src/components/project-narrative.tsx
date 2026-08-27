@@ -7,7 +7,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SiGithub } from "react-icons/si";
 import type { Project } from "@/lib/content";
 import { TECH_ICON_MAP } from "@/lib/tech-icons";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { Item, ItemContent, ItemGroup, ItemMedia } from "@/components/ui/item";
@@ -284,82 +283,68 @@ export function ProjectNarrative({
           {project.troubleshooting.length > 0 && (
             <div>
               <h3 className="text-xl font-bold tracking-tight text-neutral-900">Troubleshooting</h3>
-              <Accordion
-                multiple
-                defaultValue={project.troubleshooting.map((entry) => entry.title)}
-                className="mt-2"
-              >
+              <div className="mt-2 divide-y divide-neutral-200">
                 {project.troubleshooting.map((entry, i) => (
-                  <AccordionItem key={entry.title} value={entry.title} className="not-last:border-b border-neutral-200">
-                    <AccordionTrigger className="py-5 text-left hover:no-underline focus-visible:ring-0">
-                      <span className="flex items-baseline gap-3">
-                        <span
-                          className="text-sm font-black tabular-nums [font-family:var(--font-display)]"
-                          style={{ color: project.brandColor }}
-                        >
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span className="text-lg font-bold tracking-tight text-neutral-900">{entry.title}</span>
-                      </span>
-                    </AccordionTrigger>
-                    <AccordionContent className="pb-8">
-                      <div className="max-w-3xl space-y-6 pl-8">
-                        {(
-                          [
-                            { label: "Problem", text: entry.problem, emphasize: true },
-                            { label: "Cause", text: entry.cause, emphasize: false },
-                            { label: "Solution", text: entry.solution, emphasize: true },
-                            { label: "Result", text: entry.result, emphasize: false },
-                          ] as const
-                        ).map((stage, si) => (
-                          <div key={stage.label} className="flex gap-4">
-                            <span
-                              className="mt-0.5 shrink-0 text-sm font-black tabular-nums [font-family:var(--font-display)]"
-                              style={{ color: stage.emphasize ? project.brandColor : "#a3a3a3" }}
-                            >
-                              {String(si + 1).padStart(2, "0")}
-                            </span>
-                            <div className="min-w-0">
-                              <p
-                                className="text-xs font-black tracking-wide uppercase"
-                                style={{ color: stage.emphasize ? project.brandColor : "#6c6d6f" }}
-                              >
-                                {stage.label}
-                              </p>
-                              <p
-                                className={`mt-1.5 text-base leading-relaxed ${
-                                  stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-500"
-                                }`}
-                              >
-                                {renderRichText(stage.text)}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                  <div key={entry.title} className="relative py-8 first:pt-6">
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute top-4 right-0 text-7xl font-black tabular-nums [font-family:var(--font-display)] md:text-8xl"
+                      style={{ color: project.brandColor, opacity: 0.08 }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <p className="relative text-xl font-bold tracking-tight text-neutral-900 md:text-2xl">
+                      {entry.title}
+                    </p>
 
-                      {(entry.codeBefore || entry.codeAfter) && (
-                        <pre className="mt-5 ml-8 max-w-3xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 text-xs leading-relaxed">
-                          <code>
-                            {entry.codeBefore?.code.split("\n").map((line, i) => (
-                              <div key={`b-${i}`} className="bg-red-500/15 px-4 text-red-300">
-                                <span className="mr-2 select-none text-red-400/60">-</span>
-                                {line}
-                              </div>
-                            ))}
-                            {entry.codeAfter?.code.split("\n").map((line, i) => (
-                              <div key={`a-${i}`} className="bg-emerald-500/15 px-4 text-emerald-300">
-                                <span className="mr-2 select-none text-emerald-400/60">+</span>
-                                {line}
-                              </div>
-                            ))}
-                          </code>
-                        </pre>
-                      )}
-                    </AccordionContent>
-                  </AccordionItem>
+                    <div className="relative mt-5 max-w-xl space-y-4">
+                      {(
+                        [
+                          { label: "Problem", text: entry.problem, emphasize: true },
+                          { label: "Cause", text: entry.cause, emphasize: false },
+                          { label: "Solution", text: entry.solution, emphasize: true },
+                          { label: "Result", text: entry.result, emphasize: false },
+                        ] as const
+                      ).map((stage) => (
+                        <div key={stage.label}>
+                          <p
+                            className="text-xs font-bold tracking-wide uppercase"
+                            style={{ color: stage.emphasize ? project.brandColor : "#a3a3a3" }}
+                          >
+                            {stage.label}
+                          </p>
+                          <p
+                            className={`mt-1 text-base leading-relaxed ${
+                              stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-600"
+                            }`}
+                          >
+                            {renderRichText(stage.text)}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {(entry.codeBefore || entry.codeAfter) && (
+                      <pre className="relative mt-5 max-w-xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 text-xs leading-relaxed">
+                        <code>
+                          {entry.codeBefore?.code.split("\n").map((line, i) => (
+                            <div key={`b-${i}`} className="bg-red-500/15 px-4 text-red-300">
+                              <span className="mr-2 select-none text-red-400/60">-</span>
+                              {line}
+                            </div>
+                          ))}
+                          {entry.codeAfter?.code.split("\n").map((line, i) => (
+                            <div key={`a-${i}`} className="bg-emerald-500/15 px-4 text-emerald-300">
+                              <span className="mr-2 select-none text-emerald-400/60">+</span>
+                              {line}
+                            </div>
+                          ))}
+                        </code>
+                      </pre>
+                    )}
+                  </div>
                 ))}
-              </Accordion>
+              </div>
             </div>
           )}
         </div>

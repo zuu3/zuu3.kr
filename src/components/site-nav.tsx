@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { LineSidebar } from "@/components/line-sidebar";
+import { LineSidebar } from "@/components/react-bits/line-sidebar";
 import type { Project, profile as ProfileType } from "@/lib/content";
 
 function shortName(name: string) {

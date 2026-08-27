@@ -499,3 +499,33 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/las
 ```
 
 Introduced off-palette color(s) #0b0b12 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/laser-divider.tsx — not in DESIGN.md
+
+## 2026-08-26T23:34:46.634Z — introduced-off-palette-color-s-a3a3a3-6c
+
+```omd-meta
+id: pref_mtaqe2y2_b8b2f6a6
+timestamp: 2026-08-26T23:34:46.634Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
+```
+
+Introduced off-palette color(s) #a3a3a3, #6c6d6f in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx — not in DESIGN.md
+
+## 2026-08-26T23:55:09.649Z — introduced-off-palette-color-s-0b0b12-in
+
+```omd-meta
+id: pref_mtar4amp_f97ecdac
+timestamp: 2026-08-26T23:55:09.649Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/not-found.tsx"
+```
+
+Introduced off-palette color(s) #0b0b12 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/not-found.tsx — not in DESIGN.md

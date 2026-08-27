@@ -1,6 +1,6 @@
 "use client";
 
-import BubbleMenu from "@/components/bubble-menu";
+import BubbleMenu from "@/components/react-bits/bubble-menu";
 import type { Project, profile as ProfileType } from "@/lib/content";
 
 function shortName(name: string) {

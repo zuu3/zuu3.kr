@@ -1,7 +1,7 @@
 "use client";
 
 import { SiDocker, SiGraphql, SiMysql, SiNextdotjs, SiReact, SiReactquery, SiTypescript } from "react-icons/si";
-import { LogoLoop } from "@/components/logo-loop";
+import { LogoLoop } from "@/components/react-bits/logo-loop";
 
 const TECH_ICONS = [
   { node: <SiTypescript />, title: "TypeScript" },

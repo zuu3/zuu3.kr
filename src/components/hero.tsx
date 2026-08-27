@@ -2,7 +2,7 @@
 
 import { ArrowDown } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import ParticleText from "@/components/particle-text";
+import ParticleText from "@/components/react-bits/particle-text";
 
 export function Hero() {
   const reduceMotion = useReducedMotion();

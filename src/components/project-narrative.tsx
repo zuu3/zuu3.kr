@@ -11,7 +11,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { Item, ItemContent, ItemGroup, ItemMedia } from "@/components/ui/item";
-import TiltedCard from "@/components/tilted-card";
+import TiltedCard from "@/components/react-bits/tilted-card";
 
 function splitSentences(text: string): string[] {
   return text.split(/(?<=\.)\s+/).filter(Boolean);

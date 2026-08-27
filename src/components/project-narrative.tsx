@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
-import { Article, Text } from "@seed-design/react";
+import { Article, Badge as SeedBadge, Text } from "@seed-design/react";
 import { ExternalLink } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -264,19 +264,12 @@ export function ProjectNarrative({
             <div>
               <h3 className="text-xl font-bold tracking-tight text-neutral-900">Features & Contribution</h3>
               <div className="mt-2 divide-y divide-neutral-200">
-                {project.features.map((feature, i) => (
-                  <div key={feature.title} className="relative py-8 first:pt-6">
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute top-4 right-0 text-7xl font-black tabular-nums md:text-8xl"
-                      style={{ color: project.brandColor, opacity: 0.08 }}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <p className="relative max-w-xl text-xl font-bold tracking-tight text-neutral-900 md:text-2xl">
+                {project.features.map((feature) => (
+                  <div key={feature.title} className="py-8 first:pt-6">
+                    <p className="max-w-xl text-xl font-bold tracking-tight text-neutral-900 md:text-2xl">
                       {feature.title}
                     </p>
-                    <Article lang="ko-KR" maxWidth="36rem" className="relative mt-2">
+                    <Article lang="ko-KR" maxWidth="36rem" className="mt-2">
                       <Text as="p" textStyle="t5Regular" color="fg.neutral" className="leading-relaxed">
                         {feature.description}
                       </Text>
@@ -291,48 +284,39 @@ export function ProjectNarrative({
             <div>
               <h3 className="text-xl font-bold tracking-tight text-neutral-900">Troubleshooting</h3>
               <div className="mt-2 divide-y divide-neutral-200">
-                {project.troubleshooting.map((entry, i) => (
-                  <div key={entry.title} className="relative py-8 first:pt-6">
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute top-4 right-0 text-7xl font-black tabular-nums md:text-8xl"
-                      style={{ color: project.brandColor, opacity: 0.08 }}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <p className="relative max-w-xl text-xl font-bold tracking-tight text-neutral-900 md:text-2xl">
+                {project.troubleshooting.map((entry) => (
+                  <div key={entry.title} className="py-8 first:pt-6">
+                    <p className="max-w-xl text-xl font-bold tracking-tight text-neutral-900 md:text-2xl">
                       {entry.title}
                     </p>
 
-                    <div className="relative mt-5 max-w-xl space-y-4">
-                      {(
-                        [
-                          { label: "Problem", text: entry.problem, emphasize: true },
-                          { label: "Cause", text: entry.cause, emphasize: false },
-                          { label: "Solution", text: entry.solution, emphasize: true },
-                          { label: "Result", text: entry.result, emphasize: false },
-                        ] as const
-                      ).map((stage) => (
-                        <div key={stage.label}>
-                          <p
-                            className="text-xs font-bold tracking-wide uppercase"
-                            style={{ color: stage.emphasize ? project.brandColor : "#a3a3a3" }}
-                          >
-                            {stage.label}
-                          </p>
-                          <Article lang="ko-KR" className="mt-1">
-                            <Text
-                              as="p"
-                              textStyle="t5Regular"
-                              fontWeight={stage.emphasize ? "medium" : "regular"}
-                              color={stage.emphasize ? "fg.neutral" : "fg.neutralMuted"}
-                              className="leading-relaxed"
-                            >
-                              {renderRichText(stage.text)}
-                            </Text>
-                          </Article>
-                        </div>
-                      ))}
+                    <div className="relative mt-6 max-w-xl">
+                      <div className="absolute top-2 bottom-2 left-[3px] w-px bg-neutral-200" aria-hidden />
+                      <div className="space-y-5">
+                        {(
+                          [
+                            { label: "Problem", tone: "critical", text: entry.problem },
+                            { label: "Cause", tone: "neutral", text: entry.cause },
+                            { label: "Solution", tone: "brand", text: entry.solution },
+                            { label: "Result", tone: "positive", text: entry.result },
+                          ] as const
+                        ).map((stage) => (
+                          <div key={stage.label} className="relative pl-6">
+                            <span
+                              aria-hidden
+                              className="absolute top-1.5 left-0 h-[7px] w-[7px] rounded-full bg-neutral-300"
+                            />
+                            <SeedBadge tone={stage.tone} variant="weak" size="medium">
+                              {stage.label}
+                            </SeedBadge>
+                            <Article lang="ko-KR" className="mt-1.5">
+                              <Text as="p" textStyle="t5Regular" color="fg.neutral" className="leading-relaxed">
+                                {renderRichText(stage.text)}
+                              </Text>
+                            </Article>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
                     {(entry.codeBefore || entry.codeAfter) && (

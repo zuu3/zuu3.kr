@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { blogPosts } from "@/lib/content";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { toss } from "../toss-tokens";
@@ -34,17 +33,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <main className="px-6 py-24 md:px-16 lg:px-24" style={{ backgroundColor: toss.color.canvas }}>
       <article className="mx-auto w-full max-w-2xl">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-1.5 text-sm font-semibold"
-          style={{ color: toss.color.primary }}
-        >
-          <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.75} />
-          Blog
-        </Link>
-
         <h1
-          className="mt-8 font-bold tracking-tight"
+          className="font-bold tracking-tight"
           style={{ color: toss.color.foreground, fontSize: 36, lineHeight: "1.3" }}
         >
           {post.title}
@@ -62,35 +52,37 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         {(prev || next) && (
-          <div className="mt-16" style={{ borderTop: `1px solid ${toss.color.border}` }}>
+          <div className="mt-20 grid gap-3 sm:grid-cols-2">
             {prev && (
               <Link
                 href={`/blog/${prev.slug}`}
-                className="flex items-center justify-between gap-4 py-4"
-                style={{ borderBottom: `1px solid ${toss.color.border}` }}
+                className="group/nav-item rounded-md p-5 transition-colors hover:bg-[#f2f4f6] [--post-title-color:#191f28] hover:[--post-title-color:#3182f6]"
               >
-                <div>
-                  <p className="text-[13px] font-medium" style={{ color: toss.color.muted }}>
-                    다음 글
-                  </p>
-                  <p className="mt-0.5 text-sm font-semibold" style={{ color: toss.color.foreground }}>
-                    {prev.title}
-                  </p>
-                </div>
-                <ArrowRight className="h-3.5 w-3.5 shrink-0" style={{ color: toss.color.muted }} strokeWidth={1.75} />
+                <p className="text-[13px] font-medium" style={{ color: toss.color.muted }}>
+                  다음 글
+                </p>
+                <p
+                  className="mt-1 text-base font-bold transition-colors"
+                  style={{ color: "var(--post-title-color)" }}
+                >
+                  {prev.title}
+                </p>
               </Link>
             )}
             {next && (
-              <Link href={`/blog/${next.slug}`} className="flex items-center justify-between gap-4 py-4">
-                <div>
-                  <p className="text-[13px] font-medium" style={{ color: toss.color.muted }}>
-                    이전 글
-                  </p>
-                  <p className="mt-0.5 text-sm font-semibold" style={{ color: toss.color.foreground }}>
-                    {next.title}
-                  </p>
-                </div>
-                <ArrowLeft className="h-3.5 w-3.5 shrink-0" style={{ color: toss.color.muted }} strokeWidth={1.75} />
+              <Link
+                href={`/blog/${next.slug}`}
+                className="group/nav-item rounded-md p-5 text-right transition-colors hover:bg-[#f2f4f6] sm:text-left [--post-title-color:#191f28] hover:[--post-title-color:#3182f6]"
+              >
+                <p className="text-[13px] font-medium" style={{ color: toss.color.muted }}>
+                  이전 글
+                </p>
+                <p
+                  className="mt-1 text-base font-bold transition-colors"
+                  style={{ color: "var(--post-title-color)" }}
+                >
+                  {next.title}
+                </p>
               </Link>
             )}
           </div>

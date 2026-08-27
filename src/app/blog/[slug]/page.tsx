@@ -43,28 +43,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           Blog
         </Link>
 
-        <div className="mt-8 flex flex-wrap items-center gap-2">
-          <span className="text-[13px] font-medium tabular-nums" style={{ color: toss.color.muted }}>
-            {formatBlogDate(post.date)} · {readingTime(post.content)}분 읽기
-          </span>
-          {post.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-[13px] font-semibold"
-              style={{ color: toss.color.weakFg, backgroundColor: toss.color.weakBg, borderRadius: toss.radius.sm, padding: "2px 6px" }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
         <h1
-          className="mt-2 font-bold tracking-tight"
-          style={{ color: toss.color.foreground, fontSize: 30, lineHeight: "45px" }}
+          className="mt-8 font-bold tracking-tight"
+          style={{ color: toss.color.foreground, fontSize: 36, lineHeight: "1.3" }}
         >
           {post.title}
         </h1>
+        <p className="mt-4 text-sm font-medium tabular-nums" style={{ color: toss.color.muted }}>
+          {formatBlogDate(post.date)} · {readingTime(post.content)}분 읽기
+        </p>
 
-        <div className="mt-8 space-y-4">
+        <div className="mt-10 space-y-4">
           {post.content.map((paragraph, i) => (
             <p key={i} style={{ color: toss.color.body, fontSize: 16, lineHeight: "24px" }}>
               {paragraph}

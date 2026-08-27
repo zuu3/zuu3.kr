@@ -105,7 +105,7 @@ export function ProjectNarrative({
         <div className="mx-auto w-full max-w-3xl">
           <div className="flex items-baseline gap-3 text-neutral-400">
             <span
-              className="text-sm font-bold tabular-nums [font-family:var(--font-display)]"
+              className="text-sm font-bold tabular-nums"
               style={{ color: project.brandColor }}
             >
               {String(index + 1).padStart(2, "0")}
@@ -113,7 +113,7 @@ export function ProjectNarrative({
             </span>
             <span className="text-xs tracking-wide text-neutral-400 uppercase">{project.period}</span>
           </div>
-          <h2 className="mt-3 text-5xl font-black tracking-tight text-neutral-900 [font-family:var(--font-display)] md:text-6xl">
+          <h2 className="mt-3 text-5xl font-bold tracking-tight text-neutral-900 md:text-6xl">
             {main}
           </h2>
           {alias && <p className="mt-1 text-base font-medium text-neutral-400">{alias}</p>}
@@ -220,7 +220,7 @@ export function ProjectNarrative({
                     <Item key={item} className="bg-[#f3f4f5] px-3.5 py-3">
                       <ItemMedia
                         aria-hidden
-                        className="text-xs font-black tabular-nums [font-family:var(--font-display)]"
+                        className="text-xs font-black tabular-nums"
                         style={{ color: project.brandColor }}
                       >
                         {String(i + 1).padStart(2, "0")}
@@ -263,7 +263,7 @@ export function ProjectNarrative({
                   <div key={feature.title} className="relative py-8 first:pt-6">
                     <span
                       aria-hidden
-                      className="pointer-events-none absolute top-4 right-0 text-7xl font-black tabular-nums [font-family:var(--font-display)] md:text-8xl"
+                      className="pointer-events-none absolute top-4 right-0 text-7xl font-black tabular-nums md:text-8xl"
                       style={{ color: project.brandColor, opacity: 0.08 }}
                     >
                       {String(i + 1).padStart(2, "0")}
@@ -288,7 +288,7 @@ export function ProjectNarrative({
                   <div key={entry.title} className="relative py-8 first:pt-6">
                     <span
                       aria-hidden
-                      className="pointer-events-none absolute top-4 right-0 text-7xl font-black tabular-nums [font-family:var(--font-display)] md:text-8xl"
+                      className="pointer-events-none absolute top-4 right-0 text-7xl font-black tabular-nums md:text-8xl"
                       style={{ color: project.brandColor, opacity: 0.08 }}
                     >
                       {String(i + 1).padStart(2, "0")}

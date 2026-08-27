@@ -58,10 +58,10 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
               />
             </div>
             <p className="mt-8 text-xs font-bold tracking-wide text-neutral-400 uppercase">About</p>
-            <h2 className="mt-1 text-2xl leading-snug font-bold text-neutral-900 [font-family:var(--font-display)] md:text-[1.75rem]">
+            <h2 className="mt-1 text-2xl leading-snug font-bold text-neutral-900 md:text-[1.75rem]">
               {profile.tagline}
             </h2>
-            <p className="mt-4 text-base leading-relaxed font-medium text-neutral-500 [font-family:var(--font-display)]">
+            <p className="mt-4 text-base leading-relaxed text-neutral-500">
               {profile.bio}
             </p>
             <div className="mt-5 space-y-1 text-sm text-neutral-500">

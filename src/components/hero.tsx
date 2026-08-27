@@ -30,7 +30,7 @@ export function Hero() {
         initial={reduceMotion ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="w-full max-w-5xl [font-family:var(--font-display)]"
+        className="w-full max-w-5xl"
       >
         <h1 className="sr-only">Frontend Engineer</h1>
         {["Frontend", "Engineer"].map((word) => (
@@ -40,7 +40,7 @@ export function Hero() {
             aria-hidden
             style={{ height: "clamp(4.5rem, 11vw, 11rem)" }}
             fontSize="clamp(4.5rem, 11vw, 11rem)"
-            fontWeight={900}
+            fontWeight={700}
             color="#ffffff"
             highlightColor="#ffffff"
             particleSize={2.2}

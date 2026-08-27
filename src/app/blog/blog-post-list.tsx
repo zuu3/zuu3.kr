@@ -2,17 +2,15 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { Badge as SeedBadge } from "@seed-design/react";
 import { ArrowRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import type { BlogPost } from "@/lib/content";
-import { formatBlogDate, readingTime, tagTone } from "@/lib/blog";
+import { formatBlogDate, readingTime } from "@/lib/blog";
 
 export function BlogPostList({ posts }: { posts: BlogPost[] }) {
   const reduceMotion = useReducedMotion();
 
   return (
-    <div className="mt-12 flex flex-col gap-4">
+    <div className="mt-12 divide-y divide-neutral-200">
       {posts.map((post, i) => (
         <motion.div
           key={post.slug}
@@ -21,35 +19,31 @@ export function BlogPostList({ posts }: { posts: BlogPost[] }) {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.4, delay: reduceMotion ? 0 : i * 0.06, ease: "easeOut" }}
         >
-          <Link href={`/blog/${post.slug}`} className="group/post-item block">
-            <Card className="rounded-2xl border-none bg-neutral-50 py-0 ring-0 shadow-none transition-colors hover:bg-neutral-100">
-              <CardContent className="flex items-start gap-4 px-5 py-4">
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-bold tracking-wide text-neutral-500 tabular-nums uppercase">
-                      {formatBlogDate(post.date)}
-                    </span>
-                    <span className="text-xs font-bold text-neutral-300">·</span>
-                    <span className="text-xs font-bold tracking-wide text-neutral-500 uppercase">
-                      {readingTime(post.content)}분 읽기
-                    </span>
-                    {post.tags.map((tag) => (
-                      <SeedBadge key={tag} tone={tagTone(tag)} variant="weak" size="medium">
-                        {tag}
-                      </SeedBadge>
-                    ))}
-                  </div>
-                  <p className="mt-1.5 text-xl font-bold tracking-tight text-neutral-900 group-hover/post-item:text-[#ff6f0f] md:text-2xl">
-                    {post.title}
-                  </p>
-                  <p className="mt-1.5 text-base leading-relaxed text-neutral-600">{post.excerpt}</p>
-                </div>
-                <ArrowRight
-                  className="mt-1 h-4 w-4 shrink-0 self-center text-neutral-400 transition-transform group-hover/post-item:translate-x-0.5 group-hover/post-item:text-[#ff6f0f]"
-                  strokeWidth={1.75}
-                />
-              </CardContent>
-            </Card>
+          <Link
+            href={`/blog/${post.slug}`}
+            className="group/post-item flex items-start justify-between gap-4 py-6 first:pt-0"
+          >
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2 text-xs font-bold tracking-wide text-neutral-500 uppercase">
+                <span className="tabular-nums">{formatBlogDate(post.date)}</span>
+                <span>·</span>
+                <span>{readingTime(post.content)}분 읽기</span>
+                {post.tags.length > 0 && (
+                  <>
+                    <span>·</span>
+                    <span>{post.tags.join(" ")}</span>
+                  </>
+                )}
+              </div>
+              <p className="mt-1.5 text-xl font-bold tracking-tight text-neutral-900 group-hover/post-item:text-[#ff6f0f] md:text-2xl">
+                {post.title}
+              </p>
+              <p className="mt-1.5 max-w-xl text-base leading-relaxed text-neutral-600">{post.excerpt}</p>
+            </div>
+            <ArrowRight
+              className="mt-2 h-4 w-4 shrink-0 text-neutral-400 transition-transform group-hover/post-item:translate-x-0.5 group-hover/post-item:text-[#ff6f0f]"
+              strokeWidth={1.75}
+            />
           </Link>
         </motion.div>
       ))}

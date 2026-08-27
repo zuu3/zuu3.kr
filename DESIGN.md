@@ -53,7 +53,7 @@
 
 - 기여(Contribution) 목록을 틴트 배경 카드로 감싸지 않는다 — 기능/트러블슈팅과 같은 평문 리스트로 유지한다
 
-- Before/After 코드를 별도 박스 두 개로 나란히 배치하지 않는다 — 하나의 diff 블록(삭제 빨강 -, 추가 초록 +)으로 합친다
+- Before/After 코드는 파일명 헤더가 달린 두 개의 패널을 나란히(desktop: `md:grid-cols-2`) 배치하고, 각 패널 안에서 삭제/추가 라인을 diff 하이라이트(빨강/초록 배경)로 표시한다 — 단일 다크 블록에 이어붙이지 않는다
 
 <!-- design-md:section foundations -->
 ## 2. Foundations
@@ -87,6 +87,8 @@ Required.
 - 본문 텍스트는 color.foreground, 보조 텍스트는 color.muted만 사용한다
 
 - 히어로와 About 섹션은 프로젝트별 brandColor를 쓰지 않는다 — 색은 프로젝트 섹션 안에서만 등장한다
+
+- 예외: 히어로 배경의 앰비언트 블러 블롭(3개, `mix-blend-screen`)은 흰색 1개 + `color.primary`(오렌지) 1개 + `#b8a4ff`(보라, 앰비언트 전용 토큰) 1개로 구성한다. 이 블롭은 텍스트/UI 요소가 아닌 배경 조명 효과로, "히어로는 흑백" 규칙의 예외로 승인됨. hero-cta 외 히어로 내 텍스트·아이콘·UI 요소에는 여전히 색을 쓰지 않는다
 
 - 히어로 배경의 그레인 텍스처는 SVG feTurbulence로 구현하고 WebGL/외부 라이브러리를 쓰지 않는다
 <!-- design-md:claim-end -->
@@ -190,21 +192,21 @@ Required.
 
 ### Component: troubleshooting-entry
 
-**Semantics:** Problem/Cause/Solution/Result를 옅은 회색 카드(radius.card, color.surface)로 감싼다. Problem/Solution은 진하게, Cause/Result는 보조 톤. 본문 속 코드/API 식별자는 inline-code로 표시하고 각 필드의 마지막 문장은 semibold로 강조한다. codeBefore/codeAfter가 있으면 카드 아래 단일 diff 블록(radius.control)을 붙인다
+**Semantics:** Problem/Cause/Solution/Result를 카드로 감싸지 않고 세로 타임라인(연결선 + 원형 dot 마커)으로 나열한다. 각 단계는 색상 배지(Problem=critical, Cause=neutral, Solution=brand, Result=positive)로 라벨링한다. 본문 속 코드/API 식별자는 inline-code로 표시하고, Result 단계의 마지막 문장만 project brandColor 하이라이터로 강조한다. codeBefore/codeAfter가 있으면 단계 리스트 아래 troubleshooting-code-diff를 붙인다
 
-- Anatomy: title, problem, cause, solution, result, code-diff
+- Anatomy: title, connector-line, stage-dot, stage-badge, problem, cause, solution, result, code-diff
 - Variants: default
 - States: default
-- Token references: radius.card, color.surface
+- Token references: (카드 토큰 미사용 — 배지 색은 semantic status color, 프로젝트 brandColor는 Result 하이라이트에만)
 
 - Interaction kind: non-interactive
 - Interaction reason: 정보 표시 전용 항목
 
 ### Component: troubleshooting-code-diff
 
-**Semantics:** codeBefore/codeAfter를 Before/After 두 박스로 나누지 않고, 삭제 줄은 빨간 배경 + '-' 마커, 추가 줄은 초록 배경 + '+' 마커로 하나의 다크 코드 블록에 이어 붙인다
+**Semantics:** codeBefore/codeAfter를 파일명 헤더가 달린 두 개의 패널로 나란히(desktop 2열) 배치한다. 각 패널은 다크 코드 블록이며 삭제/추가 라인을 diff 하이라이트(빨강/초록 배경)로 표시한다
 
-- Anatomy: removed-lines, added-lines
+- Anatomy: before-panel, after-panel, filename-header, diff-highlight
 - Variants: default
 - States: default
 - Token references: radius.control
@@ -311,3 +313,5 @@ Record, review, and validate changes before adoption.
 - typography_assets.rules — prompt-fact; evidence: 사용자 피드백: About 영역 폰트가 다른 헤딩과 안 어울림 — Paperlogy Black 단일 웨이트만 있어 굵기 조절이 불가능했던 게 원인. 100~900 전체 웨이트를 내려받아 해결
 - components_states.components — repository-fact; evidence: src/components/about-section.tsx, project-narrative.tsx, hero.tsx 현재 구현 (2026-08-26 기준)
 - typography_assets.type_roles — prompt-fact; evidence: .claude/data/references/karrot/DESIGN.md tokens.typography (SEED v2, system-first typography 원칙), verified_v2 2026-07-11; 사용자 지시로 Paperlogy 디스플레이 서체 제거, Pretendard 단일 패밀리 + weight 기반 위계로 전환 (2026-08-27)
+- components_states.components.troubleshooting-entry / troubleshooting-code-diff — prompt-fact; evidence: omd:designer-review round 1 (.reviews/designer-review-round-1.md) BLOCK 2건 — 구현이 카드+단일diff블록 계약과 다름(세로 타임라인 + 좌우 2패널 diff, src/components/project-narrative.tsx:388-433, ui/code-comparison.tsx). 사용자 지시로 기존 계약 대신 현재 구현을 채택, 본 문서를 구현에 맞춰 갱신 (2026-08-27)
+- foundations.foundation_rules 히어로 그레이스케일 예외 — prompt-fact; evidence: omd:final-qa round 1 (.reviews/final-qa-round-1.md) FAIL [1] — hero.tsx:17-24의 오렌지/보라 앰비언트 블러 블롭이 흑백 전용 규칙과 충돌. 사용자 지시로 앰비언트 블롭 3색(흰색/오렌지/보라)을 그레이스케일 규칙의 명시적 예외로 승인, `#b8a4ff`를 앰비언트 전용 토큰으로 기록 (2026-08-27)

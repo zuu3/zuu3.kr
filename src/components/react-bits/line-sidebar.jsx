@@ -11,6 +11,7 @@ const FALLOFF_CURVES = {
 
 export const LineSidebar = ({
   items,
+  hrefs,
   accentColor = "#ff6f0f",
   textColor = "#a3a3a3",
   markerColor = "#d4d4d4",
@@ -144,22 +145,23 @@ export const LineSidebar = ({
               itemRefs.current[index] = el;
             }}
             className="line-sidebar__item"
-            aria-current={controlledActiveIndex === index ? "true" : undefined}
-            role="button"
-            tabIndex={0}
-            onClick={() => onItemClick?.(index, label)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                onItemClick?.(index, label);
-              }
-            }}
           >
-            {showMarker && <span className="line-sidebar__marker" aria-hidden="true" />}
-            <span className="line-sidebar__label">
-              {showIndex && <span className="line-sidebar__index">{String(index + 1).padStart(2, "0")}</span>}
-              <span className="line-sidebar__text">{label}</span>
-            </span>
+            <a
+              href={hrefs?.[index] ?? "#"}
+              className="line-sidebar__link"
+              aria-current={controlledActiveIndex === index ? "true" : undefined}
+              onClick={(event) => {
+                if (!onItemClick) return;
+                event.preventDefault();
+                onItemClick(index, label);
+              }}
+            >
+              {showMarker && <span className="line-sidebar__marker" aria-hidden="true" />}
+              <span className="line-sidebar__label">
+                {showIndex && <span className="line-sidebar__index">{String(index + 1).padStart(2, "0")}</span>}
+                <span className="line-sidebar__text">{label}</span>
+              </span>
+            </a>
           </li>
         ))}
       </ul>

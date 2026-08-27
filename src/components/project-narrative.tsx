@@ -1,7 +1,16 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
-import { Article, Badge as SeedBadge, Text } from "@seed-design/react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  Article,
+  Badge as SeedBadge,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+  SwitchRoot,
+  SwitchThumb,
+  Text,
+} from "@seed-design/react";
 import { ExternalLink } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,6 +21,10 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { Item, ItemContent, ItemGroup, ItemMedia } from "@/components/ui/item";
 import TiltedCard from "@/components/react-bits/tilted-card";
+import { CodeBlock, hasProjectDemo, ProjectDemo } from "@/components/project-narrative-demos";
+import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
+import { Highlighter } from "@/components/ui/highlighter";
+import { CodeComparison } from "@/components/ui/code-comparison";
 
 function splitSentences(text: string): string[] {
   return text.split(/(?<=\.)\s+/).filter(Boolean);
@@ -19,7 +32,13 @@ function splitSentences(text: string): string[] {
 
 // Renders `code`-quoted tokens as inline code, and weights the closing
 // sentence a touch heavier so a scan of the paragraph lands somewhere.
-function renderRichText(text: string): ReactNode {
+// markColor draws a hand-drawn marker highlight under that closing sentence
+// too (brand-colored for Result's outcome/metric line, neutral for
+// Solution's decision line) instead of plain bold. Always uses the
+// "highlight" action — "underline" doesn't handle wrapped multi-line text
+// reliably in rough-notation and overflows past the text.
+function renderRichText(text: string, options?: { markColor?: string }): ReactNode {
+  const { markColor } = options ?? {};
   const sentences = splitSentences(text);
   return sentences.map((sentence, i) => {
     const isLast = i === sentences.length - 1;
@@ -35,6 +54,15 @@ function renderRichText(text: string): ReactNode {
         part
       ),
     );
+    if (isLast && markColor) {
+      return (
+        <span key={i} className="font-semibold">
+          <Highlighter action="highlight" color={`${markColor}4d`} padding={3} multiline isView>
+            {parts}
+          </Highlighter>{" "}
+        </span>
+      );
+    }
     return (
       <span key={i} className={isLast ? "font-semibold" : undefined}>
         {parts}{" "}
@@ -51,9 +79,25 @@ function splitProjectName(name: string): { main: string; alias: string | null } 
   return { main: match[1], alias: match[2] };
 }
 
-// ponytail: the scroll-emphasis effect stays scoped to the intro hook
-// (2-3 sentences, pinned). Everything after — contributions/features/
-// troubleshooting — is plain readable flow, no dimming, no pin.
+// Code when the feature has a real snippet, the interactive demo when the
+// project has one mapped, and nothing (no filler image) when it has neither
+// — the title/description still show in the story, the panel just stays empty.
+function renderFeatureContent(feature: Project["features"][number], project: Project): ReactNode {
+  if (feature.codeExample) {
+    return (
+      <CodeBlock code={feature.codeExample} highlight={feature.codeHighlight} accentColor={project.brandColor} />
+    );
+  }
+  if (hasProjectDemo(project.slug)) {
+    return (
+      <div className="bg-white p-1">
+        <ProjectDemo slug={project.slug} accentColor={project.brandColor} />
+      </div>
+    );
+  }
+  return null;
+}
+
 export function ProjectNarrative({
   project,
   index,
@@ -66,6 +110,14 @@ export function ProjectNarrative({
   const hookRef = useRef<HTMLDivElement>(null);
   const sentences = splitSentences(project.description);
   const { main, alias } = splitProjectName(project.name);
+  const hasFeatureStory = project.features.some((f) => f.codeExample);
+  const storyFeatures = hasFeatureStory ? project.features : [];
+  // A step with neither code nor a mapped demo leaves the sticky panel
+  // empty — scrolling through those looks broken, so force the flat
+  // "show all" view for any project that has one instead of offering a
+  // toggle into the one-at-a-time story.
+  const hasStoryGaps = storyFeatures.some((f) => !f.codeExample && !hasProjectDemo(project.slug));
+  const [showAllCode, setShowAllCode] = useState(hasStoryGaps);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -87,6 +139,7 @@ export function ProjectNarrative({
           end: () => `+=${(lines.length + 1) * 480}`,
           scrub: 0.6,
           pin: true,
+          anticipatePin: 1,
           invalidateOnRefresh: true,
         },
       });
@@ -103,21 +156,21 @@ export function ProjectNarrative({
   return (
     <section id={`project-${project.slug}`} className="border-t border-neutral-200 first:border-t-0">
       <div ref={hookRef} className="flex min-h-[70vh] flex-col justify-center px-6 py-16 md:px-16 lg:pl-72 lg:pr-24">
-        <div className="mx-auto w-full max-w-3xl">
-          <div className="flex items-baseline gap-3 text-neutral-400">
+        <div className="mx-auto w-full max-w-4xl">
+          <div className="flex items-baseline gap-3 text-neutral-500">
             <span
               className="text-sm font-bold tabular-nums"
               style={{ color: project.brandColor }}
             >
               {String(index + 1).padStart(2, "0")}
-              <span className="text-neutral-300">/{String(total).padStart(2, "0")}</span>
+              <span className="text-neutral-500">/{String(total).padStart(2, "0")}</span>
             </span>
-            <span className="text-xs tracking-wide text-neutral-400 uppercase">{project.period}</span>
+            <span className="text-xs tracking-wide text-neutral-500 uppercase">{project.period}</span>
           </div>
           <h2 className="mt-3 text-5xl font-bold tracking-tight text-neutral-900 md:text-6xl">
             {main}
           </h2>
-          {alias && <p className="mt-1 text-base font-medium text-neutral-400">{alias}</p>}
+          {alias && <p className="mt-1 text-base font-medium text-neutral-500">{alias}</p>}
           <Article lang="ko-KR" className="mt-4 max-w-lg">
             <Text as="p" textStyle="t6Regular" color="fg.neutralMuted">
               {project.tagline}
@@ -129,7 +182,7 @@ export function ProjectNarrative({
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full px-3 py-1 text-xs font-bold"
+                  className="rounded-[var(--radius-control)] px-3 py-1 text-xs font-bold"
                   style={{ backgroundColor: `${project.brandColor}14`, color: project.brandColor }}
                 >
                   {tag}
@@ -160,20 +213,20 @@ export function ProjectNarrative({
           <div className="flex flex-col gap-5">
             <div className="flex flex-wrap gap-x-10 gap-y-4">
               <div>
-                <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">제작 기간</p>
+                <p className="text-xs font-bold tracking-wide text-neutral-500 uppercase">제작 기간</p>
                 <p className="mt-1 text-sm font-medium text-neutral-700">{project.period}</p>
               </div>
               <div>
-                <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">운영 기간</p>
+                <p className="text-xs font-bold tracking-wide text-neutral-500 uppercase">운영 기간</p>
                 <p className="mt-1 text-sm font-medium text-neutral-700">{project.operatingPeriod}</p>
               </div>
               <div>
-                <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">역할</p>
+                <p className="text-xs font-bold tracking-wide text-neutral-500 uppercase">역할</p>
                 <p className="mt-1 text-sm font-medium text-neutral-700">{project.role}</p>
               </div>
               {project.githubUrl && (
                 <div>
-                  <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">깃허브</p>
+                  <p className="text-xs font-bold tracking-wide text-neutral-500 uppercase">깃허브</p>
                   <a
                     href={project.githubUrl}
                     target="_blank"
@@ -187,7 +240,7 @@ export function ProjectNarrative({
               )}
               {project.liveUrl && (
                 <div>
-                  <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">서비스</p>
+                  <p className="text-xs font-bold tracking-wide text-neutral-500 uppercase">서비스</p>
                   <a
                     href={project.liveUrl}
                     target="_blank"
@@ -219,7 +272,7 @@ export function ProjectNarrative({
 
             {project.contributions.length > 0 && (
               <div>
-                <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">기여</p>
+                <p className="text-xs font-bold tracking-wide text-neutral-500 uppercase">기여</p>
                 <ItemGroup className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {project.contributions.map((item, i) => (
                     <Item key={item} className="bg-[#f3f4f5] px-3.5 py-3">
@@ -258,25 +311,73 @@ export function ProjectNarrative({
       </div>
 
       <div className="px-6 pb-24 md:px-16 lg:pl-72 lg:pr-24">
-        <div className="mx-auto w-full max-w-3xl space-y-14">
+        <div className="mx-auto w-full max-w-4xl space-y-14">
 
           {project.features.length > 0 && (
             <div>
               <h3 className="text-xl font-bold tracking-tight text-neutral-900">Features & Contribution</h3>
-              <div className="mt-2 divide-y divide-neutral-200">
-                {project.features.map((feature) => (
-                  <div key={feature.title} className="py-8 first:pt-6">
-                    <p className="max-w-xl text-xl font-bold tracking-tight text-neutral-900 md:text-2xl">
-                      {feature.title}
-                    </p>
-                    <Article lang="ko-KR" maxWidth="36rem" className="mt-2">
-                      <Text as="p" textStyle="t5Regular" color="fg.neutral" className="leading-relaxed">
-                        {feature.description}
-                      </Text>
-                    </Article>
-                  </div>
-                ))}
-              </div>
+
+              {storyFeatures.length > 0 ? (
+                <div className="mt-4">
+                  {storyFeatures.length > 1 && !hasStoryGaps && (
+                    <SwitchRoot
+                      checked={showAllCode}
+                      onCheckedChange={setShowAllCode}
+                      className="mb-4 flex items-center gap-2"
+                    >
+                      <SwitchControl>
+                        <SwitchThumb />
+                      </SwitchControl>
+                      <SwitchHiddenInput />
+                      <SwitchLabel className="text-xs font-bold tracking-wide text-neutral-500 uppercase">
+                        전체보기
+                      </SwitchLabel>
+                    </SwitchRoot>
+                  )}
+
+                  {showAllCode ? (
+                    <div className="space-y-10">
+                      {storyFeatures.map((feature) => (
+                        <div key={feature.title}>
+                          <p className="text-xl font-bold tracking-tight text-neutral-900 md:text-2xl">
+                            {feature.title}
+                          </p>
+                          <Article lang="ko-KR" className="mt-2">
+                            <Text as="p" textStyle="t5Regular" color="fg.neutral" className="leading-relaxed">
+                              {feature.description}
+                            </Text>
+                          </Article>
+                          <div className="mt-4">{renderFeatureContent(feature, project)}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <StickyScroll
+                      accentColor={project.brandColor}
+                      content={storyFeatures.map((feature) => ({
+                        title: feature.title,
+                        description: feature.description,
+                        content: renderFeatureContent(feature, project),
+                      }))}
+                    />
+                  )}
+                </div>
+              ) : (
+                <div className="mt-2 divide-y divide-neutral-200">
+                  {project.features.map((feature) => (
+                    <div key={feature.title} className="py-8 first:pt-6">
+                      <p className="max-w-xl text-xl font-bold tracking-tight text-neutral-900 md:text-2xl">
+                        {feature.title}
+                      </p>
+                      <Article lang="ko-KR" maxWidth="36rem" className="mt-2">
+                        <Text as="p" textStyle="t5Regular" color="fg.neutral" className="leading-relaxed">
+                          {feature.description}
+                        </Text>
+                      </Article>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
@@ -311,7 +412,9 @@ export function ProjectNarrative({
                             </SeedBadge>
                             <Article lang="ko-KR" className="mt-1.5">
                               <Text as="p" textStyle="t5Regular" color="fg.neutral" className="leading-relaxed">
-                                {renderRichText(stage.text)}
+                                {renderRichText(stage.text, {
+                                  markColor: stage.label === "Result" ? project.brandColor : undefined,
+                                })}
                               </Text>
                             </Article>
                           </div>
@@ -319,23 +422,15 @@ export function ProjectNarrative({
                       </div>
                     </div>
 
-                    {(entry.codeBefore || entry.codeAfter) && (
-                      <pre className="relative mt-5 max-w-xl overflow-x-auto rounded-[var(--radius-control)] bg-neutral-900 py-3 text-xs leading-relaxed">
-                        <code>
-                          {entry.codeBefore?.code.split("\n").map((line, i) => (
-                            <div key={`b-${i}`} className="bg-red-500/15 px-4 text-red-300">
-                              <span className="mr-2 select-none text-red-400/60">-</span>
-                              {line}
-                            </div>
-                          ))}
-                          {entry.codeAfter?.code.split("\n").map((line, i) => (
-                            <div key={`a-${i}`} className="bg-emerald-500/15 px-4 text-emerald-300">
-                              <span className="mr-2 select-none text-emerald-400/60">+</span>
-                              {line}
-                            </div>
-                          ))}
-                        </code>
-                      </pre>
+                    {entry.codeBefore && entry.codeAfter && (
+                      <div className="relative mt-5">
+                        <CodeComparison
+                          beforeCode={entry.codeBefore.code}
+                          afterCode={entry.codeAfter.code}
+                          language={entry.codeAfter.lang}
+                          filename={entry.codeFilename ?? `${entry.codeAfter.lang}.ts`}
+                        />
+                      </div>
                     )}
                   </div>
                 ))}

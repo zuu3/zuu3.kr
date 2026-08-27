@@ -36,14 +36,24 @@ export function SmoothScroll() {
     // Lenis caches the scrollable height on init, and ScrollTrigger caches
     // each trigger's pixel start/end, both computed before late layout
     // shifts (web fonts swapping in, images loading) settle the real page
-    // height. Re-measure both whenever the document's height changes.
+    // height. Re-measure both whenever the document's height changes —
+    // debounced, because calling ScrollTrigger.refresh() while a pin:true
+    // trigger is actively pinned (e.g. mid reverse-scroll through one of the
+    // per-project narrative sections) recalculates its pin boundaries against
+    // the current scroll position and desyncs the pin spacer, which is what
+    // caused scrolling upward through those sections to stutter/stick.
+    let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
     const resizeObserver = new ResizeObserver(() => {
-      lenis.resize();
-      ScrollTrigger.refresh();
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+      }, 200);
     });
     resizeObserver.observe(document.body);
 
     return () => {
+      clearTimeout(resizeTimeout);
       resizeObserver.disconnect();
       gsap.ticker.remove(tick);
       lenis.destroy();

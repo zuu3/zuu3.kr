@@ -60,7 +60,7 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
                 className="object-cover"
               />
             </div>
-            <p className="mt-8 text-xs font-bold tracking-wide text-neutral-400 uppercase">About</p>
+            <p className="mt-8 text-xs font-bold tracking-wide text-neutral-500 uppercase">About</p>
             <h2 className="mt-1 text-2xl leading-snug font-bold text-neutral-900 md:text-[1.75rem]">
               {profile.tagline}
             </h2>
@@ -84,8 +84,8 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
                   key={`${entry.year}-${entry.category}-${i}`}
                   className="about-row flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:gap-4"
                 >
-                  <span className="w-12 shrink-0 text-sm font-bold text-neutral-400">{entry.year}</span>
-                  <span className="w-24 shrink-0 text-xs font-bold tracking-wide text-neutral-400 uppercase">
+                  <span className="w-12 shrink-0 text-sm font-bold text-neutral-500">{entry.year}</span>
+                  <span className="w-24 shrink-0 text-xs font-bold tracking-wide text-neutral-500 uppercase">
                     {entry.category}
                   </span>
                   <span

@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 
 export interface LineSidebarProps {
   items: string[];
+  hrefs?: string[];
   accentColor?: string;
   textColor?: string;
   markerColor?: string;

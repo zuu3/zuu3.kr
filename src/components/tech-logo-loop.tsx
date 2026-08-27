@@ -15,7 +15,7 @@ const TECH_ICONS = [
 
 export function TechLogoLoop() {
   return (
-    <div className="border-t border-neutral-200 py-10 text-neutral-400 [&_svg]:h-full [&_svg]:w-full">
+    <div className="border-t border-neutral-200 py-10 text-neutral-500 [&_svg]:h-full [&_svg]:w-full">
       <LogoLoop
         logos={TECH_ICONS}
         speed={40}

@@ -6,6 +6,7 @@ export type TroubleshootingEntry = {
   result: string;
   codeBefore?: { lang: string; code: string };
   codeAfter?: { lang: string; code: string };
+  codeFilename?: string;
 };
 
 export type Project = {
@@ -19,7 +20,7 @@ export type Project = {
   techStack: string[];
   role: string;
   contributions: string[];
-  features: { title: string; description: string }[];
+  features: { title: string; description: string; codeExample?: string; codeHighlight?: string }[];
   troubleshooting: TroubleshootingEntry[];
   brandColor: string;
   tags: string[];
@@ -78,7 +79,7 @@ export const projects: Project[] = [
       "기존 구글 시트 기반의 자습 관리를 대체하여, 선생님께서 자습 일정·이석 현황을 한눈에 파악할 수 있는 웹 서비스입니다. 감독 교체 요청, 이탈 현황 확인, 이석 신청까지 하나의 플랫폼에서 처리할 수 있습니다.",
     period: "2024.12. ~ 2025.03.",
     operatingPeriod: "2025.03 ~",
-    image: "/projects/teachmon.png",
+    image: "/projects/teachmon.webp",
     githubUrl: "https://github.com/Team-Teachmon/Teachmon-Client-V2",
     liveUrl: "https://teachmon.kro.kr",
     techStack: ["TypeScript", "React", "TanStack Query", "Zustand"],
@@ -100,16 +101,45 @@ export const projects: Project[] = [
         title: "방과후 및 보강 처리",
         description:
           "방과후 일정 관리와 출장 및 보강 처리를 지원하는 기능입니다. 복수 교시 보강을 한 번에 처리할 때 Promise.all을 활용해 여러 요청을 병렬로 처리하고, 성공 시 invalidateQueries로 목록을 갱신했습니다.",
+        codeExample: `await Promise.all(
+  data.periods.map((period) =>
+    requestReinforcement({
+      day,
+      afterschool_id: afterSchoolId,
+      change_period: periodMap[period],
+      change_place_id: placeId,
+    })
+  )
+);`,
+        codeHighlight: "Promise.all",
       },
       {
         title: "자습 일정 설정",
         description:
           "분기별 자습 일정을 학년 단위로 설정하는 기능입니다. 학년마다 자습 일정이 달라 이 부분을 한 화면에서 미리 설정해두어 불편함을 줄일 수 있도록 구성했으며, 설정 저장 시 useMutation으로 요청을 처리했습니다.",
+        codeExample: `return useMutation({
+  mutationFn: createAdditionalSelfStudy,
+  onSuccess: () => {
+    queryClient.invalidateQueries({
+      queryKey: ['selfStudy.additional', year],
+    });
+  },
+});`,
+        codeHighlight: "useMutation",
       },
       {
         title: "운영 현황 대시보드",
         description:
           "감독 횟수, 교체 요청, 이탈 현황을 한눈에 확인하는 기능입니다. 요청 처리 이후 invalidateQueries로 관련 쿼리를 갱신해 항상 최신 상태를 유지하도록 구성했습니다.",
+        codeExample: `acceptExchange(selectedExchange.id, {
+  onSuccess: () => {
+    queryClient.invalidateQueries({
+      queryKey: homeQueryKeys.exchangeRequests(),
+    });
+    handleCloseModal();
+  },
+});`,
+        codeHighlight: "invalidateQueries",
       },
     ],
     troubleshooting: [
@@ -149,6 +179,7 @@ export const projects: Project[] = [
   }
 })`,
         },
+        codeFilename: "services/schedule/schedule.mutation.ts",
       },
     ],
     brandColor: "#2563EB",
@@ -162,7 +193,7 @@ export const projects: Project[] = [
       "외국인 유학생의 한국 정착을 지원하는 플랫폼입니다. 하숙집 연결부터 생활 관리, 지역 모임까지 하나의 서비스에서 제공하여 낯선 환경에서의 적응을 돕습니다.",
     period: "2025.04. ~ 2025.11.",
     operatingPeriod: "2025.10. ~ 2025.11.",
-    image: "/projects/nuri.png",
+    image: "/projects/nuri.webp",
     githubUrl: "https://github.com/Team-Solvit/Nuri-Client",
     techStack: ["TypeScript", "Next.js", "GraphQL", "Zustand"],
     role: "Frontend Engineer",
@@ -177,21 +208,65 @@ export const projects: Project[] = [
         title: "로그인 및 회원가입",
         description:
           "OAuth 기반 로그인 및 멀티스텝 회원가입 기능을 구현했습니다. JWT 인증 방식을 적용하고, token 만료 2분 전부터 재발급 대상으로 판단해 요청 시 선제적으로 토큰을 갱신하도록 처리했습니다.",
+        codeExample: `export function isTokenExpired(token: string | null): boolean {
+  if (!token) return true;
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const exp = payload.exp;
+  if (!exp) return true;
+
+  const expirationTime = exp * 1000;
+  const bufferTime = 2 * 60 * 1000;
+  return Date.now() >= expirationTime - bufferTime;
+}`,
+        codeHighlight: "bufferTime",
       },
       {
         title: "홈 화면 상세 조회 구조",
         description:
           "홈 화면에서 선택한 항목의 상세 정보를 조회하는 기능을 구현했습니다. Next.js의 Parallel Routes와 Intercepting Routes를 활용해 목록 페이지 위에서 상세 내용을 확인할 수 있도록 구성했으며, 직접 URL로 접근하는 경우에는 전체 페이지로 렌더링되도록 처리했습니다.",
+        codeExample: `// 목록 접근 → 모달
+// app/(home)/@modal/(.)detail/[id]/page.tsx
+export default function DetailModal({ params }) {
+  return <Modal><DetailContent id={params.id} /></Modal>;
+}
+
+// 직접 접근 → 페이지
+// app/detail/[id]/page.tsx
+export default function DetailPage({ params }) {
+  return <DetailContent id={params.id} />;
+}`,
+        codeHighlight: "@modal",
       },
       {
         title: "제3자 하숙 관리",
         description:
           "캘린더에서 날짜를 선택하면 당일 업무를 조회하는 기능을 구현했습니다. Apollo Client를 활용해 데이터를 조회하고, 업무 완료 시 낙관적 업데이트를 적용해 UI에 즉시 반영되도록 처리했습니다. 요청 실패 시에는 이전 상태로 롤백해 상태 일관성을 유지했습니다.",
+        codeExample: `const prevChecked = target.checked;
+setTodos(prev => prev.map(t => t.id === id ? { ...t, checked: !prevChecked } : t));
+
+try {
+  await BoardingService.completeWork(client, target.manageWorkId);
+} catch {
+  setTodos(prev => prev.map(t => t.id === id ? { ...t, checked: prevChecked } : t));
+}`,
+        codeHighlight: "prevChecked",
       },
       {
         title: "제3자 모임 관리",
         description:
           "모임 일정과 멤버를 관리하는 기능을 구현했습니다. Promise.all을 활용해 일정과 멤버 데이터를 병렬로 조회하고, 참가 수락/거절/추방 시 낙관적 업데이트로 UI에 즉시 반영되도록 구성했습니다. 요청 실패 시에는 전체 데이터를 재조회해 상태를 복구했습니다.",
+        codeExample: `const [upcoming, all] = await Promise.all([
+  GroupService.getUpcomingSchedules(client, groupId),
+  GroupService.getAllSchedules(client, groupId),
+]);
+setUpcomingSchedules(upcoming || []);
+
+const now = new Date();
+const past = (all || []).filter(
+  (schedule) => new Date(schedule.scheduledAt) < now
+);
+setPastSchedules(past);`,
+        codeHighlight: "Promise.all",
       },
     ],
     troubleshooting: [
@@ -229,6 +304,7 @@ export default function DetailPage({ params }) {
   return <DetailContent id={params.id} />;
 }`,
         },
+        codeFilename: "app/detail/[id]/page.tsx",
       },
       {
         title: "JWT 재발급 과정에서 동시 요청 제어 문제 해결",
@@ -265,6 +341,7 @@ export async function withRefreshLock(refreshFn: () => Promise<string | null>) {
   return refreshLock;
 }`,
         },
+        codeFilename: "lib/apolloClient.ts",
       },
     ],
     brandColor: "#EC4899",
@@ -278,7 +355,7 @@ export async function withRefreshLock(refreshFn: () => Promise<string | null>) {
       "AWS 등 클라우드 서비스를 처음 접하는 학생·선생님이 비용 걱정 없이 배포를 경험할 수 있도록, 교내 유휴 서버 자원을 활용한 관리형 클라우드 플랫폼입니다. 잘 모르고 사용하다가 요금이 발생하는 일 없이, 안전한 환경에서 배포를 연습할 수 있습니다.",
     period: "2025.12. ~ 2026.04",
     operatingPeriod: "2026.04 ~ 현재",
-    image: "/projects/m-adp.png",
+    image: "/projects/m-adp.webp",
     githubUrl: "https://github.com/M-ADP/M-ADP-CLIENT",
     liveUrl: "https://madp.cloud",
     techStack: ["TypeScript", "Next.js", "TanStack Query", "Zustand"],
@@ -295,21 +372,58 @@ export async function withRefreshLock(refreshFn: () => Promise<string | null>) {
         title: "프로젝트 상세 조회",
         description:
           "애플리케이션 목록, CPU·Memory·Disk 자원 사용량, 멤버 정보를 관리하는 대시보드입니다. OWNER/VIEWER 역할에 따라 수정 권한을 분기 처리했습니다.",
+        codeExample: `{project.my_role === 'OWNER' && (
+  <Button variant="confirm" onClick={handleInviteOpen}>
+    사용자 초대
+  </Button>
+)}`,
+        codeHighlight: "OWNER",
       },
       {
         title: "애플리케이션 생성",
         description:
           "프로젝트 내 애플리케이션을 생성하는 화면입니다. 앱 이름 입력 시 한글·대문자를 실시간으로 제거해 백엔드 네이밍 규칙을 입력 단계에서 강제했습니다.",
+        codeExample: `if (name === 'appName') {
+  const sanitizedName = value
+    .toLowerCase()
+    .replace(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g, '');
+  setFormData((prev) => ({ ...prev, [name]: sanitizedName }));
+  return;
+}`,
+        codeHighlight: "replace",
       },
       {
         title: "ChatOps",
         description:
           "채팅으로 배포 환경을 제어하는 LLM 기반 인터페이스입니다. native EventSource는 Authorization 헤더를 지원하지 않아 fetch + ReadableStream으로 직접 SSE를 구현했습니다. 연결 실패 시 exponential backoff로 재연결하고, Last-Event-ID로 누락 이벤트를 복구했습니다.",
+        codeExample: `const headers: Record<string, string> = { Accept: 'text/event-stream' };
+if (token) headers['Authorization'] = \`Bearer \${token}\`;
+if (lastSequenceRef.current) {
+  headers['Last-Event-ID'] = lastSequenceRef.current;
+}
+
+const response = await fetch(url, { headers, signal: abortController.signal });
+if (!response.body) return;
+
+const delay = INITIAL_BACKOFF_MS * Math.pow(2, retryCountRef.current);
+await new Promise((resolve) => setTimeout(resolve, delay));`,
+        codeHighlight: "Authorization",
       },
       {
         title: "로그인",
         description:
           "Google OAuth와 GitHub OAuth를 순차적으로 연동하는 로그인 흐름을 구현했습니다. OAuth 인증 후 발급받은 code를 백엔드에 전달하고, 응답으로 받은 토큰을 쿠키에 저장했습니다. 응답의 is_authenticated 값으로 GitHub 연동 여부를 판단해, 이미 Google 로그인이 완료된 사용자는 GitHub 단계를 건너뛰도록 분기 처리했습니다.",
+        codeExample: `const response = await authCodeMutation.mutateAsync({ code });
+Cookies.set('token', response.access_token, { path: '/' });
+
+const isAuthenticated = response.is_authenticated === 'true';
+if (!isAuthenticated) {
+  setStep('github');
+  router.replace(\`/login?next=\${encodeURIComponent(nextPath)}\`);
+} else {
+  router.replace(nextPath);
+}`,
+        codeHighlight: "is_authenticated",
       },
     ],
     troubleshooting: [
@@ -347,6 +461,7 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }`,
         },
+        codeFilename: "middleware.ts",
       },
       {
         title: "Authorization 헤더 미지원으로 인한 SSE 직접 구현",
@@ -374,6 +489,7 @@ export function middleware(request: NextRequest) {
 });
 const reader = res.body!.getReader();`,
         },
+        codeFilename: "hooks/chatops/useStream.ts",
       },
     ],
     brandColor: "#3B82F6",
@@ -387,7 +503,7 @@ const reader = res.body!.getReader();`,
       "교회 소개, 예배 안내, 주보·월간 일정을 제공하는 웹사이트입니다. 담당자가 개발자 없이도 매주 콘텐츠를 직접 갱신할 수 있도록, 기획부터 백엔드 설계, 배포까지 진행했습니다.",
     period: "2026.01. ~ 2026.05.",
     operatingPeriod: "2026.05 ~ 현재",
-    image: "/projects/church.png",
+    image: "/projects/church.webp",
     githubUrl: "https://github.com/zuu3/fgbc-fe",
     liveUrl: "https://fgbc.church",
     techStack: ["TypeScript", "Next.js", "TanStack Query", "MySQL", "Docker", "Zustand"],
@@ -404,11 +520,34 @@ const reader = res.body!.getReader();`,
         title: "교회 소개·안내 페이지",
         description:
           "교회 소개, 예배 안내, 오시는 길 등 방문자가 접하는 전체 페이지를 구현했습니다. Next.js 기반으로 페이지 구조를 설계하고 라우팅을 구성했습니다.",
+        codeExample: `export const metadata: Metadata = {
+  title: {
+    default: "순복음범천교회",
+    template: "%s | 순복음범천교회",
+  },
+  description: "부산 부산진구에 위치한 순복음범천교회입니다...",
+  metadataBase: new URL('https://fgbc.church'),
+};`,
+        codeHighlight: "template",
       },
       {
         title: "주보·월간 일정 어드민 페이지",
         description:
           "담당자가 개발자 없이도 매주 주보와 월간 일정을 직접 등록·수정할 수 있는 어드민 페이지를 구현했습니다. FastAPI 기반 API로 CRUD 요청을 처리하고, 등록 즉시 실제 서비스 화면에 반영되도록 했습니다.",
+        codeExample: `export async function POST(request: Request) {
+  const token = await getAdminToken();
+  if (!token) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+
+  const body = await request.json();
+  const res = await fetch(\`\${API_URL}/bulletins/\`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: \`Bearer \${token}\` },
+    body: JSON.stringify(body),
+  });
+  const bulletin = await res.json();
+  return NextResponse.json({ bulletin }, { status: 201 });
+}`,
+        codeHighlight: "Authorization",
       },
       {
         title: "백엔드 API 및 데이터베이스 설계",

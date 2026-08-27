@@ -1,0 +1,27 @@
+---
+description: Authoritative brand & UI design system. Read DESIGN.md before UI work.
+globs:
+  - "**/*.tsx"
+  - "**/*.jsx"
+  - "**/*.vue"
+  - "**/*.svelte"
+  - "**/*.css"
+  - "**/*.scss"
+  - "**/tailwind.config.*"
+  - "**/components/**"
+  - "**/app/**/page.*"
+alwaysApply: true
+---
+
+<!-- omd:start v=1 hash=5e13ca0b478c -->
+<!-- omd:cursor-channel=skills -->
+Read the standalone design contract at `@DESIGN.md` before generating/modifying UI. With an exact valid adopted `profile: portable-core` manifest, its hash-bound System Graph is machine authority and DESIGN.md is the projection. A migration candidate is non-authoritative.
+
+Pending preference corrections: `@.omd/preferences.md`.
+
+Precedence: pending explicit preference corrections > adopted Bound System graph/standalone DESIGN.md > framework defaults. Fold pending corrections into the graph and regenerate DESIGN.md before clearing them.
+
+OmD Agent Skills live under `.cursor/skills/`. Use the smallest relevant `omd-*` skill automatically, or invoke it from Cursor with `/omd-<name>`.
+
+Unknown fields stay absent. Never substitute a system font, generic component, guessed token, or adjacent surface as a product fact.
+<!-- omd:end -->

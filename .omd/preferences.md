@@ -604,3 +604,48 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/pro
 ```
 
 Introduced off-scale border radius rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx — not in DESIGN.md radius scale
+
+## 2026-08-27T05:15:13.823Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtb2jwnz_46a96318
+timestamp: 2026-08-27T05:15:13.823Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative-demos.tsx"
+```
+
+Introduced off-scale border radius rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative-demos.tsx — not in DESIGN.md radius scale
+
+## 2026-08-27T06:42:55.601Z — introduced-off-palette-color-s-ffd1dc-in
+
+```omd-meta
+id: pref_mtb5oooh_31e1010f
+timestamp: 2026-08-27T06:42:55.601Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/ui/highlighter.tsx"
+```
+
+Introduced off-palette color(s) #ffd1dc in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/ui/highlighter.tsx — not in DESIGN.md
+
+## 2026-08-27T06:43:48.481Z — introduced-off-palette-color-s-000000-in
+
+```omd-meta
+id: pref_mtb5pthd_b3332a43
+timestamp: 2026-08-27T06:43:48.481Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
+```
+
+Introduced off-palette color(s) #000000 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx — not in DESIGN.md

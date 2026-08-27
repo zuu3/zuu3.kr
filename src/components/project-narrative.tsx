@@ -276,7 +276,7 @@ export function ProjectNarrative({
                     <p className="relative max-w-xl text-xl font-bold tracking-tight text-neutral-900 md:text-2xl">
                       {feature.title}
                     </p>
-                    <Article lang="ko-KR" className="relative mt-2 max-w-xl">
+                    <Article lang="ko-KR" maxWidth="36rem" className="relative mt-2">
                       <Text as="p" textStyle="t5Regular" color="fg.neutral" className="leading-relaxed">
                         {feature.description}
                       </Text>

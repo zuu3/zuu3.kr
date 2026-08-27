@@ -174,7 +174,7 @@ export function ProjectNarrative({
                     href={project.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-1 flex w-fit items-center gap-1.5 text-sm font-medium text-neutral-700 transition-colors hover:text-[#c24e00]"
+                    className="mt-1 flex w-fit items-center gap-1.5 text-sm font-medium text-neutral-700 transition-colors hover:text-[#ff6f0f]"
                   >
                     <SiGithub className="h-4 w-4" />
                     바로가기
@@ -188,7 +188,7 @@ export function ProjectNarrative({
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-1 flex w-fit items-center gap-1.5 text-sm font-medium text-neutral-700 transition-colors hover:text-[#c24e00]"
+                    className="mt-1 flex w-fit items-center gap-1.5 text-sm font-medium text-neutral-700 transition-colors hover:text-[#ff6f0f]"
                   >
                     <ExternalLink className="h-4 w-4" strokeWidth={1.75} />
                     바로가기

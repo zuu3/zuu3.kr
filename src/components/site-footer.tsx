@@ -43,7 +43,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
       <div className="mx-auto mt-4 flex max-w-3xl flex-wrap items-center gap-1 text-sm text-neutral-500">
           <Button
             variant="ghost"
-            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#c24e00]"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#ff6f0f]"
             nativeButton={false}
             render={<a href={`mailto:${profile.email}`} />}
           >
@@ -54,7 +54,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
             variant="ghost"
             size="icon-sm"
             aria-label="이메일 주소 복사"
-            className="text-neutral-400 hover:bg-transparent hover:text-[#c24e00]"
+            className="text-neutral-400 hover:bg-transparent hover:text-[#ff6f0f]"
             onClick={async () => {
               try {
                 await navigator.clipboard.writeText(profile.email);
@@ -68,7 +68,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
           </Button>
           <Button
             variant="ghost"
-            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#c24e00]"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#ff6f0f]"
             nativeButton={false}
             render={<a href="https://github.com/zuu3" target="_blank" rel="noreferrer" />}
           >

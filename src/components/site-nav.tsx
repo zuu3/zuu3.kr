@@ -61,7 +61,7 @@ export function SiteNav({ projects }: { profile: typeof ProfileType; projects: P
           items={labels}
           activeIndex={activeIndex}
           onItemClick={handleItemClick}
-          accentColor="#c24e00"
+          accentColor="#ff6f0f"
         />
       </div>
     </div>

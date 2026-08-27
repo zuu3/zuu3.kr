@@ -42,6 +42,12 @@ export default function RootLayout({
   return (
     <html lang="ko" className={pretendard.variable}>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-4 focus-visible:left-4 focus-visible:z-[100] focus-visible:rounded-[var(--radius-control)] focus-visible:bg-[#ff6f0f] focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:font-bold focus-visible:text-white focus-visible:outline-none"
+        >
+          본문으로 바로가기
+        </a>
         <SmoothScroll />
         {children}
         <Toaster position="bottom-center" />

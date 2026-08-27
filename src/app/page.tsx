@@ -26,7 +26,7 @@ const personJsonLd = {
 
 export default function Home() {
   return (
-    <main>
+    <main id="main-content" tabIndex={-1} className="outline-none">
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger

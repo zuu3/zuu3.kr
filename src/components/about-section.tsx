@@ -68,7 +68,6 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
               <p>{profile.birthdate}</p>
               <p>{profile.school}</p>
               <p>{profile.email}</p>
-              <p>{profile.phone}</p>
             </div>
           </div>
 

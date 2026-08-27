@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, Mail, Phone } from "lucide-react";
+import { Copy, Mail } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import type { profile as ProfileType } from "@/lib/content";
@@ -54,10 +54,6 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
             <GithubIcon className="h-4 w-4" />
             github.com/zuu3
           </Button>
-          <span className="flex items-center gap-1.5 px-2 py-1">
-            <Phone className="h-4 w-4" strokeWidth={1.75} />
-            {profile.phone}
-          </span>
         </div>
       </div>
       <p className="mx-auto mt-6 max-w-3xl text-xs text-neutral-400">

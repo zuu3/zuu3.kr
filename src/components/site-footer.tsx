@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, Mail } from "lucide-react";
+import { Copy, Download, Mail } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import type { profile as ProfileType } from "@/lib/content";
@@ -17,9 +17,30 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
   return (
     <footer className="border-t border-neutral-200 px-6 py-10 md:px-16 lg:pl-72 lg:pr-24">
-      <div className="mx-auto flex max-w-3xl flex-col gap-4 text-sm sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 text-sm">
         <p className="font-semibold text-neutral-900">{profile.name}</p>
-        <div className="flex flex-wrap items-center gap-1 text-neutral-500">
+        <div className="flex flex-wrap items-center gap-2">
+          <Button
+            variant="outline"
+            className="h-auto gap-1.5 rounded-full border-[#0cefd3] px-3.5 py-1.5 text-xs font-semibold text-neutral-900 hover:bg-[#0cefd3]/10"
+            nativeButton={false}
+            render={<a href="/docs/resume.pdf" target="_blank" rel="noreferrer" download />}
+          >
+            <Download className="h-3.5 w-3.5" strokeWidth={1.75} />
+            이력서 PDF
+          </Button>
+          <Button
+            variant="outline"
+            className="h-auto gap-1.5 rounded-full border-[#0cefd3] px-3.5 py-1.5 text-xs font-semibold text-neutral-900 hover:bg-[#0cefd3]/10"
+            nativeButton={false}
+            render={<a href="/docs/portfolio.pdf" target="_blank" rel="noreferrer" download />}
+          >
+            <Download className="h-3.5 w-3.5" strokeWidth={1.75} />
+            포트폴리오 PDF
+          </Button>
+        </div>
+      </div>
+      <div className="mx-auto mt-4 flex max-w-3xl flex-wrap items-center gap-1 text-sm text-neutral-500">
           <Button
             variant="ghost"
             className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#2c8177]"
@@ -54,7 +75,6 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
             <GithubIcon className="h-4 w-4" />
             github.com/zuu3
           </Button>
-        </div>
       </div>
       <p className="mx-auto mt-6 max-w-3xl text-xs text-neutral-400">
         © {new Date().getFullYear()} {profile.name}. All rights reserved.

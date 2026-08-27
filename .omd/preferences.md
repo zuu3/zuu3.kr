@@ -679,3 +679,33 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/pro
 ```
 
 Introduced off-palette color(s) #ec4899 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx — not in DESIGN.md
+
+## 2026-08-27T14:23:42.951Z — introduced-off-palette-color-s-fff8f3-in
+
+```omd-meta
+id: pref_mtbm59if_00cb3344
+timestamp: 2026-08-27T14:23:42.951Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/page.tsx"
+```
+
+Introduced off-palette color(s) #fff8f3 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/page.tsx — not in DESIGN.md
+
+## 2026-08-27T14:26:22.526Z — introduced-off-palette-color-s-fff8f3-in
+
+```omd-meta
+id: pref_mtbm8on2_d7801344
+timestamp: 2026-08-27T14:26:22.526Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx"
+```
+
+Introduced off-palette color(s) #fff8f3 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx — not in DESIGN.md

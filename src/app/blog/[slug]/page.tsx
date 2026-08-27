@@ -1,7 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ActionButton, Article, Badge as SeedBadge, Divider, Text } from "@seed-design/react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { blogPosts } from "@/lib/content";
+import { formatBlogDate, readingTime } from "@/lib/blog";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -18,40 +21,85 @@ export async function generateMetadata({
   return { title: `${post.title} | 오주현`, description: post.excerpt };
 }
 
-function formatDate(iso: string) {
-  const d = new Date(iso);
-  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
-}
-
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const sorted = [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : -1));
+  const index = sorted.findIndex((p) => p.slug === slug);
+  const post = sorted[index];
   if (!post) notFound();
+
+  const prev = sorted[index - 1]; // 더 최근 글 (위쪽)
+  const next = sorted[index + 1]; // 더 이전 글 (아래쪽)
 
   return (
     <main className="px-6 py-24 md:px-16 lg:px-24">
       <article className="mx-auto w-full max-w-2xl">
-        <Link href="/blog" className="text-sm font-medium text-neutral-500 hover:text-[#ff6f0f]">
-          ← Blog
-        </Link>
+        <ActionButton variant="ghost" size="xsmall" asChild>
+          <Link href="/blog">
+            <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.75} />
+            Blog
+          </Link>
+        </ActionButton>
 
-        <div className="mt-4 flex items-baseline gap-3 text-xs font-bold tracking-wide text-neutral-500 uppercase">
-          <span className="tabular-nums">{formatDate(post.date)}</span>
-          <span className="flex gap-2 normal-case tracking-normal">
-            {post.tags.map((tag) => (
-              <span key={tag}>#{tag}</span>
-            ))}
+        <div className="mt-5 flex flex-wrap items-center gap-2">
+          <span className="text-xs font-bold tracking-wide text-neutral-500 tabular-nums uppercase">
+            {formatBlogDate(post.date)}
           </span>
-        </div>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 md:text-4xl">{post.title}</h1>
-
-        <div className="mt-8 space-y-5">
-          {post.content.map((paragraph, i) => (
-            <p key={i} className="text-base leading-relaxed text-neutral-700">
-              {paragraph}
-            </p>
+          <span className="text-xs font-bold text-neutral-300">·</span>
+          <span className="text-xs font-bold tracking-wide text-neutral-500 uppercase">
+            {readingTime(post.content)}분 읽기
+          </span>
+          {post.tags.map((tag) => (
+            <SeedBadge key={tag} tone="brand" variant="weak" size="medium">
+              {tag}
+            </SeedBadge>
           ))}
         </div>
+        <h1 className="mt-3 text-3xl font-bold tracking-tight text-neutral-900 md:text-4xl">{post.title}</h1>
+
+        <Divider className="mt-6" />
+
+        <div className="mt-8 flex flex-col gap-5">
+          {post.content.map((paragraph, i) => (
+            <Article key={i} lang="ko-KR">
+              <Text as="p" textStyle="t5Regular" color="fg.neutral" className="leading-relaxed">
+                {paragraph}
+              </Text>
+            </Article>
+          ))}
+        </div>
+
+        {(prev || next) && (
+          <>
+            <Divider className="mt-14" />
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {prev && (
+                <Link
+                  href={`/blog/${prev.slug}`}
+                  className="group rounded-[var(--radius-card)] border border-neutral-200 px-4 py-3 hover:border-[#ff6f0f]/40 hover:bg-[#fff8f3] sm:text-right"
+                >
+                  <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">다음 글</p>
+                  <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-neutral-900 group-hover:text-[#ff6f0f] sm:justify-end">
+                    {prev.title}
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} />
+                  </p>
+                </Link>
+              )}
+              {next && (
+                <Link
+                  href={`/blog/${next.slug}`}
+                  className="group rounded-[var(--radius-card)] border border-neutral-200 px-4 py-3 hover:border-[#ff6f0f]/40 hover:bg-[#fff8f3] sm:col-start-1 sm:row-start-1"
+                >
+                  <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">이전 글</p>
+                  <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-neutral-900 group-hover:text-[#ff6f0f]">
+                    <ArrowLeft className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} />
+                    {next.title}
+                  </p>
+                </Link>
+              )}
+            </div>
+          </>
+        )}
       </article>
     </main>
   );

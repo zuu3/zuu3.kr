@@ -25,14 +25,14 @@ export default function Image() {
             width: 700,
             height: 700,
             borderRadius: "50%",
-            background: "#0cefd3",
+            background: "#ff6f0f",
             opacity: 0.25,
             filter: "blur(140px)",
             right: -150,
             bottom: -200,
           }}
         />
-        <div style={{ display: "flex", fontSize: 30, fontWeight: 700, color: "#0cefd3", letterSpacing: -0.5 }}>
+        <div style={{ display: "flex", fontSize: 30, fontWeight: 700, color: "#ff6f0f", letterSpacing: -0.5 }}>
           Frontend Engineer
         </div>
         <div style={{ display: "flex", fontSize: 128, fontWeight: 900, color: "#ffffff", marginTop: 20 }}>

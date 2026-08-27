@@ -22,7 +22,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
         <div className="flex flex-wrap items-center gap-2">
           <Button
             variant="outline"
-            className="h-auto gap-1.5 rounded-full border-[#0cefd3] px-3.5 py-1.5 text-xs font-semibold text-neutral-900 hover:bg-[#0cefd3]/10"
+            className="h-auto gap-1.5 rounded-full border-[#ff6f0f] px-3.5 py-1.5 text-xs font-semibold text-neutral-900 hover:bg-[#ff6f0f]/10"
             nativeButton={false}
             render={<a href="/docs/resume.pdf" target="_blank" rel="noreferrer" download />}
           >
@@ -31,7 +31,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
           </Button>
           <Button
             variant="outline"
-            className="h-auto gap-1.5 rounded-full border-[#0cefd3] px-3.5 py-1.5 text-xs font-semibold text-neutral-900 hover:bg-[#0cefd3]/10"
+            className="h-auto gap-1.5 rounded-full border-[#ff6f0f] px-3.5 py-1.5 text-xs font-semibold text-neutral-900 hover:bg-[#ff6f0f]/10"
             nativeButton={false}
             render={<a href="/docs/portfolio.pdf" target="_blank" rel="noreferrer" download />}
           >
@@ -43,7 +43,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
       <div className="mx-auto mt-4 flex max-w-3xl flex-wrap items-center gap-1 text-sm text-neutral-500">
           <Button
             variant="ghost"
-            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#2c8177]"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#c24e00]"
             nativeButton={false}
             render={<a href={`mailto:${profile.email}`} />}
           >
@@ -54,7 +54,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
             variant="ghost"
             size="icon-sm"
             aria-label="이메일 주소 복사"
-            className="text-neutral-400 hover:bg-transparent hover:text-[#2c8177]"
+            className="text-neutral-400 hover:bg-transparent hover:text-[#c24e00]"
             onClick={async () => {
               try {
                 await navigator.clipboard.writeText(profile.email);
@@ -68,7 +68,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
           </Button>
           <Button
             variant="ghost"
-            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#2c8177]"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#c24e00]"
             nativeButton={false}
             render={<a href="https://github.com/zuu3" target="_blank" rel="noreferrer" />}
           >

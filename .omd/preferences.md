@@ -529,3 +529,18 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/not-found.
 ```
 
 Introduced off-palette color(s) #0b0b12 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/not-found.tsx — not in DESIGN.md
+
+## 2026-08-27T00:21:37.777Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtas2c1d_84087773
+timestamp: 2026-08-27T00:21:37.777Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/site-footer.tsx"
+```
+
+Introduced off-scale border radius rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/site-footer.tsx — not in DESIGN.md radius scale

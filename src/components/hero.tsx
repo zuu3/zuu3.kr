@@ -17,7 +17,7 @@ export function Hero() {
           className={`absolute -bottom-24 left-[12%] h-[44rem] w-[44rem] rounded-full bg-white/55 blur-[90px] mix-blend-screen ${reduceMotion ? "" : "animate-[smoke-a_18s_ease-in-out_infinite]"}`}
         />
         <div
-          className={`absolute -bottom-32 right-[8%] h-[36rem] w-[36rem] rounded-full bg-[#0cefd3]/40 blur-[95px] mix-blend-screen ${reduceMotion ? "" : "animate-[smoke-b_22s_ease-in-out_infinite]"}`}
+          className={`absolute -bottom-32 right-[8%] h-[36rem] w-[36rem] rounded-full bg-[#ff6f0f]/40 blur-[95px] mix-blend-screen ${reduceMotion ? "" : "animate-[smoke-b_22s_ease-in-out_infinite]"}`}
         />
         <div
           className={`absolute bottom-0 left-1/2 ml-[-26rem] h-[30rem] w-[52rem] rounded-full bg-[#b8a4ff]/35 blur-[110px] mix-blend-screen ${reduceMotion ? "" : "animate-[smoke-c_26s_ease-in-out_infinite]"}`}

@@ -11,7 +11,7 @@ const FALLOFF_CURVES = {
 
 export const LineSidebar = ({
   items,
-  accentColor = "#0cefd3",
+  accentColor = "#ff6f0f",
   textColor = "#a3a3a3",
   markerColor = "#d4d4d4",
   showIndex = true,

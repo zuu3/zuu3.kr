@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { Article, Text } from "@seed-design/react";
 import { ExternalLink } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -117,7 +118,11 @@ export function ProjectNarrative({
             {main}
           </h2>
           {alias && <p className="mt-1 text-base font-medium text-neutral-400">{alias}</p>}
-          <p className="mt-4 max-w-lg text-lg text-neutral-500">{project.tagline}</p>
+          <Article lang="ko-KR" className="mt-4 max-w-lg">
+            <Text as="p" textStyle="t6Regular" color="fg.neutralMuted">
+              {project.tagline}
+            </Text>
+          </Article>
 
           {project.tags.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2">
@@ -271,9 +276,11 @@ export function ProjectNarrative({
                     <p className="relative text-xl font-bold tracking-tight text-neutral-900 md:text-2xl">
                       {feature.title}
                     </p>
-                    <p className="relative mt-2 max-w-xl text-base leading-relaxed text-neutral-600">
-                      {feature.description}
-                    </p>
+                    <Article lang="ko-KR" className="relative mt-2 max-w-xl">
+                      <Text as="p" textStyle="t5Regular" color="fg.neutral" className="leading-relaxed">
+                        {feature.description}
+                      </Text>
+                    </Article>
                   </div>
                 ))}
               </div>
@@ -313,13 +320,17 @@ export function ProjectNarrative({
                           >
                             {stage.label}
                           </p>
-                          <p
-                            className={`mt-1 text-base leading-relaxed ${
-                              stage.emphasize ? "font-medium text-neutral-900" : "text-neutral-600"
-                            }`}
-                          >
-                            {renderRichText(stage.text)}
-                          </p>
+                          <Article lang="ko-KR" className="mt-1">
+                            <Text
+                              as="p"
+                              textStyle="t5Regular"
+                              fontWeight={stage.emphasize ? "medium" : "regular"}
+                              color={stage.emphasize ? "fg.neutral" : "fg.neutralMuted"}
+                              className="leading-relaxed"
+                            >
+                              {renderRichText(stage.text)}
+                            </Text>
+                          </Article>
                         </div>
                       ))}
                     </div>

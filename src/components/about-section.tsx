@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Article, Text } from "@seed-design/react";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -61,9 +62,11 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
             <h2 className="mt-1 text-2xl leading-snug font-bold text-neutral-900 md:text-[1.75rem]">
               {profile.tagline}
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-neutral-500">
-              {profile.bio}
-            </p>
+            <Article lang="ko-KR" className="mt-4">
+              <Text as="p" textStyle="t5Regular" color="fg.neutral">
+                {profile.bio}
+              </Text>
+            </Article>
             <div className="mt-5 space-y-1 text-sm text-neutral-500">
               <p>{profile.birthdate}</p>
               <p>{profile.school}</p>

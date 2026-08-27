@@ -31,12 +31,12 @@ export function CodeComparison({
         const [before, after] = await Promise.all([
           codeToHtml(beforeCode, {
             lang: language,
-            theme: "github-dark",
+            theme: "github-dark-default",
             transformers: [transformerNotationDiff({ matchAlgorithm: "v3" })],
           }),
           codeToHtml(afterCode, {
             lang: language,
-            theme: "github-dark",
+            theme: "github-dark-default",
             transformers: [transformerNotationDiff({ matchAlgorithm: "v3" })],
           }),
         ]);

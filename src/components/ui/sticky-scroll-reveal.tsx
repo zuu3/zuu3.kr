@@ -95,13 +95,15 @@ export function StickyScroll({
             }
           >
             <motion.p
-              animate={{ opacity: activeCard === i ? 1 : 0.3 }}
+              animate={{ opacity: activeCard === i ? 1 : 0.6 }}
               className="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl"
             >
               {item.title}
             </motion.p>
             <motion.div
-              animate={{ opacity: activeCard === i ? 1 : 0.3 }}
+              // 0.8 not 0.6: text-neutral-600 needs a higher floor than -900 to
+              // still clear 4.5:1 on white at rest.
+              animate={{ opacity: activeCard === i ? 1 : 0.8 }}
               className="mt-3 text-base leading-relaxed text-neutral-600"
             >
               {item.description}

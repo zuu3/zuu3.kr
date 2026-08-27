@@ -17,6 +17,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SiGithub } from "react-icons/si";
 import type { Project } from "@/lib/content";
 import { TECH_ICON_MAP } from "@/lib/tech-icons";
+import { readableOnWhite } from "@/lib/color";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { Item, ItemContent, ItemGroup, ItemMedia } from "@/components/ui/item";
@@ -110,6 +111,10 @@ export function ProjectNarrative({
   const hookRef = useRef<HTMLDivElement>(null);
   const sentences = splitSentences(project.description);
   const { main, alias } = splitProjectName(project.name);
+  // brandColor is picked for hue, not contrast — darken it just enough to
+  // clear 4.5:1 on white wherever it's used as small text (e.g. #EC4899 is
+  // only 3.53:1 as-is). Backgrounds/accents keep the raw brandColor.
+  const readableBrand = readableOnWhite(project.brandColor);
   const hasFeatureStory = project.features.some((f) => f.codeExample);
   const storyFeatures = hasFeatureStory ? project.features : [];
   // A step with neither code nor a mapped demo leaves the sticky panel
@@ -127,7 +132,8 @@ export function ProjectNarrative({
     const ctx = gsap.context(() => {
       const lines = gsap.utils.toArray<HTMLElement>(".hook-line", hookRef.current);
       if (lines.length <= 1) return;
-      gsap.set(lines, { opacity: 0.3 });
+      // 0.6 not 0.3: floor for text-neutral-900 on white to still clear WCAG AA 4.5:1 at rest.
+      gsap.set(lines, { opacity: 0.6 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -146,7 +152,7 @@ export function ProjectNarrative({
 
       lines.forEach((el, i) => {
         tl.to(el, { opacity: 1, duration: 1 }, i);
-        if (i > 0) tl.to(lines[i - 1], { opacity: 0.3, duration: 1 }, i);
+        if (i > 0) tl.to(lines[i - 1], { opacity: 0.6, duration: 1 }, i);
       });
     }, hookRef);
 
@@ -160,7 +166,7 @@ export function ProjectNarrative({
           <div className="flex items-baseline gap-3 text-neutral-500">
             <span
               className="text-sm font-bold tabular-nums"
-              style={{ color: project.brandColor }}
+              style={{ color: readableBrand }}
             >
               {String(index + 1).padStart(2, "0")}
               <span className="text-neutral-500">/{String(total).padStart(2, "0")}</span>
@@ -183,7 +189,7 @@ export function ProjectNarrative({
                 <span
                   key={tag}
                   className="rounded-[var(--radius-control)] px-3 py-1 text-xs font-bold"
-                  style={{ backgroundColor: `${project.brandColor}14`, color: project.brandColor }}
+                  style={{ backgroundColor: `${project.brandColor}14`, color: readableBrand }}
                 >
                   {tag}
                 </span>
@@ -233,7 +239,7 @@ export function ProjectNarrative({
                     rel="noreferrer"
                     className="mt-1 flex w-fit items-center gap-1.5 text-sm font-medium text-neutral-700 transition-colors hover:text-[#ff6f0f]"
                   >
-                    <SiGithub className="h-4 w-4" />
+                    <SiGithub className="h-4 w-4" aria-hidden="true" />
                     바로가기
                   </a>
                 </div>
@@ -247,7 +253,7 @@ export function ProjectNarrative({
                     rel="noreferrer"
                     className="mt-1 flex w-fit items-center gap-1.5 text-sm font-medium text-neutral-700 transition-colors hover:text-[#ff6f0f]"
                   >
-                    <ExternalLink className="h-4 w-4" strokeWidth={1.75} />
+                    <ExternalLink className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                     바로가기
                   </a>
                 </div>
@@ -263,7 +269,7 @@ export function ProjectNarrative({
                     variant="outline"
                     className="h-auto gap-1.5 rounded-lg border-none bg-[#f3f4f5] px-3 py-1.5 text-xs font-bold tracking-tight text-neutral-700"
                   >
-                    {Icon && <Icon className="h-3.5 w-3.5" />}
+                    {Icon && <Icon className="h-3.5 w-3.5" aria-hidden="true" />}
                     {tech}
                   </Badge>
                 );
@@ -275,11 +281,11 @@ export function ProjectNarrative({
                 <p className="text-xs font-bold tracking-wide text-neutral-500 uppercase">기여</p>
                 <ItemGroup className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {project.contributions.map((item, i) => (
-                    <Item key={item} className="bg-[#f3f4f5] px-3.5 py-3">
+                    <Item key={item} role="listitem" className="bg-[#f3f4f5] px-3.5 py-3">
                       <ItemMedia
                         aria-hidden
                         className="text-xs font-black tabular-nums"
-                        style={{ color: project.brandColor }}
+                        style={{ color: readableBrand }}
                       >
                         {String(i + 1).padStart(2, "0")}
                       </ItemMedia>
@@ -407,7 +413,7 @@ export function ProjectNarrative({
                               aria-hidden
                               className="absolute top-1.5 left-0 h-[7px] w-[7px] rounded-full bg-neutral-300"
                             />
-                            <SeedBadge tone={stage.tone} variant="weak" size="medium">
+                            <SeedBadge tone={stage.tone} variant="solid" size="medium">
                               {stage.label}
                             </SeedBadge>
                             <Article lang="ko-KR" className="mt-1.5">

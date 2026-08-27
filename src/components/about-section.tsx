@@ -47,7 +47,7 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
   return (
     <section id="about" ref={sectionRef} className="px-6 py-24 md:px-16 lg:pl-72 lg:pr-24">
       <div className="mx-auto max-w-6xl">
-        <div className="grid gap-x-14 gap-y-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1.5fr)]">
+        <div className="grid gap-x-14 gap-y-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1.4fr)]">
           <div>
             <div className="relative aspect-3/4 w-40 overflow-hidden rounded-[var(--radius-control)] bg-neutral-100">
               <Image
@@ -63,7 +63,7 @@ export function AboutSection({ profile }: { profile: typeof ProfileType }) {
               {profile.tagline}
             </h2>
             <Article lang="ko-KR" className="mt-4">
-              <Text as="p" textStyle="t5Regular" color="fg.neutral">
+              <Text as="p" textStyle="t5Regular" color="fg.neutral" className="leading-relaxed">
                 {profile.bio}
               </Text>
             </Article>

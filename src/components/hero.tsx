@@ -38,8 +38,8 @@ export function Hero() {
             key={word}
             text={word}
             aria-hidden
-            style={{ height: "clamp(4.5rem, 11vw, 11rem)" }}
-            fontSize="clamp(4.5rem, 11vw, 11rem)"
+            style={{ height: "clamp(5.5rem, 13vw, 13rem)" }}
+            fontSize="clamp(5.5rem, 13vw, 13rem)"
             fontWeight={700}
             color="#ffffff"
             highlightColor="#ffffff"

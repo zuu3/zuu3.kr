@@ -32,7 +32,10 @@ export function BlogPostList({ posts }: { posts: BlogPost[] }) {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.4, delay: reduceMotion ? 0 : i * 0.06, ease: "easeOut" }}
         >
-          <Link href={`/blog/${post.slug}`} className="group/post-item flex items-start justify-between gap-6">
+          <Link
+            href={`/blog/${post.slug}`}
+            className="group/post-item flex items-start justify-between gap-6 [--post-title-color:#191f28] hover:[--post-title-color:#3182f6]"
+          >
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-1.5">
                 {post.tags.map((tag) => (
@@ -51,8 +54,8 @@ export function BlogPostList({ posts }: { posts: BlogPost[] }) {
                 ))}
               </div>
               <p
-                className="mt-3 font-bold tracking-tight group-hover/post-item:underline"
-                style={{ color: toss.color.foreground, fontSize: 22, lineHeight: "31px" }}
+                className="mt-3 font-bold tracking-tight transition-colors"
+                style={{ fontSize: 22, lineHeight: "31px", color: "var(--post-title-color, #191f28)" }}
               >
                 {post.title}
               </p>
@@ -64,9 +67,14 @@ export function BlogPostList({ posts }: { posts: BlogPost[] }) {
               </p>
             </div>
             <div
-              className="hidden h-[130px] w-[200px] shrink-0 sm:block"
-              style={{ background: thumbnailFor(post.slug), borderRadius: toss.radius.md }}
-            />
+              className="hidden h-[130px] w-[200px] shrink-0 overflow-hidden sm:block"
+              style={{ borderRadius: toss.radius.md }}
+            >
+              <div
+                className="h-full w-full transition-transform duration-300 ease-out group-hover/post-item:scale-110 motion-reduce:transition-none motion-reduce:group-hover/post-item:scale-100"
+                style={{ background: thumbnailFor(post.slug) }}
+              />
+            </div>
           </Link>
         </motion.div>
       ))}

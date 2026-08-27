@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { Toaster } from "@/components/ui/sonner";
@@ -51,6 +52,7 @@ export default function RootLayout({
         <SmoothScroll />
         {children}
         <Toaster position="bottom-center" />
+        <Analytics />
       </body>
     </html>
   );

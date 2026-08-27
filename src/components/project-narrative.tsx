@@ -413,7 +413,7 @@ export function ProjectNarrative({
                               aria-hidden
                               className="absolute top-1.5 left-0 h-[7px] w-[7px] rounded-full bg-neutral-300"
                             />
-                            <SeedBadge tone={stage.tone} variant="solid" size="medium">
+                            <SeedBadge tone={stage.tone} variant="weak" size="medium">
                               {stage.label}
                             </SeedBadge>
                             <Article lang="ko-KR" className="mt-1.5">

@@ -47,8 +47,6 @@
 
 ### Avoid
 
-- 한글 디스플레이 헤딩에 음수 letter-spacing(tracking-tight)을 쓰지 않는다 — Paperlogy+한글 조합에서 글자가 뭉개진다
-
 - 트러블슈팅을 problem/cause/solution/result 필드 구분 없이 하나의 문단으로 합치지 않는다
 
 - 기술 스택을 프로젝트 섹션 맨 끝에 텍스트로만 나열하지 않는다 — 태그라인 아래 박스형 칩으로 배치한다
@@ -100,9 +98,8 @@ Required.
 
 | Role | Usage | Family | Size | Weight | Line height | Tracking |
 |---|---|---|---|---|---|---|
-| display | 히어로 타이틀, 프로젝트 이름 | Paperlogy | clamp(1.5rem, 4vw, 3.75rem) | 900 | 1.15 | normal |
-| display-secondary | About 태그라인 헤드라인(이름 포함) | Paperlogy | 1.75rem | 700 | 1.35 | normal |
-| body-display | About bio 문단 | Paperlogy | 1rem | 500 | 1.6 |  |
+| h1 | 히어로 타이틀 | Pretendard | clamp(4.5rem, 11vw, 11rem) | 700 | 1.15 | normal |
+| h2 | 프로젝트 이름, About 태그라인 헤드라인 | Pretendard | 1.75~3.75rem | 700 | 1.35 | normal |
 | body | 본문 텍스트 | Pretendard | 1rem | 400 | 1.6 |  |
 | label | 라벨/캡션/칩 | Pretendard | 0.75rem | 700 | 1.3 | 0.02em |
 | inline-code | 본문 속 코드/API 식별자 | monospace | 0.9em | 400 |  |  |
@@ -111,14 +108,13 @@ Required.
 
 | Asset | Kind | Source status | License status | Notes |
 |---|---|---|---|---|
-| paperlogy | font | project-owned | verified | display 폰트. src/app/fonts/paperlogy/에 100~900 전체 9웨이트 self-host, 실제 렌더는 500/700/900만 사용 |
-| pretendard | font | project-owned | verified | 본문 폰트, 로컬 woff2로 이미 프로젝트에 포함 |
+| pretendard | font | project-owned | verified | 유일한 서체. 본문/헤딩 모두 사용, 위계는 weight로만 구분(regular/bold) |
 
 ### Rules
 
-- display 롤(Paperlogy)에는 한글 조합 시 음수 tracking을 적용하지 않는다 — 기본 tracking 유지
+- 커스텀 디스플레이 서체를 쓰지 않는다 — Karrot SEED 원칙(system-first typography, "content is the brand")을 따라 Pretendard 단일 패밀리로 모든 텍스트를 렌더링한다
 
-- 본문 단락은 body-display(Paperlogy 500) 또는 body(Pretendard 400) 중 섹션 성격에 맞게 선택하고 Paperlogy Black(900)을 문단에 쓰지 않는다
+- 헤딩 위계는 weight(regular/bold)로만 만든다 — font-black(900) 등 넓은 커스텀 웨이트 스케일을 텍스트 헤딩에 쓰지 않는다. 장식용 그래픽 넘버(고스트 넘버, 인덱스 숫자)는 예외로 허용한다
 
 <!-- design-md:section components-states -->
 ## 4. Components & States
@@ -314,3 +310,4 @@ Record, review, and validate changes before adoption.
 - experience.avoid — prompt-fact; evidence: 사용자 피드백 누적: primary 과다 사용, 트러블슈팅 카드 스타일, diff 코드블록, contribution 카드 제거 등
 - typography_assets.rules — prompt-fact; evidence: 사용자 피드백: About 영역 폰트가 다른 헤딩과 안 어울림 — Paperlogy Black 단일 웨이트만 있어 굵기 조절이 불가능했던 게 원인. 100~900 전체 웨이트를 내려받아 해결
 - components_states.components — repository-fact; evidence: src/components/about-section.tsx, project-narrative.tsx, hero.tsx 현재 구현 (2026-08-26 기준)
+- typography_assets.type_roles — prompt-fact; evidence: .claude/data/references/karrot/DESIGN.md tokens.typography (SEED v2, system-first typography 원칙), verified_v2 2026-07-11; 사용자 지시로 Paperlogy 디스플레이 서체 제거, Pretendard 단일 패밀리 + weight 기반 위계로 전환 (2026-08-27)

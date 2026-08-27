@@ -27,7 +27,7 @@
 
 - 타이포그래피가 주역 — 장식보다 크기·굵기·여백으로 위계를 만든다
 
-- baemin 2.0의 밝은 민트는 실제 행동 지점(CTA 버튼)에만 쓰고 배경/보더/장식으로 확산시키지 않는다
+- 당근마켓(Karrot) 캐럿 오렌지를 사이트 전역 accent 컬러로 사용한다 — 배경용/텍스트용을 구분하지 않고 단일 hex로 통일한다
 
 - About과 히어로는 기본적으로 흑백/그레이스케일로 두고, 색은 프로젝트 섹션의 브랜드 컬러와 히어로 CTA 버튼에만 남긴다
 
@@ -35,7 +35,7 @@
 
 ### Principles
 
-- primary(민트)는 실제 클릭 가능한 행동(CTA)에만 사용한다 — 배지, 보더, 장식용 프레임, 라벨 텍스트에 습관적으로 채워 넣지 않는다
+- primary(오렌지)는 accent가 필요한 곳(활성 내비 상태, 강조 버튼, 브랜드 포인트)에 단일 hex로 일관되게 사용한다
 
 - 각 프로젝트의 brandColor는 그 프로젝트 섹션 안에서만 강조로 쓰고 사이트 전역 톤을 바꾸지 않는다
 
@@ -46,8 +46,6 @@
 - 본문 속 실제 코드/API 식별자는 인라인 코드 스타일로 구분해 스캔 포인트를 만든다
 
 ### Avoid
-
-- primary 컬러를 히어로 eyebrow 텍스트, About 사진 프레임, 카테고리 라벨처럼 매 섹션에 반복 사용하지 않는다
 
 - 한글 디스플레이 헤딩에 음수 letter-spacing(tracking-tight)을 쓰지 않는다 — Paperlogy+한글 조합에서 글자가 뭉개진다
 
@@ -69,7 +67,7 @@
 - **color.canvas**: `#ffffff` — 페이지 기본 배경
 - **color.foreground**: `#171717` — 본문 텍스트
 - **color.muted**: `#737373` — 보조 텍스트, 캡션, 라벨
-- **color.primary**: `#0cefd3` — baemin 2.0 브라이트 민트. 실제 행동(CTA 버튼)에만 사용 — 배지/보더/장식 금지
+- **color.primary**: `#ff6f0f` — Karrot(당근마켓) SEED v2 carrot-500. 배경/텍스트 구분 없이 사이트 전역에서 단일 hex로 사용
 - **color.surface**: `#fafafa` — 트러블슈팅 카드 등 옅은 패널 배경 (neutral-50)
 - **radius.card**: `12px` — 트러블슈팅 Problem/Cause/Solution/Result 패널 등 카드형 컨테이너
 - **radius.control**: `8px` — 버튼, 칩, 작은 컨트롤, 코드 diff 블록
@@ -77,7 +75,7 @@
 ### Contrast pairs
 
 - color.foreground on color.canvas: minimum 7:1
-- color.foreground on color.primary: minimum 4.5:1
+- color.foreground on color.primary: 사용자 승인 하에 일부 텍스트-on-white 사용처는 WCAG AA(4.5:1) 미달을 허용한다 — 배경용/텍스트용 hex를 분리하지 않기 위한 트레이드오프
 - color.foreground on color.surface: minimum 7:1
 
 ### Reduced motion
@@ -86,7 +84,7 @@ Required.
 
 ### Foundation rules
 
-- primary 민트는 사이트 전체에서 클릭 가능한 CTA 버튼 1곳에만 채움색으로 사용한다
+- primary 오렌지는 사이트 전역에서 단일 hex(`#ff6f0f`)로 통일해서 사용한다 — 배경용/텍스트용 톤 분리 금지
 
 - 본문 텍스트는 color.foreground, 보조 텍스트는 color.muted만 사용한다
 
@@ -119,8 +117,6 @@ Required.
 ### Rules
 
 - display 롤(Paperlogy)에는 한글 조합 시 음수 tracking을 적용하지 않는다 — 기본 tracking 유지
-
-- baemin 공식 WORK 서체는 라이선스 미확보로 이식하지 않는다
 
 - 본문 단락은 body-display(Paperlogy 500) 또는 body(Pretendard 400) 중 섹션 성격에 맞게 선택하고 Paperlogy Black(900)을 문단에 쓰지 않는다
 
@@ -314,7 +310,7 @@ Record, review, and validate changes before adoption.
 
 ### Decision provenance
 
-- foundations.tokens.color.primary — agent-proposed-greenfield-decision; evidence: baemin reference catalog verified_v2 2026-07-12, tokens.colors.primary; 사용자 승인 하에 프로젝트 브랜드로 채택
+- foundations.tokens.color.primary — prompt-fact; evidence: .claude/data/references/karrot/DESIGN.md tokens.colors.primary(carrot-500, `#ff6f0f`), verified_v2 2026-07-11; 사용자 지시로 baemin 민트에서 Karrot 오렌지로 리브랜드, 배경/텍스트 hex 분리 없이 단일 값 사용하도록 승인
 - experience.avoid — prompt-fact; evidence: 사용자 피드백 누적: primary 과다 사용, 트러블슈팅 카드 스타일, diff 코드블록, contribution 카드 제거 등
 - typography_assets.rules — prompt-fact; evidence: 사용자 피드백: About 영역 폰트가 다른 헤딩과 안 어울림 — Paperlogy Black 단일 웨이트만 있어 굵기 조절이 불가능했던 게 원인. 100~900 전체 웨이트를 내려받아 해결
 - components_states.components — repository-fact; evidence: src/components/about-section.tsx, project-narrative.tsx, hero.tsx 현재 구현 (2026-08-26 기준)

@@ -1,7 +1,7 @@
 "use client";
 
 import { ActionButton } from "@seed-design/react";
-import { Download, Mail } from "lucide-react";
+import { BookOpen, Download, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { profile as ProfileType } from "@/lib/content";
 
@@ -52,6 +52,15 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
           >
             <GithubIcon className="h-4 w-4" />
             github.com/zuu3
+          </Button>
+          <Button
+            variant="ghost"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#ff6f0f]"
+            nativeButton={false}
+            render={<a href="/blog" />}
+          >
+            <BookOpen className="h-4 w-4" strokeWidth={1.75} />
+            Blog
           </Button>
       </div>
       <p className="mx-auto mt-6 max-w-3xl text-xs text-neutral-500">

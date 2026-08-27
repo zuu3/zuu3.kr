@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { SiteTabNav } from "@/components/site-tab-nav";
 import { Toaster } from "@/components/ui/sonner";
 
 const pretendard = localFont({
@@ -50,6 +51,7 @@ export default function RootLayout({
           본문으로 바로가기
         </a>
         <SmoothScroll />
+        <SiteTabNav />
         {children}
         <Toaster position="bottom-center" />
         <Analytics />

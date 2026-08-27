@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Badge as SeedBadge } from "@seed-design/react";
 import { ArrowRight } from "lucide-react";
 import { Item, ItemActions, ItemContent, ItemGroup } from "@/components/ui/item";
-import { SiteTabNav } from "@/components/site-tab-nav";
 import { blogPosts } from "@/lib/content";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 
@@ -18,9 +17,7 @@ export default function BlogIndexPage() {
   return (
     <main className="px-6 py-24 md:px-16 lg:px-24">
       <div className="mx-auto w-full max-w-3xl">
-        <SiteTabNav active="blog" />
-
-        <h1 className="mt-6 text-4xl font-bold tracking-tight text-neutral-900 md:text-5xl">Blog</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-neutral-900 md:text-5xl">Blog</h1>
         <p className="mt-3 max-w-xl text-base leading-relaxed text-neutral-600">
           프론트엔드 개념을 정리해 남기는 기록입니다.
         </p>

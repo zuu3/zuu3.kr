@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
+import { Icon } from "@seed-design/react";
+import { IconCalendarLine, IconClockLine } from "@karrotmarket/react-monochrome-icon";
 import type { BlogPost } from "@/lib/content";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { toss } from "./toss-tokens";
@@ -62,9 +64,16 @@ export function BlogPostList({ posts }: { posts: BlogPost[] }) {
               <p className="mt-2 max-w-md" style={{ color: toss.color.body, fontSize: 15, lineHeight: "22px" }}>
                 {post.excerpt}
               </p>
-              <p className="mt-3 text-[13px] font-medium tabular-nums" style={{ color: toss.color.muted }}>
-                {formatBlogDate(post.date)} · {readingTime(post.content)}분 읽기
-              </p>
+              <div className="mt-3 flex items-center gap-3 text-[13px] font-medium" style={{ color: toss.color.muted }}>
+                <span className="inline-flex items-center gap-1">
+                  <Icon svg={<IconCalendarLine />} size="14px" color={toss.color.muted} />
+                  <span className="tabular-nums">{formatBlogDate(post.date)}</span>
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <Icon svg={<IconClockLine />} size="14px" color={toss.color.muted} />
+                  {readingTime(post.content)}분 읽기
+                </span>
+              </div>
             </div>
             <div
               className="hidden h-[130px] w-[200px] shrink-0 overflow-hidden sm:block"

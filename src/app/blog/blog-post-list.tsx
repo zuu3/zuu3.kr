@@ -1,9 +1,10 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { Icon } from "@seed-design/react";
-import { IconCalendarLine, IconClockLine } from "@karrotmarket/react-monochrome-icon";
+import { IconCalendarLine, IconClockLine, IconMagnifyingglassLine } from "@karrotmarket/react-monochrome-icon";
 import type { Post } from "@/lib/posts";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { toss } from "./toss-tokens";
@@ -23,70 +24,150 @@ function thumbnailFor(slug: string) {
 
 export function BlogPostList({ posts }: { posts: Post[] }) {
   const reduceMotion = useReducedMotion();
+  const [query, setQuery] = useState("");
+  const [activeTag, setActiveTag] = useState<string | null>(null);
+
+  const tags = useMemo(() => {
+    const set = new Set<string>();
+    posts.forEach((p) => p.tags.forEach((t) => set.add(t)));
+    return Array.from(set).sort();
+  }, [posts]);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return posts.filter((p) => {
+      if (activeTag && !p.tags.includes(activeTag)) return false;
+      if (!q) return true;
+      return (
+        p.title.toLowerCase().includes(q) ||
+        p.excerpt.toLowerCase().includes(q) ||
+        p.content.toLowerCase().includes(q) ||
+        p.tags.some((t) => t.toLowerCase().includes(q))
+      );
+    });
+  }, [posts, query, activeTag]);
 
   return (
-    <div className="mt-10 flex flex-col gap-10">
-      {posts.map((post, i) => (
-        <motion.div
-          key={post.slug}
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.4, delay: reduceMotion ? 0 : i * 0.06, ease: "easeOut" }}
-        >
-          <Link
-            href={`/blog/${post.slug}`}
-            className="group/post-item flex items-start justify-between gap-6 [--post-title-color:#191f28] hover:[--post-title-color:#3182f6]"
+    <div className="mt-8">
+      <div
+        className="flex items-center gap-2 rounded-md px-3 py-2"
+        style={{ backgroundColor: toss.color.surface }}
+      >
+        <Icon svg={<IconMagnifyingglassLine />} size="16px" color={toss.color.muted} />
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="글 검색"
+          className="w-full border-none bg-transparent text-sm outline-none"
+          style={{ color: toss.color.foreground }}
+        />
+      </div>
+
+      {tags.length > 0 && (
+        <div className="mt-4 flex flex-wrap items-center gap-1.5">
+          <button
+            type="button"
+            onClick={() => setActiveTag(null)}
+            className="text-[13px] font-semibold transition-colors"
+            style={{
+              color: activeTag === null ? "#ffffff" : toss.color.body,
+              backgroundColor: activeTag === null ? toss.color.primary : toss.color.surface,
+              borderRadius: "999px",
+              padding: "4px 10px",
+            }}
           >
-            <div className="min-w-0 flex-1">
-              <div className="flex flex-wrap items-center gap-1.5">
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[13px] font-semibold"
-                    style={{
-                      color: toss.color.body,
-                      backgroundColor: toss.color.surface,
-                      borderRadius: "999px",
-                      padding: "4px 10px",
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <p
-                className="mt-3 font-bold tracking-tight transition-colors"
-                style={{ fontSize: 22, lineHeight: "31px", color: "var(--post-title-color, #191f28)" }}
+            전체
+          </button>
+          {tags.map((tag) => {
+            const isActive = tag === activeTag;
+            return (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => setActiveTag(isActive ? null : tag)}
+                className="text-[13px] font-semibold transition-colors"
+                style={{
+                  color: isActive ? "#ffffff" : toss.color.body,
+                  backgroundColor: isActive ? toss.color.primary : toss.color.surface,
+                  borderRadius: "999px",
+                  padding: "4px 10px",
+                }}
               >
-                {post.title}
-              </p>
-              <p className="mt-2 max-w-md" style={{ color: toss.color.body, fontSize: 15, lineHeight: "22px" }}>
-                {post.excerpt}
-              </p>
-              <div className="mt-3 flex items-center gap-3 text-[13px] font-medium" style={{ color: toss.color.muted }}>
-                <span className="inline-flex items-center gap-1">
-                  <Icon svg={<IconCalendarLine />} size="14px" color={toss.color.muted} />
-                  <span className="tabular-nums">{formatBlogDate(post.published_at)}</span>
-                </span>
-                <span className="inline-flex items-center gap-1">
-                  <Icon svg={<IconClockLine />} size="14px" color={toss.color.muted} />
-                  {readingTime(post.content)}분 읽기
-                </span>
-              </div>
-            </div>
-            <div
-              className="hidden h-[130px] w-[200px] shrink-0 overflow-hidden sm:block"
-              style={{ borderRadius: toss.radius.md }}
+                {tag}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      <div className="mt-8 flex flex-col gap-10">
+        {filtered.length === 0 && (
+          <p className="py-8 text-sm" style={{ color: toss.color.muted }}>
+            조건에 맞는 글이 없습니다.
+          </p>
+        )}
+        {filtered.map((post, i) => (
+          <motion.div
+            key={post.slug}
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.4, delay: reduceMotion ? 0 : i * 0.06, ease: "easeOut" }}
+          >
+            <Link
+              href={`/blog/${post.slug}`}
+              className="group/post-item flex items-start justify-between gap-6 [--post-title-color:#191f28] hover:[--post-title-color:#3182f6]"
             >
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[13px] font-semibold"
+                      style={{
+                        color: toss.color.body,
+                        backgroundColor: toss.color.surface,
+                        borderRadius: "999px",
+                        padding: "4px 10px",
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <p
+                  className="mt-3 font-bold tracking-tight transition-colors"
+                  style={{ fontSize: 22, lineHeight: "31px", color: "var(--post-title-color, #191f28)" }}
+                >
+                  {post.title}
+                </p>
+                <p className="mt-2 max-w-md" style={{ color: toss.color.body, fontSize: 15, lineHeight: "22px" }}>
+                  {post.excerpt}
+                </p>
+                <div className="mt-3 flex items-center gap-3 text-[13px] font-medium" style={{ color: toss.color.muted }}>
+                  <span className="inline-flex items-center gap-1">
+                    <Icon svg={<IconCalendarLine />} size="14px" color={toss.color.muted} />
+                    <span className="tabular-nums">{formatBlogDate(post.published_at)}</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <Icon svg={<IconClockLine />} size="14px" color={toss.color.muted} />
+                    {readingTime(post.content)}분 읽기
+                  </span>
+                </div>
+              </div>
               <div
-                className="h-full w-full transition-transform duration-300 ease-out group-hover/post-item:scale-110 motion-reduce:transition-none motion-reduce:group-hover/post-item:scale-100"
-                style={{ background: thumbnailFor(post.slug) }}
-              />
-            </div>
-          </Link>
-        </motion.div>
-      ))}
+                className="hidden h-[130px] w-[200px] shrink-0 overflow-hidden sm:block"
+                style={{ borderRadius: toss.radius.md }}
+              >
+                <div
+                  className="h-full w-full transition-transform duration-300 ease-out group-hover/post-item:scale-110 motion-reduce:transition-none motion-reduce:group-hover/post-item:scale-100"
+                  style={{ background: thumbnailFor(post.slug) }}
+                />
+              </div>
+            </Link>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }

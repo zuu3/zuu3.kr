@@ -2,6 +2,7 @@
 
 import { ActionButton } from "@seed-design/react";
 import { BookOpen, Download, Mail } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { profile as ProfileType } from "@/lib/content";
 
@@ -57,7 +58,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
             variant="ghost"
             className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#ff6f0f]"
             nativeButton={false}
-            render={<a href="/blog" />}
+            render={<Link href="/blog" />}
           >
             <BookOpen className="h-4 w-4" strokeWidth={1.75} />
             Blog

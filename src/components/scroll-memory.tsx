@@ -17,7 +17,9 @@ const MAX_RESTORE_MS = 1500;
 export function ScrollMemory() {
   const pathname = usePathname();
   const pathnameRef = useRef(pathname);
-  pathnameRef.current = pathname;
+  useEffect(() => {
+    pathnameRef.current = pathname;
+  }, [pathname]);
 
   // 복원할 위치가 있으면 첫 페인트 전에 문서를 숨겨서 "맨 위 → 목표 위치"로
   // 튀는 깜빡임 자체를 안 보이게 한다. rAF 폴링으로 문서 높이가 목표 위치에

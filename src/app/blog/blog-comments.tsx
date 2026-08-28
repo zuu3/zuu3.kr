@@ -63,6 +63,10 @@ export function BlogComments({ postSlug }: { postSlug: string }) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // 마운트 후에만 랜덤 닉네임/아바타를 정한다 - 서버 렌더와 클라이언트
+    // 하이드레이션이 같은 Math.random() 결과를 낼 수 없어서 null로 시작해야
+    // 하고, 그래서 이 effect는 setState in effect 규칙을 어길 수밖에 없다.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIdentity(randomIdentity());
   }, []);
 

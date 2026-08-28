@@ -127,7 +127,10 @@ export function ProjectNarrative({
   useEffect(() => {
     // StickyScroll의 코드/데모 패널은 lg 이상에서만 보이므로(lg:block), 그
     // 밑에서는 스크롤 하이라이트만 있고 패널이 없는 반쪽짜리 경험이 된다.
-    // 모바일은 처음부터 평문 리스트로 시작한다.
+    // 모바일은 처음부터 평문 리스트로 시작한다. 서버는 뷰포트를 모르니
+    // false로 렌더해야 하이드레이션이 일치하고, 모바일 여부는 마운트 후에만
+    // 알 수 있어 setState in effect 규칙을 어길 수밖에 없다.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (window.matchMedia("(max-width: 1023px)").matches) setShowAllCode(true);
   }, []);
 

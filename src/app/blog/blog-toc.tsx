@@ -43,7 +43,7 @@ export function BlogToc({ headings }: { headings: TocHeading[] }) {
               <li
                 key={h.id}
                 className="relative"
-                style={{ marginLeft: h.level === 3 ? "1rem" : 0 }}
+                style={{ marginLeft: h.level === 3 ? "1rem" : h.level === 4 ? "2rem" : 0 }}
               >
                 {isActive && (
                   <span
@@ -58,6 +58,7 @@ export function BlogToc({ headings }: { headings: TocHeading[] }) {
                   style={{
                     color: isActive ? toss.color.foreground : toss.color.muted,
                     fontWeight: isActive ? 700 : 400,
+                    fontSize: h.level === 4 ? 13 : 14,
                   }}
                 >
                   {h.text}

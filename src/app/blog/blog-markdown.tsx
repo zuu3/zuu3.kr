@@ -10,7 +10,7 @@ import { toss } from "./toss-tokens";
 SyntaxHighlighter.registerLanguage("tsx", tsx);
 
 export function BlogMarkdown({ content }: { content: string }) {
-  // extractHeadings()가 훑는 순서와 똑같이 h2/h3를 만날 때마다 증가시켜
+  // extractHeadings()가 훑는 순서와 똑같이 h2/h3/h4를 만날 때마다 증가시켜
   // 같은 heading-N id를 붙인다 (src/lib/toc.ts 참고).
   let headingIndex = 0;
 
@@ -36,6 +36,15 @@ export function BlogMarkdown({ content }: { content: string }) {
             {children}
           </h3>
         ),
+        h4: ({ children }) => (
+          <h4
+            id={`heading-${headingIndex++}`}
+            className="mt-6 mb-2 scroll-mt-24 font-bold tracking-tight"
+            style={{ color: toss.color.foreground, fontSize: 16, lineHeight: "1.4" }}
+          >
+            {children}
+          </h4>
+        ),
         p: ({ children }) => (
           <p className="mb-4" style={{ color: toss.color.body, fontSize: 16, lineHeight: "24px" }}>
             {children}
@@ -59,7 +68,9 @@ export function BlogMarkdown({ content }: { content: string }) {
         ),
         code: ({ className, children }) => {
           const match = /language-(\w+)/.exec(className ?? "");
-          const isBlock = !!match;
+          // 언어 태그가 없는 펜스 블록(```text)도 fenced code라 여러 줄인 경우가
+          // 있다 — className만으로는 인라인/블록을 구분할 수 없어서 줄바꿈 여부도 본다.
+          const isBlock = !!match || String(children).includes("\n");
           if (!isBlock) {
             return (
               <code
@@ -72,7 +83,7 @@ export function BlogMarkdown({ content }: { content: string }) {
           }
           return (
             <SyntaxHighlighter
-              language={match[1] === "tsx" || match[1] === "jsx" || match[1] === "ts" ? "tsx" : match[1]}
+              language={match && ["tsx", "jsx", "ts"].includes(match[1]) ? "tsx" : undefined}
               style={vscDarkPlus}
               customStyle={{
                 margin: "0 0 1.5rem",

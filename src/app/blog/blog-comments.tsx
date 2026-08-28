@@ -54,10 +54,17 @@ function formatRelative(iso: string) {
 
 export function BlogComments({ postSlug }: { postSlug: string }) {
   const [comments, setComments] = useState<Comment[] | null>(null);
-  const [identity, setIdentity] = useState(randomIdentity);
+  // null until mount: Math.random() would otherwise pick different values on
+  // the server render vs. the client hydration pass and trigger a hydration
+  // mismatch.
+  const [identity, setIdentity] = useState<ReturnType<typeof randomIdentity> | null>(null);
   const [body, setBody] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setIdentity(randomIdentity());
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -85,7 +92,7 @@ export function BlogComments({ postSlug }: { postSlug: string }) {
     setError(null);
 
     const trimmedBody = body.trim();
-    if (!trimmedBody) return;
+    if (!trimmedBody || !identity) return;
 
     const lastAt = Number(localStorage.getItem("comment-last-at") ?? 0);
     if (Date.now() - lastAt < RATE_LIMIT_MS) {
@@ -118,24 +125,28 @@ export function BlogComments({ postSlug }: { postSlug: string }) {
       </p>
 
       <form onSubmit={handleSubmit} className="mt-4">
-        <div className="flex items-center gap-2">
-          <span
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base"
-            style={{ backgroundColor: identity.bg }}
-          >
-            {identity.emoji}
-          </span>
-          <span className="text-sm font-bold" style={{ color: toss.color.foreground }}>
-            {identity.nickname}
-          </span>
-          <button
-            type="button"
-            onClick={() => setIdentity(randomIdentity())}
-            className="ml-auto rounded-full px-3 py-1 text-xs font-semibold"
-            style={{ backgroundColor: toss.color.surface, color: toss.color.body }}
-          >
-            랜덤 변경
-          </button>
+        <div className="flex h-8 items-center gap-2">
+          {identity && (
+            <>
+              <span
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base"
+                style={{ backgroundColor: identity.bg }}
+              >
+                {identity.emoji}
+              </span>
+              <span className="text-sm font-bold" style={{ color: toss.color.foreground }}>
+                {identity.nickname}
+              </span>
+              <button
+                type="button"
+                onClick={() => setIdentity(randomIdentity())}
+                className="ml-auto rounded-full px-3 py-1 text-xs font-semibold"
+                style={{ backgroundColor: toss.color.surface, color: toss.color.body }}
+              >
+                랜덤 변경
+              </button>
+            </>
+          )}
         </div>
         <textarea
           value={body}
@@ -160,7 +171,7 @@ export function BlogComments({ postSlug }: { postSlug: string }) {
           )}
           <button
             type="submit"
-            disabled={submitting || !body.trim()}
+            disabled={submitting || !body.trim() || !identity}
             className="rounded-md px-4 py-1.5 text-sm font-bold text-white disabled:opacity-40"
             style={{ backgroundColor: toss.color.primary }}
           >

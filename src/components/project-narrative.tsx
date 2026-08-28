@@ -125,6 +125,13 @@ export function ProjectNarrative({
   const [showAllCode, setShowAllCode] = useState(hasStoryGaps);
 
   useEffect(() => {
+    // StickyScroll의 코드/데모 패널은 lg 이상에서만 보이므로(lg:block), 그
+    // 밑에서는 스크롤 하이라이트만 있고 패널이 없는 반쪽짜리 경험이 된다.
+    // 모바일은 처음부터 평문 리스트로 시작한다.
+    if (window.matchMedia("(max-width: 1023px)").matches) setShowAllCode(true);
+  }, []);
+
+  useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (sentences.length <= 1) return;
     gsap.registerPlugin(ScrollTrigger);
@@ -329,14 +336,14 @@ export function ProjectNarrative({
                     <SwitchRoot
                       checked={showAllCode}
                       onCheckedChange={setShowAllCode}
-                      className="mb-4 flex items-center gap-2"
+                      className="mb-4 hidden items-center gap-2 lg:flex"
                     >
                       <SwitchControl>
                         <SwitchThumb />
                       </SwitchControl>
                       <SwitchHiddenInput />
                       <SwitchLabel className="text-xs font-bold tracking-wide text-neutral-500 uppercase">
-                        전체보기
+                        한번에 보기
                       </SwitchLabel>
                     </SwitchRoot>
                   )}

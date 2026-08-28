@@ -96,19 +96,13 @@ function DebounceSearchDemo({ accentColor }: { accentColor: string }) {
         타이핑 <span className="font-bold text-neutral-900">{keystrokes}</span>회{" → "}
         실제 요청 <span className="font-bold" style={{ color: accentColor }}>{requests}</span>회
       </p>
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {filtered.map((name) => (
-          <span
-            key={name}
-            className="rounded-[var(--radius-control)] bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 shadow-sm"
-          >
-            {name}
-          </span>
-        ))}
-        {filtered.length === 0 && (
-          <span className="text-xs text-neutral-500">일치하는 감독이 없습니다</span>
+      <p className="mt-3 text-sm text-neutral-700">
+        {filtered.length > 0 ? (
+          filtered.join(", ")
+        ) : (
+          <span className="text-neutral-500">일치하는 감독이 없습니다</span>
         )}
-      </div>
+      </p>
     </div>
   );
 }

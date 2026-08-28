@@ -61,6 +61,25 @@ export function BlogMarkdown({ content }: { content: string }) {
           </strong>
         ),
         hr: () => <hr className="my-10" style={{ borderColor: toss.color.border }} />,
+        table: ({ children }) => (
+          <div className="mb-4 overflow-x-auto rounded-md" style={{ border: `1px solid ${toss.color.border}` }}>
+            <table className="w-full border-collapse text-sm">{children}</table>
+          </div>
+        ),
+        thead: ({ children }) => <thead style={{ backgroundColor: toss.color.surface }}>{children}</thead>,
+        th: ({ children }) => (
+          <th
+            className="px-4 py-2.5 text-left font-bold whitespace-nowrap"
+            style={{ color: toss.color.foreground, borderBottom: `1px solid ${toss.color.border}` }}
+          >
+            {children}
+          </th>
+        ),
+        td: ({ children }) => (
+          <td className="px-4 py-2.5" style={{ color: toss.color.body, borderTop: `1px solid ${toss.color.border}` }}>
+            {children}
+          </td>
+        ),
         a: ({ href, children }) => (
           <a href={href} className="underline" style={{ color: toss.color.primary }}>
             {children}

@@ -67,6 +67,7 @@
 - **color.muted**: `#737373` — 보조 텍스트, 캡션, 라벨
 - **color.primary**: `#ff6f0f` — Karrot(당근마켓) SEED v2 carrot-500. 배경/텍스트 구분 없이 사이트 전역에서 단일 hex로 사용
 - **color.surface**: `#fafafa` — 트러블슈팅 카드 등 옅은 패널 배경 (neutral-50)
+- **color.ink**: `#0b0b12` — 히어로 배경 및 favicon/OG 이미지 생성용 다크 배경 전용 토큰
 - **radius.card**: `12px` — 트러블슈팅 Problem/Cause/Solution/Result 패널 등 카드형 컨테이너
 - **radius.control**: `8px` — 버튼, 칩, 작은 컨트롤, 코드 diff 블록
 
@@ -315,3 +316,4 @@ Record, review, and validate changes before adoption.
 - typography_assets.type_roles — prompt-fact; evidence: .claude/data/references/karrot/DESIGN.md tokens.typography (SEED v2, system-first typography 원칙), verified_v2 2026-07-11; 사용자 지시로 Paperlogy 디스플레이 서체 제거, Pretendard 단일 패밀리 + weight 기반 위계로 전환 (2026-08-27)
 - components_states.components.troubleshooting-entry / troubleshooting-code-diff — prompt-fact; evidence: omd:designer-review round 1 (.reviews/designer-review-round-1.md) BLOCK 2건 — 구현이 카드+단일diff블록 계약과 다름(세로 타임라인 + 좌우 2패널 diff, src/components/project-narrative.tsx:388-433, ui/code-comparison.tsx). 사용자 지시로 기존 계약 대신 현재 구현을 채택, 본 문서를 구현에 맞춰 갱신 (2026-08-27)
 - foundations.foundation_rules 히어로 그레이스케일 예외 — prompt-fact; evidence: omd:final-qa round 1 (.reviews/final-qa-round-1.md) FAIL [1] — hero.tsx:17-24의 오렌지/보라 앰비언트 블러 블롭이 흑백 전용 규칙과 충돌. 사용자 지시로 앰비언트 블롭 3색(흰색/오렌지/보라)을 그레이스케일 규칙의 명시적 예외로 승인, `#b8a4ff`를 앰비언트 전용 토큰으로 기록 (2026-08-27)
+- foundations.tokens.color.ink — repository-fact; evidence: src/components/hero.tsx:13,25, src/app/icon.tsx:16, src/app/apple-icon.tsx:16, src/app/opengraph-image.tsx:17, src/app/not-found.tsx:7 — 5개 파일이 동일한 `#0b0b12`를 토큰화 없이 반복 사용 중이던 것을 omd:learn ambient-drift 리뷰(.omd/preferences.md pending 63건, 2026-08-28)에서 발견, 토큰으로 승격. 나머지 pending 62건은 블로그 전용 Toss 토큰 시스템(의도된 별도 범위) 또는 react-bits 장식 위젯 내부값·이미 코드에서 사라진 stale 항목으로 판단해 반영하지 않음

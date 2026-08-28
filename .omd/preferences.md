@@ -13,7 +13,8 @@ timestamp: 2026-08-26T00:57:35.302Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "앰비언트 블롭 색이 최종적으로 흰색/오렌지/#b8a4ff 3색으로 정리되며 사라진 중간 시안 색상 (stale)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/hero.tsx"
 ```
@@ -28,7 +29,8 @@ timestamp: 2026-08-26T00:57:49.508Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -43,7 +45,8 @@ timestamp: 2026-08-26T05:12:42.596Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/logo-loop.css"
 ```
@@ -58,7 +61,8 @@ timestamp: 2026-08-26T05:13:42.352Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/line-sidebar.jsx"
 ```
@@ -73,7 +77,8 @@ timestamp: 2026-08-26T05:13:53.717Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/line-sidebar.css"
 ```
@@ -88,7 +93,8 @@ timestamp: 2026-08-26T05:14:29.088Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/bubble-menu.jsx"
 ```
@@ -103,7 +109,8 @@ timestamp: 2026-08-26T05:14:47.036Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/bubble-menu.css"
 ```
@@ -118,7 +125,8 @@ timestamp: 2026-08-26T05:14:47.038Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/bubble-menu.css"
 ```
@@ -133,7 +141,8 @@ timestamp: 2026-08-26T05:21:07.831Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/gradient-waves.jsx"
 ```
@@ -148,7 +157,8 @@ timestamp: 2026-08-26T05:21:31.331Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "앰비언트 블롭 색이 최종적으로 흰색/오렌지/#b8a4ff 3색으로 정리되며 사라진 중간 시안 색상 (stale)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/hero.tsx"
 ```
@@ -163,7 +173,8 @@ timestamp: 2026-08-26T05:22:29.018Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "앰비언트 블롭 색이 최종적으로 흰색/오렌지/#b8a4ff 3색으로 정리되며 사라진 중간 시안 색상 (stale)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/hero.tsx"
 ```
@@ -178,7 +189,8 @@ timestamp: 2026-08-26T05:37:37.866Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "앰비언트 블롭 색이 최종적으로 흰색/오렌지/#b8a4ff 3색으로 정리되며 사라진 중간 시안 색상 (stale)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/hero.tsx"
 ```
@@ -193,7 +205,8 @@ timestamp: 2026-08-26T05:41:58.007Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: applied
+applied_at: 2026-08-28T05:10:00.000Z
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/hero.tsx"
 ```
@@ -208,7 +221,8 @@ timestamp: 2026-08-26T05:43:00.726Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: applied
+applied_at: 2026-08-28T05:10:00.000Z
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/hero.tsx"
 ```
@@ -223,7 +237,8 @@ timestamp: 2026-08-26T05:51:57.994Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "앰비언트 블롭 색이 최종적으로 흰색/오렌지/#b8a4ff 3색으로 정리되며 사라진 중간 시안 색상 (stale)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/hero.tsx"
 ```
@@ -238,7 +253,8 @@ timestamp: 2026-08-26T06:34:33.102Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: applied
+applied_at: 2026-08-28T05:10:00.000Z
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/hero.tsx"
 ```
@@ -253,7 +269,8 @@ timestamp: 2026-08-26T06:55:56.522Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/bubble-menu.css"
 ```
@@ -268,7 +285,8 @@ timestamp: 2026-08-26T08:00:27.736Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -283,7 +301,8 @@ timestamp: 2026-08-26T08:11:10.089Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -298,7 +317,8 @@ timestamp: 2026-08-26T08:11:23.595Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -313,7 +333,8 @@ timestamp: 2026-08-26T08:11:23.599Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -328,7 +349,8 @@ timestamp: 2026-08-26T08:11:41.331Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -343,7 +365,8 @@ timestamp: 2026-08-26T08:18:08.936Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -358,7 +381,8 @@ timestamp: 2026-08-26T08:22:02.291Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -373,7 +397,8 @@ timestamp: 2026-08-26T08:40:03.026Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/tilted-card.css"
 ```
@@ -388,7 +413,8 @@ timestamp: 2026-08-26T08:40:03.028Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/tilted-card.css"
 ```
@@ -403,7 +429,8 @@ timestamp: 2026-08-26T08:47:41.433Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/particle-text.jsx"
 ```
@@ -418,7 +445,8 @@ timestamp: 2026-08-26T10:53:58.591Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: applied
+applied_at: 2026-08-28T05:10:00.000Z
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/opengraph-image.tsx"
 ```
@@ -433,7 +461,8 @@ timestamp: 2026-08-26T10:54:12.561Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: applied
+applied_at: 2026-08-28T05:10:00.000Z
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/icon.tsx"
 ```
@@ -448,7 +477,8 @@ timestamp: 2026-08-26T10:54:24.951Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: applied
+applied_at: 2026-08-28T05:10:00.000Z
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/apple-icon.tsx"
 ```
@@ -463,7 +493,8 @@ timestamp: 2026-08-26T23:10:24.514Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "코드에서 이미 제거된 값 (해당 색이 더 이상 site-nav.tsx에 존재하지 않음)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/site-nav.tsx"
 ```
@@ -478,7 +509,8 @@ timestamp: 2026-08-26T23:14:52.990Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/laser-flow.jsx"
 ```
@@ -493,7 +525,8 @@ timestamp: 2026-08-26T23:20:20.419Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/laser-divider.tsx"
 ```
@@ -508,7 +541,8 @@ timestamp: 2026-08-26T23:34:46.634Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -523,7 +557,8 @@ timestamp: 2026-08-26T23:55:09.649Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: applied
+applied_at: 2026-08-28T05:10:00.000Z
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/not-found.tsx"
 ```
@@ -538,7 +573,8 @@ timestamp: 2026-08-27T00:21:37.777Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/site-footer.tsx"
 ```
@@ -553,7 +589,8 @@ timestamp: 2026-08-27T01:00:25.096Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -568,7 +605,8 @@ timestamp: 2026-08-27T01:27:35.685Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -583,7 +621,8 @@ timestamp: 2026-08-27T02:16:56.608Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -598,7 +637,8 @@ timestamp: 2026-08-27T02:16:56.618Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -613,7 +653,8 @@ timestamp: 2026-08-27T05:15:13.823Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative-demos.tsx"
 ```
@@ -628,7 +669,8 @@ timestamp: 2026-08-27T06:42:55.601Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "react-bits 장식용 vendored 위젯 내부 스타일 — 핵심 제품 UI 토큰 범위 밖"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/ui/highlighter.tsx"
 ```
@@ -643,7 +685,8 @@ timestamp: 2026-08-27T06:43:48.481Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -658,7 +701,8 @@ timestamp: 2026-08-27T10:27:37.590Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -673,7 +717,8 @@ timestamp: 2026-08-27T10:30:04.778Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "산발적 회색조/뱃지 색 — SeedBadge tone prop 채택 또는 neutral-100 토큰 재사용으로 코드에서 이미 정리됨 (2026-08-28)"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/project-narrative.tsx"
 ```
@@ -688,7 +733,8 @@ timestamp: 2026-08-27T14:23:42.951Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/page.tsx"
 ```
@@ -703,7 +749,8 @@ timestamp: 2026-08-27T14:26:22.526Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx"
 ```
@@ -718,7 +765,8 @@ timestamp: 2026-08-27T14:51:59.925Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx"
 ```
@@ -733,7 +781,8 @@ timestamp: 2026-08-27T23:06:23.659Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx"
 ```
@@ -748,7 +797,8 @@ timestamp: 2026-08-27T23:06:23.667Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx"
 ```
@@ -763,7 +813,8 @@ timestamp: 2026-08-27T23:09:42.977Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx"
 ```
@@ -778,7 +829,8 @@ timestamp: 2026-08-27T23:09:53.423Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx"
 ```
@@ -793,7 +845,8 @@ timestamp: 2026-08-27T23:11:46.434Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx"
 ```
@@ -808,7 +861,8 @@ timestamp: 2026-08-27T23:11:46.442Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx"
 ```
@@ -823,7 +877,8 @@ timestamp: 2026-08-27T23:12:11.542Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx"
 ```
@@ -838,7 +893,8 @@ timestamp: 2026-08-27T23:45:32.034Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx"
 ```
@@ -853,7 +909,8 @@ timestamp: 2026-08-28T00:04:50.583Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-comments.tsx"
 ```
@@ -868,7 +925,8 @@ timestamp: 2026-08-28T00:04:50.589Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-comments.tsx"
 ```
@@ -883,7 +941,8 @@ timestamp: 2026-08-28T01:04:09.593Z
 scope: color
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-comments.tsx"
 ```
@@ -898,7 +957,8 @@ timestamp: 2026-08-28T01:04:09.601Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-comments.tsx"
 ```
@@ -913,9 +973,42 @@ timestamp: 2026-08-28T01:06:17.861Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-comments.tsx"
 ```
 
 Introduced off-scale border radius rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-comments.tsx — not in DESIGN.md radius scale
+
+## 2026-08-28T01:30:43.098Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtc9z196_17b66199
+timestamp: 2026-08-28T01:30:43.098Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx"
+```
+
+Introduced off-scale border radius rounded-md(6px), border-radius:999px in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx — not in DESIGN.md radius scale
+
+## 2026-08-28T01:42:27.083Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtcae4gb_55053326
+timestamp: 2026-08-28T01:42:27.083Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 — DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-markdown.tsx"
+```
+
+Introduced off-scale border radius rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-markdown.tsx — not in DESIGN.md radius scale

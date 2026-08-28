@@ -13,6 +13,35 @@ type Comment = {
 
 const RATE_LIMIT_MS = 20_000;
 
+const ADJECTIVES = ["재미있는", "다정한", "유쾌한", "용감한", "친절한", "성실한", "활발한", "차분한"];
+const ANIMALS: [string, string][] = [
+  ["너구리", "🦝"],
+  ["알파카", "🦙"],
+  ["사슴", "🦌"],
+  ["펭귄", "🐧"],
+  ["여우", "🦊"],
+  ["고양이", "🐱"],
+  ["토끼", "🐰"],
+  ["곰", "🐻"],
+];
+const AVATAR_BG = ["#ffe4ec", "#e4f0ff", "#f0e4ff", "#fff6e0", "#e0fff2"];
+
+function randomIdentity() {
+  const adj = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];
+  const [animal, emoji] = ANIMALS[Math.floor(Math.random() * ANIMALS.length)];
+  const bg = AVATAR_BG[Math.floor(Math.random() * AVATAR_BG.length)];
+  return { nickname: `${adj}${animal}`, emoji, bg };
+}
+
+// 표시용 아바타 — 실제 닉네임 문자열에서 결정론적으로 이모지를 복원(새로고침 후에도 동일 아바타).
+function avatarFor(nickname: string) {
+  let hash = 0;
+  for (let i = 0; i < nickname.length; i++) hash = (hash * 31 + nickname.charCodeAt(i)) >>> 0;
+  const [, emoji] = ANIMALS[hash % ANIMALS.length];
+  const bg = AVATAR_BG[hash % AVATAR_BG.length];
+  return { emoji, bg };
+}
+
 function formatRelative(iso: string) {
   const diffMs = Date.now() - new Date(iso).getTime();
   const min = Math.floor(diffMs / 60_000);
@@ -25,7 +54,7 @@ function formatRelative(iso: string) {
 
 export function BlogComments({ postSlug }: { postSlug: string }) {
   const [comments, setComments] = useState<Comment[] | null>(null);
-  const [nickname, setNickname] = useState("");
+  const [identity, setIdentity] = useState(randomIdentity);
   const [body, setBody] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -67,11 +96,7 @@ export function BlogComments({ postSlug }: { postSlug: string }) {
     setSubmitting(true);
     const { data, error: insertError } = await supabase
       .from("comments")
-      .insert({
-        post_slug: postSlug,
-        nickname: nickname.trim() || "익명",
-        body: trimmedBody,
-      })
+      .insert({ post_slug: postSlug, nickname: identity.nickname, body: trimmedBody })
       .select("id, nickname, body, created_at")
       .single();
     setSubmitting(false);
@@ -87,20 +112,31 @@ export function BlogComments({ postSlug }: { postSlug: string }) {
   }
 
   return (
-    <div className="mt-20">
-      <p className="font-bold" style={{ color: toss.color.foreground, fontSize: 18 }}>
+    <div className="mt-20" style={{ borderTop: `1px solid ${toss.color.border}` }}>
+      <p className="pt-8 font-bold" style={{ color: toss.color.foreground, fontSize: 18 }}>
         댓글 {comments === null ? "" : comments.length}
       </p>
 
       <form onSubmit={handleSubmit} className="mt-4">
-        <input
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value.slice(0, 20))}
-          placeholder="닉네임 (선택, 비우면 익명)"
-          maxLength={20}
-          className="w-full border-0 border-b pb-2 text-sm outline-none"
-          style={{ color: toss.color.foreground, borderColor: toss.color.border }}
-        />
+        <div className="flex items-center gap-2">
+          <span
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base"
+            style={{ backgroundColor: identity.bg }}
+          >
+            {identity.emoji}
+          </span>
+          <span className="text-sm font-bold" style={{ color: toss.color.foreground }}>
+            {identity.nickname}
+          </span>
+          <button
+            type="button"
+            onClick={() => setIdentity(randomIdentity())}
+            className="ml-auto rounded-full px-3 py-1 text-xs font-semibold"
+            style={{ backgroundColor: toss.color.surface, color: toss.color.body }}
+          >
+            랜덤 변경
+          </button>
+        </div>
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value.slice(0, 1000))}
@@ -108,9 +144,12 @@ export function BlogComments({ postSlug }: { postSlug: string }) {
           maxLength={1000}
           rows={3}
           required
-          className="mt-2 w-full resize-none rounded-md border-none p-3 text-sm outline-none"
+          className="mt-3 w-full resize-none rounded-md border-none p-3 text-sm outline-none"
           style={{ backgroundColor: toss.color.surface, color: toss.color.foreground }}
         />
+        <p className="mt-1.5 text-xs" style={{ color: toss.color.muted }}>
+          입력한 댓글은 수정하거나 삭제할 수 없어요. 또한 허위사실, 욕설, 사칭 등 댓글은 통보없이 삭제될 수 있습니다.
+        </p>
         <div className="mt-2 flex items-center justify-between">
           {error ? (
             <p className="text-xs" style={{ color: "#e42939" }}>
@@ -125,37 +164,46 @@ export function BlogComments({ postSlug }: { postSlug: string }) {
             className="rounded-md px-4 py-1.5 text-sm font-bold text-white disabled:opacity-40"
             style={{ backgroundColor: toss.color.primary }}
           >
-            {submitting ? "등록 중..." : "등록"}
+            {submitting ? "등록 중..." : "댓글 남기기"}
           </button>
         </div>
       </form>
 
-      <div className="mt-8" style={{ borderTop: `1px solid ${toss.color.border}` }}>
+      <div className="mt-8 flex flex-col gap-3">
         {comments === null && (
-          <p className="py-6 text-sm" style={{ color: toss.color.muted }}>
+          <p className="text-sm" style={{ color: toss.color.muted }}>
             불러오는 중...
           </p>
         )}
         {comments?.length === 0 && (
-          <p className="py-6 text-sm" style={{ color: toss.color.muted }}>
+          <p className="text-sm" style={{ color: toss.color.muted }}>
             첫 댓글을 남겨보세요.
           </p>
         )}
-        {comments?.map((c) => (
-          <div key={c.id} className="py-4" style={{ borderBottom: `1px solid ${toss.color.border}` }}>
-            <div className="flex items-baseline gap-2">
-              <span className="text-sm font-bold" style={{ color: toss.color.foreground }}>
-                {c.nickname}
-              </span>
-              <span className="text-xs" style={{ color: toss.color.muted }}>
-                {formatRelative(c.created_at)}
-              </span>
+        {comments?.map((c) => {
+          const avatar = avatarFor(c.nickname);
+          return (
+            <div key={c.id} className="rounded-md p-4" style={{ backgroundColor: toss.color.surface }}>
+              <div className="flex items-center gap-2">
+                <span
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm"
+                  style={{ backgroundColor: avatar.bg }}
+                >
+                  {avatar.emoji}
+                </span>
+                <span className="text-sm font-bold" style={{ color: toss.color.foreground }}>
+                  {c.nickname}
+                </span>
+                <span className="text-xs" style={{ color: toss.color.muted }}>
+                  {formatRelative(c.created_at)}
+                </span>
+              </div>
+              <p className="mt-2 text-sm whitespace-pre-wrap" style={{ color: toss.color.body }}>
+                {c.body}
+              </p>
             </div>
-            <p className="mt-1 text-sm whitespace-pre-wrap" style={{ color: toss.color.body }}>
-              {c.body}
-            </p>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

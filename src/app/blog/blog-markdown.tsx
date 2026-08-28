@@ -10,13 +10,18 @@ import { toss } from "./toss-tokens";
 SyntaxHighlighter.registerLanguage("tsx", tsx);
 
 export function BlogMarkdown({ content }: { content: string }) {
+  // extractHeadings()가 훑는 순서와 똑같이 h2/h3를 만날 때마다 증가시켜
+  // 같은 heading-N id를 붙인다 (src/lib/toc.ts 참고).
+  let headingIndex = 0;
+
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       components={{
         h2: ({ children }) => (
           <h2
-            className="mt-10 mb-3 font-bold tracking-tight first:mt-0"
+            id={`heading-${headingIndex++}`}
+            className="mt-10 mb-3 scroll-mt-24 font-bold tracking-tight first:mt-0"
             style={{ color: toss.color.foreground, fontSize: 24, lineHeight: "1.4" }}
           >
             {children}
@@ -24,7 +29,8 @@ export function BlogMarkdown({ content }: { content: string }) {
         ),
         h3: ({ children }) => (
           <h3
-            className="mt-8 mb-2 font-bold tracking-tight"
+            id={`heading-${headingIndex++}`}
+            className="mt-8 mb-2 scroll-mt-24 font-bold tracking-tight"
             style={{ color: toss.color.foreground, fontSize: 18, lineHeight: "1.4" }}
           >
             {children}

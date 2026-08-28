@@ -289,11 +289,9 @@ export function ProjectNarrative({
             {project.contributions.length > 0 && (
               <div>
                 <p className="text-xs font-bold tracking-wide text-neutral-500 uppercase">기여</p>
-                {/* DESIGN.md contribution-list: 카드/틴트 배경 없이 기능·트러블슈팅과
-                    같은 평문 리스트로 유지한다 - 이전엔 bg-[#f3f4f5] 카드로 감쌌음. */}
-                <ItemGroup className="mt-2.5">
+                <ItemGroup className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {project.contributions.map((item, i) => (
-                    <Item key={item} role="listitem" className="px-0 py-2.5">
+                    <Item key={item} role="listitem" className="bg-neutral-100 px-3.5 py-3">
                       <ItemMedia
                         aria-hidden
                         className="text-xs font-black tabular-nums"

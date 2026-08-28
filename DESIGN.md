@@ -51,8 +51,6 @@
 
 - 기술 스택을 프로젝트 섹션 맨 끝에 텍스트로만 나열하지 않는다 — 태그라인 아래 박스형 칩으로 배치한다
 
-- 기여(Contribution) 목록을 틴트 배경 카드로 감싸지 않는다 — 기능/트러블슈팅과 같은 평문 리스트로 유지한다
-
 - Before/After 코드는 파일명 헤더가 달린 두 개의 패널을 나란히(desktop: `md:grid-cols-2`) 배치하고, 각 패널 안에서 삭제/추가 라인을 diff 하이라이트(빨강/초록 배경)로 표시한다 — 단일 다크 블록에 이어붙이지 않는다
 
 <!-- design-md:section foundations -->
@@ -182,7 +180,7 @@ Required.
 
 ### Component: contribution-list
 
-**Semantics:** 기여(Contribution) 목록. 카드/틴트 배경 없이 기능·트러블슈팅과 동일한 평문 리스트로 표시한다
+**Semantics:** 기여(Contribution) 목록. 옅은 회색(neutral-100) 배경 카드를 2열 그리드로 배치해 기능·트러블슈팅의 평문 리스트와 시각적으로 구분한다
 
 - Anatomy: heading, item-list
 - Variants: default
@@ -317,3 +315,4 @@ Record, review, and validate changes before adoption.
 - components_states.components.troubleshooting-entry / troubleshooting-code-diff — prompt-fact; evidence: omd:designer-review round 1 (.reviews/designer-review-round-1.md) BLOCK 2건 — 구현이 카드+단일diff블록 계약과 다름(세로 타임라인 + 좌우 2패널 diff, src/components/project-narrative.tsx:388-433, ui/code-comparison.tsx). 사용자 지시로 기존 계약 대신 현재 구현을 채택, 본 문서를 구현에 맞춰 갱신 (2026-08-27)
 - foundations.foundation_rules 히어로 그레이스케일 예외 — prompt-fact; evidence: omd:final-qa round 1 (.reviews/final-qa-round-1.md) FAIL [1] — hero.tsx:17-24의 오렌지/보라 앰비언트 블러 블롭이 흑백 전용 규칙과 충돌. 사용자 지시로 앰비언트 블롭 3색(흰색/오렌지/보라)을 그레이스케일 규칙의 명시적 예외로 승인, `#b8a4ff`를 앰비언트 전용 토큰으로 기록 (2026-08-27)
 - foundations.tokens.color.ink — repository-fact; evidence: src/components/hero.tsx:13,25, src/app/icon.tsx:16, src/app/apple-icon.tsx:16, src/app/opengraph-image.tsx:17, src/app/not-found.tsx:7 — 5개 파일이 동일한 `#0b0b12`를 토큰화 없이 반복 사용 중이던 것을 omd:learn ambient-drift 리뷰(.omd/preferences.md pending 63건, 2026-08-28)에서 발견, 토큰으로 승격. 나머지 pending 62건은 블로그 전용 Toss 토큰 시스템(의도된 별도 범위) 또는 react-bits 장식 위젯 내부값·이미 코드에서 사라진 stale 항목으로 판단해 반영하지 않음
+- components_states.components.contribution-list — prompt-fact; evidence: DESIGN.md의 "평문 리스트 유지" 규칙이 실제 구현(2열 그리드 + neutral-100 카드)과 반대였음. omd:learn 리뷰 중 규칙에 맞춰 코드를 평문 리스트로 바꿨다가, 사용자가 시각적 변경을 원치 않는다고 확인 — 코드를 카드 스타일로 되돌리고 문서를 구현에 맞춰 갱신 (2026-08-28)

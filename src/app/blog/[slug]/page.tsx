@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { Icon } from "@seed-design/react";
 import { IconCalendarLine, IconClockLine } from "@karrotmarket/react-monochrome-icon";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
+import { profile } from "@/lib/content";
+import { SiteFooter } from "@/components/site-footer";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { extractHeadings } from "@/lib/toc";
 import { toss } from "../toss-tokens";
@@ -36,6 +38,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const headings = extractHeadings(post.content);
 
   return (
+    <>
     <main className="px-6 py-24 md:px-16 lg:px-24" style={{ backgroundColor: toss.color.canvas }}>
       <div className="mx-auto grid w-full max-w-6xl gap-x-12 lg:grid-cols-[1fr_42rem_1fr]">
         <div aria-hidden className="hidden lg:block" />
@@ -67,5 +70,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <BlogToc headings={headings} />
       </div>
     </main>
+    <SiteFooter profile={profile} />
+    </>
   );
 }

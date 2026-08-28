@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 const KEY_PREFIX = "scroll:";
+const MAX_RESTORE_MS = 1500;
 
 // Next.js Link 네비게이션은 뒤로가기가 아니라 매번 새 push라서, 브라우저의
 // 네이티브 스크롤 복원이 적용되지 않는다(그건 popstate에만 붙는다). 홈처럼
@@ -18,25 +19,40 @@ export function ScrollMemory() {
   const pathnameRef = useRef(pathname);
   pathnameRef.current = pathname;
 
-  useEffect(() => {
+  // 복원할 위치가 있으면 첫 페인트 전에 문서를 숨겨서 "맨 위 → 목표 위치"로
+  // 튀는 깜빡임 자체를 안 보이게 한다. rAF 폴링으로 문서 높이가 목표 위치에
+  // 닿을 때까지(= 히어로/ScrollTrigger pin-spacer가 다 자랄 때까지) 계속
+  // scrollTo를 재시도하다가, 도달하거나 최대 대기 시간을 넘기면 다시 보여준다.
+  useLayoutEffect(() => {
     const saved = sessionStorage.getItem(KEY_PREFIX + pathname);
-    if (!saved) return;
     const y = Number(saved);
-    if (!Number.isFinite(y) || y <= 0) return;
+    if (!saved || !Number.isFinite(y) || y <= 0) return;
 
-    // 히어로 캔버스, GSAP ScrollTrigger pin-spacer 등 이 페이지의 실제 스크롤
-    // 가능 높이는 마운트 직후 한 번에 갖춰지지 않고 몇 프레임에 걸쳐 계속
-    // 자란다. 한 번만 옮기면 아직 짧은 문서 높이에 걸려 중간에서 멈추므로,
-    // 문서가 자라는 동안 몇 차례 다시 시도해 목표 위치를 계속 쫓아간다.
-    function jump() {
+    document.documentElement.style.visibility = "hidden";
+    const start = performance.now();
+    let raf = 0;
+
+    function tick() {
       if (window.__lenis) {
         window.__lenis.scrollTo(y, { immediate: true });
       } else {
         window.scrollTo(0, y);
       }
+
+      const reached = Math.abs(window.scrollY - y) < 2;
+      const timedOut = performance.now() - start > MAX_RESTORE_MS;
+      if (reached || timedOut) {
+        document.documentElement.style.visibility = "";
+        return;
+      }
+      raf = requestAnimationFrame(tick);
     }
-    const timers = [200, 500, 900, 1400].map((delay) => setTimeout(jump, delay));
-    return () => timers.forEach(clearTimeout);
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      document.documentElement.style.visibility = "";
+    };
   }, [pathname]);
 
   useEffect(() => {

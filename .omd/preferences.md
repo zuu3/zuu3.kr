@@ -724,3 +724,153 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-
 ```
 
 Introduced off-scale border radius rounded-2xl(16px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx — not in DESIGN.md radius scale
+
+## 2026-08-27T23:06:23.659Z — introduced-off-palette-color-s-3182f6-66
+
+```omd-meta
+id: pref_mtc4tfl7_4942bde3
+timestamp: 2026-08-27T23:06:23.659Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx"
+```
+
+Introduced off-palette color(s) #3182f6, #6699ff, #c8b6ff in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx — not in DESIGN.md
+
+## 2026-08-27T23:06:23.667Z — introduced-off-scale-border-radius-borde
+
+```omd-meta
+id: pref_mtc4tflf_d7ccfd7b
+timestamp: 2026-08-27T23:06:23.667Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx"
+```
+
+Introduced off-scale border radius border-radius:999px in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx — not in DESIGN.md radius scale
+
+## 2026-08-27T23:09:42.977Z — introduced-off-palette-color-s-191f28-in
+
+```omd-meta
+id: pref_mtc4xpdt_ac4fa992
+timestamp: 2026-08-27T23:09:42.977Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx"
+```
+
+Introduced off-palette color(s) #191f28 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx — not in DESIGN.md
+
+## 2026-08-27T23:09:53.423Z — introduced-off-palette-color-s-191f28-31
+
+```omd-meta
+id: pref_mtc4xxfz_d87c9624
+timestamp: 2026-08-27T23:09:53.423Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx"
+```
+
+Introduced off-palette color(s) #191f28, #3182f6 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-post-list.tsx — not in DESIGN.md
+
+## 2026-08-27T23:11:46.434Z — introduced-off-palette-color-s-191f28-31
+
+```omd-meta
+id: pref_mtc50cn6_273147f6
+timestamp: 2026-08-27T23:11:46.434Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx"
+```
+
+Introduced off-palette color(s) #191f28, #3182f6 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx — not in DESIGN.md
+
+## 2026-08-27T23:11:46.442Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtc50cne_71d42794
+timestamp: 2026-08-27T23:11:46.442Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx"
+```
+
+Introduced off-scale border radius rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx — not in DESIGN.md radius scale
+
+## 2026-08-27T23:12:11.542Z — introduced-off-palette-color-s-f2f4f6-19
+
+```omd-meta
+id: pref_mtc50w0m_b71cba13
+timestamp: 2026-08-27T23:12:11.542Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx"
+```
+
+Introduced off-palette color(s) #f2f4f6, #191f28, #3182f6 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx — not in DESIGN.md
+
+## 2026-08-27T23:45:32.034Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtc67rlu_95d28005
+timestamp: 2026-08-27T23:45:32.034Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx"
+```
+
+Introduced off-scale border radius rounded-md(6px), rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/page.tsx — not in DESIGN.md radius scale
+
+## 2026-08-28T00:04:50.583Z — introduced-off-palette-color-s-e42939-in
+
+```omd-meta
+id: pref_mtc6wljr_25ae4296
+timestamp: 2026-08-28T00:04:50.583Z
+scope: color
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-comments.tsx"
+```
+
+Introduced off-palette color(s) #e42939 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-comments.tsx — not in DESIGN.md
+
+## 2026-08-28T00:04:50.589Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtc6wljx_424cc9bd
+timestamp: 2026-08-28T00:04:50.589Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-comments.tsx"
+```
+
+Introduced off-scale border radius rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-comments.tsx — not in DESIGN.md radius scale

@@ -5,6 +5,7 @@ import { IconCalendarLine, IconClockLine } from "@karrotmarket/react-monochrome-
 import { blogPosts } from "@/lib/content";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { toss } from "../toss-tokens";
+import { BlogComments } from "../blog-comments";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -53,6 +54,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </p>
           ))}
         </div>
+
+        <BlogComments postSlug={post.slug} />
       </article>
     </main>
   );

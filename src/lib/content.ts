@@ -9,15 +9,6 @@ export type TroubleshootingEntry = {
   codeFilename?: string;
 };
 
-export type BlogPost = {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  tags: string[];
-  content: string[];
-};
-
 export type Project = {
   slug: string;
   name: string;
@@ -575,43 +566,3 @@ const reader = res.body!.getReader();`,
   },
 ];
 
-// 노션에 매일 쓰는 개념 정리 3개를 임시 텍스트로 옮겨온 placeholder.
-// 실제 노션 내용으로 교체 예정 — UI/라우트 프로토타입 단계.
-export const blogPosts: BlogPost[] = [
-  {
-    slug: "closures",
-    title: "클로저는 왜 메모리를 붙잡고 있을까",
-    date: "2026-08-20",
-    excerpt: "클로저가 렉시컬 스코프를 참조로 붙잡는 원리와, 무심코 쓰면 생기는 메모리 누수 패턴을 정리했다.",
-    tags: ["JavaScript", "메모리"],
-    content: [
-      "클로저는 함수가 자신이 선언된 렉시컬 스코프를 기억하는 현상이다. 함수가 반환된 뒤에도 그 스코프의 변수는 가비지 컬렉션 대상이 되지 않는다 — 클로저가 참조를 붙잡고 있기 때문이다.",
-      "문제는 이 참조가 의도치 않게 큰 객체 전체를 붙잡을 때 생긴다. 예를 들어 이벤트 리스너 콜백 안에서 클로저가 상위 스코프의 대용량 배열을 참조하면, 리스너를 제거하지 않는 한 그 배열은 계속 메모리에 남는다.",
-      "실무에서는 useEffect의 cleanup, addEventListener의 removeEventListener 짝을 맞추는 게 클로저발 메모리 누수를 막는 가장 기본적인 방법이다.",
-    ],
-  },
-  {
-    slug: "event-loop-microtask",
-    title: "마이크로태스크 큐와 매크로태스크 큐가 실행 순서를 가르는 지점",
-    date: "2026-08-15",
-    excerpt: "Promise.then과 setTimeout이 같은 틱에서 왜 다른 순서로 실행되는지, 이벤트 루프 관점에서 정리했다.",
-    tags: ["JavaScript", "이벤트 루프"],
-    content: [
-      "이벤트 루프는 한 번의 매크로태스크(예: setTimeout 콜백, I/O)를 처리한 뒤, 다음 매크로태스크로 넘어가기 전에 마이크로태스크 큐(Promise.then, queueMicrotask)를 큐가 빌 때까지 전부 비운다.",
-      "그래서 setTimeout(fn, 0)과 Promise.resolve().then(fn)을 같은 줄에서 호출해도, 마이크로태스크가 항상 먼저 실행된다 — 매크로태스크 큐로 넘어가기 전에 마이크로태스크 큐부터 완전히 비워야 하기 때문이다.",
-      "렌더링도 마이크로태스크 큐를 다 비운 뒤에 일어나므로, 마이크로태스크 안에서 무한히 새 마이크로태스크를 추가하면 렌더링이 영원히 막힐 수 있다.",
-    ],
-  },
-  {
-    slug: "css-containing-block",
-    title: "position: sticky가 안 먹힐 때 의심해야 할 것 — containing block",
-    date: "2026-08-10",
-    excerpt: "sticky가 동작하지 않는 대부분의 원인은 부모의 overflow 설정이나 containing block 계산 방식에 있다.",
-    tags: ["CSS"],
-    content: [
-      "position: sticky 요소는 자신의 containing block(보통 가장 가까운 스크롤 가능한 조상) 안에서만 sticky로 동작한다. 조상 중 하나라도 overflow: hidden/auto/scroll이 걸려 있으면 그 조상이 containing block이 되어 sticky 범위가 거기서 끊긴다.",
-      "top 값이 퍼센트일 때는 containing block의 height가 auto면 퍼센트가 resolve되지 않아 조용히 무시된다 — 이 경우 개발자 도구로 봐도 에러 없이 그냥 안 붙는다.",
-      "디버깅 순서는 항상 같다: 부모 체인을 위로 올라가며 overflow 속성을 확인하고, top 값이 고정 단위(px)인지 퍼센트인지부터 본다.",
-    ],
-  },
-];

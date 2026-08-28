@@ -2,13 +2,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Icon } from "@seed-design/react";
 import { IconCalendarLine, IconClockLine } from "@karrotmarket/react-monochrome-icon";
-import { blogPosts } from "@/lib/content";
+import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { toss } from "../toss-tokens";
 import { BlogComments } from "../blog-comments";
+import { BlogMarkdown } from "../blog-markdown";
 
-export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -17,14 +21,14 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getPostBySlug(slug);
   if (!post) return {};
   return { title: `${post.title} | 오주현`, description: post.excerpt };
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getPostBySlug(slug);
   if (!post) notFound();
 
   return (
@@ -39,7 +43,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="mt-4 flex items-center gap-3 text-sm font-medium" style={{ color: toss.color.muted }}>
           <span className="inline-flex items-center gap-1">
             <Icon svg={<IconCalendarLine />} size="15px" color={toss.color.muted} />
-            <span className="tabular-nums">{formatBlogDate(post.date)}</span>
+            <span className="tabular-nums">{formatBlogDate(post.published_at)}</span>
           </span>
           <span className="inline-flex items-center gap-1">
             <Icon svg={<IconClockLine />} size="15px" color={toss.color.muted} />
@@ -47,12 +51,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </span>
         </div>
 
-        <div className="mt-10 space-y-4">
-          {post.content.map((paragraph, i) => (
-            <p key={i} style={{ color: toss.color.body, fontSize: 16, lineHeight: "24px" }}>
-              {paragraph}
-            </p>
-          ))}
+        <div className="mt-10">
+          <BlogMarkdown content={post.content} />
         </div>
 
         <BlogComments postSlug={post.slug} />

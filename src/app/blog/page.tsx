@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { blogPosts } from "@/lib/content";
+import { getAllPosts } from "@/lib/posts";
 import { BlogPostList } from "./blog-post-list";
 import { toss } from "./toss-tokens";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Blog | 오주현",
   description: "프론트엔드 개념을 정리해 남기는 기록.",
 };
 
-export default function BlogIndexPage() {
-  const posts = [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : -1));
+export default async function BlogIndexPage() {
+  const posts = await getAllPosts();
 
   return (
     <main className="px-6 py-24 md:px-16 lg:px-24" style={{ backgroundColor: toss.color.canvas }}>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { Icon } from "@seed-design/react";
 import { IconCalendarLine, IconClockLine } from "@karrotmarket/react-monochrome-icon";
-import type { BlogPost } from "@/lib/content";
+import type { Post } from "@/lib/posts";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { toss } from "./toss-tokens";
 
@@ -21,7 +21,7 @@ function thumbnailFor(slug: string) {
   return THUMBNAIL_GRADIENTS[hash % THUMBNAIL_GRADIENTS.length];
 }
 
-export function BlogPostList({ posts }: { posts: BlogPost[] }) {
+export function BlogPostList({ posts }: { posts: Post[] }) {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -67,7 +67,7 @@ export function BlogPostList({ posts }: { posts: BlogPost[] }) {
               <div className="mt-3 flex items-center gap-3 text-[13px] font-medium" style={{ color: toss.color.muted }}>
                 <span className="inline-flex items-center gap-1">
                   <Icon svg={<IconCalendarLine />} size="14px" color={toss.color.muted} />
-                  <span className="tabular-nums">{formatBlogDate(post.date)}</span>
+                  <span className="tabular-nums">{formatBlogDate(post.published_at)}</span>
                 </span>
                 <span className="inline-flex items-center gap-1">
                   <Icon svg={<IconClockLine />} size="14px" color={toss.color.muted} />

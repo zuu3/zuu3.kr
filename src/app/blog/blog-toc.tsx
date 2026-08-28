@@ -54,6 +54,21 @@ export function BlogToc({ headings }: { headings: TocHeading[] }) {
                 )}
                 <a
                   href={`#${h.id}`}
+                  onClick={(e) => {
+                    const target = document.getElementById(h.id);
+                    if (!target) return;
+                    e.preventDefault();
+                    // 사이트 전역에 Lenis 스무스 스크롤이 떠 있어서, 네이티브
+                    // #hash 점프나 scrollIntoView를 그대로 쓰면 Lenis가 다음
+                    // 프레임에 자기 가상 스크롤 위치로 되돌려버린다 — 특히
+                    // 섹션 사이 간격이 짧으면 엉뚱한 이웃 섹션으로 튕겨 보인다.
+                    // Lenis 자신의 scrollTo를 거치면 이 경합이 안 생긴다.
+                    if (window.__lenis) {
+                      window.__lenis.scrollTo(target, { duration: 1, offset: -80 });
+                    } else {
+                      target.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                  }}
                   className="block text-sm transition-colors"
                   style={{
                     color: isActive ? toss.color.foreground : toss.color.muted,

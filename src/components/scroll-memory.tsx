@@ -17,9 +17,12 @@ const MAX_RESTORE_MS = 1500;
 export function ScrollMemory() {
   const pathname = usePathname();
   const pathnameRef = useRef(pathname);
-  useEffect(() => {
-    pathnameRef.current = pathname;
-  }, [pathname]);
+  // 렌더 중 동기적으로 써야 한다 - useEffect로 옮기면 pathname은 이미
+  // 바뀌었는데 ref는 아직 옛 값인 창이 생겨서, 네비게이션 도중 뜨는 스크롤
+  // 이벤트가 옛 경로 키에 write되어 저장값을 오염시킨다(실제로 겪은 회귀:
+  // Home 스크롤 위치가 275 같은 전환 중간값으로 덮어써짐).
+  // eslint-disable-next-line react-hooks/refs
+  pathnameRef.current = pathname;
 
   // 복원할 위치가 있으면 첫 페인트 전에 문서를 숨겨서 "맨 위 → 목표 위치"로
   // 튀는 깜빡임 자체를 안 보이게 한다. rAF 폴링으로 문서 높이가 목표 위치에

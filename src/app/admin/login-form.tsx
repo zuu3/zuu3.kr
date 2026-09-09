@@ -34,7 +34,9 @@ export function LoginForm() {
       <form onSubmit={submit} className="mt-6 flex flex-col gap-3">
         <input
           type="email"
+          name="email"
           required
+          autoComplete="username"
           placeholder="이메일"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -42,7 +44,9 @@ export function LoginForm() {
         />
         <input
           type="password"
+          name="password"
           required
+          autoComplete={mode === "login" ? "current-password" : "new-password"}
           placeholder="비밀번호"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

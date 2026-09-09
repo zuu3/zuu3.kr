@@ -98,7 +98,15 @@ function TableSizePicker({ onPick, onClose }: { onPick: (rows: number, cols: num
   );
 }
 
-export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => void }) {
+export function PostEditor({
+  post,
+  existingTags,
+  onDone,
+}: {
+  post: Post | null;
+  existingTags: string[];
+  onDone: () => void;
+}) {
   const {
     slug,
     title,
@@ -106,6 +114,8 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
     setExcerpt,
     tags,
     setTags,
+    currentTagList,
+    addTag,
     content,
     setContent,
     isDirty,
@@ -239,6 +249,29 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
               className="flex-1 rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm outline-none focus:border-neutral-400"
             />
           </div>
+          {existingTags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {existingTags.map((tag) => {
+                const used = currentTagList.some((t) => t.toLowerCase() === tag.toLowerCase());
+                return (
+                  <button
+                    key={tag}
+                    type="button"
+                    disabled={used}
+                    onClick={() => addTag(tag)}
+                    className="rounded-full border px-2.5 py-1 text-xs font-medium transition-colors disabled:cursor-default"
+                    style={{
+                      borderColor: toss.color.border,
+                      color: used ? toss.color.muted : toss.color.body,
+                      backgroundColor: used ? toss.color.surface : "#ffffff",
+                    }}
+                  >
+                    {tag}
+                  </button>
+                );
+              })}
+            </div>
+          )}
           <textarea
             placeholder="요약 (목록에 보이는 짧은 설명)"
             value={excerpt}

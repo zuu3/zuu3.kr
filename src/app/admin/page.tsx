@@ -36,9 +36,14 @@ export default function AdminPage() {
   if (!session) return <LoginForm />;
 
   if (editing) {
+    // 태그를 매번 새로 타이핑하면 "Next.js"/"next.js"처럼 표기가 갈라지기
+    // 쉽다. 기존 글들에서 실제로 쓰인 태그를 모아 에디터에서 클릭으로
+    // 재사용할 수 있게 넘긴다.
+    const existingTags = Array.from(new Set(posts.flatMap((p) => p.tags))).sort();
     return (
       <PostEditor
         post={editing === "new" ? null : editing}
+        existingTags={existingTags}
         onDone={() => setEditing(null)}
       />
     );

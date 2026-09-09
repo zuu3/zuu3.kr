@@ -21,6 +21,12 @@ export function usePostForm(post: Post | null) {
   const [title, setTitle] = useState(post?.title ?? "");
   const [excerpt, setExcerpt] = useState(post?.excerpt ?? "");
   const [tags, setTags] = useState(post?.tags.join(", ") ?? "");
+  const currentTagList = tags.split(",").map((t) => t.trim()).filter(Boolean);
+
+  function addTag(tag: string) {
+    if (currentTagList.some((t) => t.toLowerCase() === tag.toLowerCase())) return;
+    setTags(currentTagList.length > 0 ? `${tags}, ${tag}` : tag);
+  }
   const [content, setContent] = useState(post?.content ?? "");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -113,12 +119,26 @@ export function usePostForm(post: Post | null) {
     replaceSelection(`${header}\n${separator}\n${body}`, 2);
   }
 
+  // 대소문자만 다른 태그("Next.js" vs "next.js")가 따로 쌓이지 않도록 저장
+  // 직전에 정리한다. 먼저 입력된 표기를 그대로 살리고 중복만 걸러낸다.
+  function normalizeTags(raw: string) {
+    const seen = new Set<string>();
+    const result: string[] = [];
+    for (const tag of raw.split(",").map((t) => t.trim()).filter(Boolean)) {
+      const key = tag.toLowerCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      result.push(tag);
+    }
+    return result;
+  }
+
   function toRow() {
     return {
       slug,
       title,
       excerpt,
-      tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
+      tags: normalizeTags(tags),
       content,
       published_at: post?.published_at ?? new Date().toISOString(),
     };
@@ -131,6 +151,8 @@ export function usePostForm(post: Post | null) {
     setExcerpt,
     tags,
     setTags,
+    currentTagList,
+    addTag,
     content,
     setContent,
     isDirty,

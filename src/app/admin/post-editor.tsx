@@ -137,7 +137,12 @@ export function PostEditor({
 
   function handleBack() {
     if (isDirty) {
-      confirmDialog.ask("지금 나가면 수정한 내용이 사라져요. 나갈까요?", onDone);
+      confirmDialog.ask({
+        title: "나가시겠어요?",
+        description: "저장하지 않은 수정 내용은 사라져요.",
+        confirmLabel: "나가기",
+        onConfirm: onDone,
+      });
       return;
     }
     onDone();
@@ -182,7 +187,12 @@ export function PostEditor({
 
   function remove() {
     if (!post) return;
-    confirmDialog.ask(`"${post.title}" 삭제할까요?`, doRemove);
+    confirmDialog.ask({
+      title: "글을 삭제할까요?",
+      description: `"${post.title}"은(는) 복구할 수 없어요.`,
+      confirmLabel: "삭제",
+      onConfirm: doRemove,
+    });
   }
 
   return (

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,7 +13,13 @@ declare global {
 }
 
 export function SmoothScroll() {
+  const pathname = usePathname();
+
   useEffect(() => {
+    // /admin은 좌우 분할 패널을 각자 내부 스크롤하는 도구 화면이다. Lenis는
+    // 마우스 휠을 window 레벨에서 가로채 자기 가상 스크롤에 먹여버리므로,
+    // 중첩된 textarea/미리보기 패널의 네이티브 스크롤이 안 먹는 원인이 된다.
+    if (pathname.startsWith("/admin")) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     gsap.registerPlugin(ScrollTrigger);
@@ -59,7 +66,7 @@ export function SmoothScroll() {
       lenis.destroy();
       window.__lenis = undefined;
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

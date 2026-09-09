@@ -1332,3 +1332,67 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-
 ```
 
 Introduced off-scale border radius rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-markdown.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T06:22:49.278Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mttpowji_f263cf78
+timestamp: 2026-09-09T06:22:49.278Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/comments-panel.tsx"
+```
+
+Introduced off-scale border radius rounded-2xl(16px), rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/comments-panel.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T06:26:38.660Z — introduced-off-palette-color-s-fffbeb-92
+
+```omd-meta
+id: pref_mttpttj8_3998b838
+timestamp: 2026-09-09T06:26:38.660Z
+scope: color
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/preview/page.tsx"
+```
+
+Introduced off-palette color(s) #fffbeb, #92400e in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/preview/page.tsx — not in DESIGN.md
+
+## 2026-09-09T06:26:38.666Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mttpttje_42134016
+timestamp: 2026-09-09T06:26:38.666Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/preview/page.tsx"
+```
+
+Introduced off-scale border radius rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/preview/page.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T06:32:59.223Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mttq1z6f_4fb28af9
+timestamp: 2026-09-09T06:32:59.223Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/images-panel.tsx"
+```
+
+Introduced off-scale border radius rounded-2xl(16px), rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/images-panel.tsx — not in DESIGN.md radius scale

@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { Icon } from "@seed-design/react";
 import { IconCalendarLine, IconClockLine, IconMagnifyingglassLine } from "@karrotmarket/react-monochrome-icon";
 import type { Post } from "@/lib/posts";
-import { formatBlogDate, readingTime } from "@/lib/blog";
+import { firstImageUrl, formatBlogDate, readingTime } from "@/lib/blog";
 import { toss } from "./toss-tokens";
 
 // 실제 삽화 대신, 글마다 고정 그라디언트 썸네일을 결정론적으로 배정.
@@ -159,10 +159,23 @@ export function BlogPostList({ posts }: { posts: Post[] }) {
                 className="hidden h-[130px] w-[200px] shrink-0 overflow-hidden sm:block"
                 style={{ borderRadius: toss.radius.md }}
               >
-                <div
-                  className="h-full w-full transition-transform duration-300 ease-out group-hover/post-item:scale-110 motion-reduce:transition-none motion-reduce:group-hover/post-item:scale-100"
-                  style={{ background: thumbnailFor(post.slug) }}
-                />
+                {(() => {
+                  const cover = firstImageUrl(post.content);
+                  return cover ? (
+                    // eslint-disable-next-line @next/next/no-img-element -- 외부(Supabase Storage/임의 URL) 이미지라 next/image 도메인 화이트리스트를 필요로 하지 않는 방식으로 우선 둔다.
+                    <img
+                      src={cover}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover/post-item:scale-110 motion-reduce:transition-none motion-reduce:group-hover/post-item:scale-100"
+                    />
+                  ) : (
+                    <div
+                      className="h-full w-full transition-transform duration-300 ease-out group-hover/post-item:scale-110 motion-reduce:transition-none motion-reduce:group-hover/post-item:scale-100"
+                      style={{ background: thumbnailFor(post.slug) }}
+                    />
+                  );
+                })()}
               </div>
             </Link>
           </motion.div>

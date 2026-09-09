@@ -153,7 +153,7 @@ export function PostEditor({
     if (url) replaceSelection(`![](${url})`);
   }
 
-  async function save() {
+  async function save(nextStatus: "draft" | "published") {
     if (!slug || !title) {
       setSettingsOpen(true);
       setError("제목이랑 슬러그를 먼저 입력해주세요.");
@@ -161,7 +161,7 @@ export function PostEditor({
     }
     setSaving(true);
     setError(null);
-    const row = toRow();
+    const row = toRow(nextStatus);
     const { error } = post
       ? await supabase.from("posts").update(row).eq("slug", post.slug)
       : await supabase.from("posts").insert(row);
@@ -213,6 +213,16 @@ export function PostEditor({
           className="min-w-0 flex-1 border-none text-lg font-bold text-neutral-900 outline-none placeholder:text-neutral-300"
         />
         {isDirty && <span className="shrink-0 text-xs text-neutral-400">저장 안 됨</span>}
+        <span
+          className="shrink-0 rounded-full px-2 py-0.5 text-[11px] font-bold"
+          style={
+            (post?.status ?? "draft") === "published"
+              ? { color: "#15803d", backgroundColor: "#f0fdf4" }
+              : { color: toss.color.muted, backgroundColor: toss.color.surface }
+          }
+        >
+          {(post?.status ?? "draft") === "published" ? "발행됨" : "임시글"}
+        </span>
         <button
           onClick={() => setSettingsOpen((s) => !s)}
           aria-label="정보"
@@ -233,12 +243,20 @@ export function PostEditor({
           </button>
         )}
         <button
-          onClick={save}
+          onClick={() => save("draft")}
+          disabled={saving}
+          className="shrink-0 rounded-md px-3.5 py-1.5 text-sm font-bold transition-colors hover:bg-neutral-100 disabled:opacity-50"
+          style={{ color: toss.color.body }}
+        >
+          임시저장
+        </button>
+        <button
+          onClick={() => save("published")}
           disabled={saving}
           className="shrink-0 rounded-md px-4 py-1.5 text-sm font-bold text-white transition hover:brightness-95 disabled:opacity-50"
           style={{ backgroundColor: toss.color.primary }}
         >
-          {saving ? "저장 중..." : "저장"}
+          {saving ? "저장 중..." : "발행"}
         </button>
       </header>
 

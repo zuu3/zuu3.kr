@@ -27,7 +27,7 @@ export default function AdminPage() {
     if (!session) return;
     supabase
       .from("posts")
-      .select("slug, title, excerpt, tags, content, published_at")
+      .select("slug, title, excerpt, tags, content, published_at, status")
       .order("published_at", { ascending: false })
       .then(({ data }) => setPosts(data ?? []));
   }, [session, editing]);
@@ -93,7 +93,14 @@ export default function AdminPage() {
               className="group flex flex-col rounded-2xl border border-neutral-200 bg-white px-5 py-4 text-left transition [--title-color:#171717] hover:border-neutral-300 hover:shadow-sm hover:[--title-color:#3182f6]"
             >
               <div className="flex items-baseline justify-between gap-4">
-                <p className="font-bold" style={{ color: "var(--title-color)" }}>{p.title}</p>
+                <div className="flex min-w-0 items-center gap-2">
+                  <p className="truncate font-bold" style={{ color: "var(--title-color)" }}>{p.title}</p>
+                  {p.status === "draft" && (
+                    <span className="shrink-0 rounded-full bg-neutral-100 px-2 py-0.5 text-[11px] font-bold text-neutral-500">
+                      임시글
+                    </span>
+                  )}
+                </div>
                 <span className="shrink-0 text-xs text-neutral-400">{p.published_at.slice(0, 10)}</span>
               </div>
               {p.excerpt && (

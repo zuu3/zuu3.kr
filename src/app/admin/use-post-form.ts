@@ -133,14 +133,22 @@ export function usePostForm(post: Post | null) {
     return result;
   }
 
-  function toRow() {
+  // 발행 시점(draft -> published로 처음 바뀌는 순간)에만 published_at을
+  // now()로 새로 찍는다. 이미 발행된 글을 고쳐 저장할 때 발행일이 수정일로
+  // 밀려버리면 목록 정렬이랑 "최근 글" 의미가 둘 다 틀어진다.
+  function toRow(nextStatus: "draft" | "published") {
+    const wasPublished = post?.status === "published";
     return {
       slug,
       title,
       excerpt,
       tags: normalizeTags(tags),
       content,
-      published_at: post?.published_at ?? new Date().toISOString(),
+      status: nextStatus,
+      published_at:
+        nextStatus === "published" && !wasPublished
+          ? new Date().toISOString()
+          : (post?.published_at ?? new Date().toISOString()),
     };
   }
 

@@ -61,6 +61,20 @@ export function BlogMarkdown({ content }: { content: string }) {
           </strong>
         ),
         hr: () => <hr className="my-10" style={{ borderColor: toss.color.border }} />,
+        // eslint-disable-next-line @next/next/no-img-element -- Supabase Storage에
+        // 올라간 임의 크기 이미지라 width/height를 미리 알 수 없다. next/image로
+        // 바꾸려면 업로드 시점에 실제 치수를 재서 저장해둬야 하는데, 지금 에디터
+        // 업로드 흐름엔 그 단계가 없다. lazy 로딩만이라도 걸어 초기 로드 비용을 줄인다.
+        img: ({ src, alt }) => (
+          <img
+            src={src}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            className="my-6 w-full rounded-md"
+            style={{ border: `1px solid ${toss.color.border}` }}
+          />
+        ),
         table: ({ children }) => (
           <div className="mb-4 overflow-x-auto rounded-md" style={{ border: `1px solid ${toss.color.border}` }}>
             <table className="w-full border-collapse text-sm">{children}</table>

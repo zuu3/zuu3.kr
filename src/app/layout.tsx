@@ -35,6 +35,9 @@ export const metadata: Metadata = {
     title,
     description,
   },
+  alternates: {
+    types: { "application/rss+xml": "https://zuu3.kr/feed.xml" },
+  },
 };
 
 export default function RootLayout({

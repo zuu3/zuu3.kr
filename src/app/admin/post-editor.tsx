@@ -150,7 +150,12 @@ export function PostEditor({
 
   async function handleImageUpload(file: File) {
     const url = await imageUpload.upload(file);
-    if (url) replaceSelection(`![](${url})`);
+    if (!url) return;
+    // alt가 계속 비어 있으면 스크린리더도, 이미지 검색 SEO도 못 챙긴다.
+    // 파일명을 그대로 기본값으로 넣어두고, 마음에 안 들면 본문에서 직접
+    // 대괄호 안을 고치면 된다 - 업로드 때마다 입력창을 띄우지 않는다.
+    const defaultAlt = file.name.replace(/\.[^.]+$/, "").replace(/[-_]/g, " ");
+    replaceSelection(`![${defaultAlt}](${url})`);
   }
 
   async function save(nextStatus: "draft" | "published") {

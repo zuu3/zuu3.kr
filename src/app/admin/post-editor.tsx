@@ -1,10 +1,46 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { BlogMarkdown } from "@/app/blog/blog-markdown";
 import { toss } from "@/app/blog/toss-tokens";
 import type { Post } from "@/lib/posts";
+
+function ToolbarButton({
+  label,
+  title,
+  onClick,
+  bold,
+  italic,
+  mono,
+}: {
+  label: string;
+  title: string;
+  onClick: () => void;
+  bold?: boolean;
+  italic?: boolean;
+  mono?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      title={title}
+      // 클릭 시 textarea가 blur되면 selectionStart/End가 초기화되므로
+      // mousedown에서 막아 포커스가 그대로 유지되게 한다.
+      onMouseDown={(e) => e.preventDefault()}
+      onClick={onClick}
+      className={`flex h-7 min-w-7 items-center justify-center rounded px-1.5 text-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 ${
+        bold ? "font-bold" : ""
+      } ${italic ? "italic" : ""} ${mono ? "font-mono text-xs" : ""}`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function ToolbarDivider() {
+  return <div className="mx-1 h-4 w-px bg-neutral-200" />;
+}
 
 function slugify(title: string) {
   return title
@@ -26,10 +62,51 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // 버튼 클릭 직후 커서를 어디로 옮길지 담아둔다. requestAnimationFrame으로
+  // "다음 프레임쯤" 옮기면, 그 사이 사용자가 이미 타이핑을 시작한 경우 늦게
+  // 도착한 커서 이동이 방금 친 글자 위치를 덮어써버린다(실측: 버튼 클릭 뒤
+  // 바로 입력하면 글자가 쏠리거나 뭉개짐). content가 실제로 갱신된 시점에
+  // 맞춰 정확히 한 번만 옮기도록 effect로 뺐다.
+  const pendingCursorRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (pendingCursorRef.current == null) return;
+    const pos = pendingCursorRef.current;
+    pendingCursorRef.current = null;
+    const el = textareaRef.current;
+    if (!el) return;
+    el.focus();
+    el.selectionStart = el.selectionEnd = pos;
+  }, [content]);
 
   function handleTitleChange(v: string) {
     setTitle(v);
     if (!slugTouched) setSlug(slugify(v));
+  }
+
+  // 선택 영역을 텍스트로 바꿔치기하고, 커서를 새 텍스트 뒤(또는 지정한
+  // 상대 위치)로 옮긴다. 툴바 버튼과 이미지 업로드가 모두 이걸 쓴다 - 직접
+  // 마크다운 문법을 외워서 치는 대신 버튼 클릭 한 번으로 끝나게 하기 위함.
+  // setContent는 함수형으로 최신 state를 읽어야 한다 - 클로저로 캡처한
+  // content를 그대로 쓰면 연달아 호출될 때(또는 타이핑과 겹칠 때) 서로의
+  // 결과를 덮어써버린다.
+  function replaceSelection(text: string, cursorOffset = text.length) {
+    const el = textareaRef.current;
+    const start = el?.selectionStart ?? content.length;
+    const end = el?.selectionEnd ?? content.length;
+    setContent((prev) => prev.slice(0, start) + text + prev.slice(end));
+    pendingCursorRef.current = start + cursorOffset;
+  }
+
+  // 굵게/기울임/인라인 코드처럼 "선택한 글자를 감싸는" 서식. 선택한 게
+  // 없으면 기호만 넣고 그 사이에 커서를 둔다.
+  function wrapSelection(before: string, after: string) {
+    const el = textareaRef.current;
+    const start = el?.selectionStart ?? content.length;
+    const end = el?.selectionEnd ?? content.length;
+    const selected = content.slice(start, end);
+    const cursorOffset = selected ? before.length + selected.length + after.length : before.length;
+    replaceSelection(before + selected + after, cursorOffset);
   }
 
   async function handleImageUpload(file: File) {
@@ -43,20 +120,7 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
       return;
     }
     const { data } = supabase.storage.from("post-images").getPublicUrl(path);
-    const markdown = `![](${data.publicUrl})`;
-    const el = textareaRef.current;
-    if (el) {
-      const start = el.selectionStart ?? content.length;
-      const end = el.selectionEnd ?? content.length;
-      const next = content.slice(0, start) + markdown + content.slice(end);
-      setContent(next);
-      requestAnimationFrame(() => {
-        el.focus();
-        el.selectionStart = el.selectionEnd = start + markdown.length;
-      });
-    } else {
-      setContent((c) => c + "\n" + markdown);
-    }
+    replaceSelection(`![](${data.publicUrl})`);
   }
 
   async function save() {
@@ -167,9 +231,51 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
       {/* 좌우 분할 - 왼쪽 타이핑하면 오른쪽에 바로 렌더링. 미리보기 토글 없앰 */}
       <div className="grid min-h-0 flex-1 grid-cols-2">
         <div className="flex min-h-0 flex-col border-r border-neutral-200">
-          <div className="flex shrink-0 items-center border-b border-neutral-100 px-4 py-2">
-            <label className="cursor-pointer text-xs font-bold text-neutral-400 hover:text-neutral-600">
-              {uploading ? "업로드 중..." : "+ 이미지"}
+          <div className="flex shrink-0 flex-wrap items-center gap-0.5 border-b border-neutral-100 px-3 py-1.5">
+            <ToolbarButton label="H2" title="소제목" onClick={() => replaceSelection("## ")} />
+            <ToolbarButton label="H3" title="작은 소제목" onClick={() => replaceSelection("### ")} />
+            <ToolbarDivider />
+            <ToolbarButton label="B" bold title="굵게" onClick={() => wrapSelection("**", "**")} />
+            <ToolbarButton label="I" italic title="기울임" onClick={() => wrapSelection("*", "*")} />
+            <ToolbarButton label="<>" mono title="인라인 코드" onClick={() => wrapSelection("`", "`")} />
+            <ToolbarDivider />
+            <ToolbarButton
+              label="{ }"
+              mono
+              title="코드 블록"
+              onClick={() => replaceSelection("```\n\n```", 4)}
+            />
+            <ToolbarButton
+              label="●"
+              title="목록"
+              onClick={() => replaceSelection("- ")}
+            />
+            <ToolbarButton
+              label="❝"
+              title="인용구"
+              onClick={() => replaceSelection("> ")}
+            />
+            <ToolbarButton
+              label="🔗"
+              title="링크"
+              onClick={() => replaceSelection("[텍스트](https://)", 1)}
+            />
+            <ToolbarButton
+              label="▦"
+              title="표"
+              onClick={() =>
+                replaceSelection(
+                  "| 제목1 | 제목2 |\n| --- | --- |\n| 내용1 | 내용2 |",
+                  6,
+                )
+              }
+            />
+            <ToolbarDivider />
+            <label
+              className="cursor-pointer rounded px-2 py-1 text-xs font-bold text-neutral-500 hover:bg-neutral-100"
+              title="이미지 업로드"
+            >
+              {uploading ? "업로드 중..." : "🖼 이미지"}
               <input
                 type="file"
                 accept="image/*"

@@ -116,7 +116,7 @@ export function BlogPostList({ posts }: { posts: Post[] }) {
           >
             <Link
               href={`/blog/${post.slug}`}
-              className="group/post-item flex items-start justify-between gap-6 [--post-title-color:#191f28] hover:[--post-title-color:#3182f6]"
+              className="group/post-item flex items-start justify-between gap-6 [--post-title-color:var(--blog-foreground)] hover:[--post-title-color:var(--blog-primary)]"
             >
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-1.5">
@@ -137,7 +137,7 @@ export function BlogPostList({ posts }: { posts: Post[] }) {
                 </div>
                 <p
                   className="mt-3 font-bold tracking-tight transition-colors"
-                  style={{ fontSize: 22, lineHeight: "31px", color: "var(--post-title-color, #191f28)" }}
+                  style={{ fontSize: 22, lineHeight: "31px", color: "var(--post-title-color)" }}
                 >
                   {post.title}
                 </p>

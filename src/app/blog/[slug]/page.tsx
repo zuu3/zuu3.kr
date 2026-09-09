@@ -101,7 +101,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     <main className="px-6 py-24 md:px-16 lg:px-24" style={{ backgroundColor: toss.color.canvas }}>
       <div className="mx-auto grid w-full max-w-6xl gap-x-12 lg:grid-cols-[1fr_42rem_1fr]">
         <div aria-hidden className="hidden lg:block" />
-        <article className="mx-auto min-w-0 max-w-2xl lg:mx-0 lg:max-w-none">
+        <article className="mx-auto min-w-0 max-w-full lg:mx-0 lg:max-w-none">
           <h1
             className="font-bold tracking-tight"
             style={{ color: toss.color.foreground, fontSize: 36, lineHeight: "1.3" }}

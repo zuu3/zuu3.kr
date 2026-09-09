@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   Bold,
@@ -26,6 +26,7 @@ import { usePostForm } from "./use-post-form";
 import { useImageUpload } from "./use-image-upload";
 import { useConfirmDialog, ConfirmDialog } from "./use-confirm-dialog";
 import { PostSettingsPanel } from "./post-settings-panel";
+import { useLocalBackup } from "./use-local-backup";
 
 function ToolbarButton({
   icon: Icon,
@@ -128,6 +129,7 @@ export function PostEditor({
     wrapSelection,
     insertTable,
     toRow,
+    restoreFrom,
   } = usePostForm(post);
   const imageUpload = useImageUpload();
   const confirmDialog = useConfirmDialog();
@@ -135,6 +137,40 @@ export function PostEditor({
   const [tablePickerOpen, setTablePickerOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const localBackup = useLocalBackup(
+    `admin-draft-backup:${post?.slug ?? "new"}`,
+    { title, excerpt, tags, content },
+    true,
+  );
+
+  // 마운트 시 한 번만: 서버에서 불러온 내용과 다른 로컬 백업이 있으면
+  // 복구할지 물어본다. 이후 타이핑에 반응하면 안 되니 ref로 한 번만
+  // 걸어둔다.
+  const askedBackupRef = useRef(false);
+  useEffect(() => {
+    if (askedBackupRef.current) return;
+    askedBackupRef.current = true;
+    const backup = localBackup.readBackup();
+    if (!backup) return;
+    const sameAsLoaded =
+      backup.title === (post?.title ?? "") &&
+      backup.excerpt === (post?.excerpt ?? "") &&
+      backup.tags === (post?.tags.join(", ") ?? "") &&
+      backup.content === (post?.content ?? "");
+    if (sameAsLoaded) {
+      localBackup.clearBackup();
+      return;
+    }
+    const savedAgo = Math.max(1, Math.round((Date.now() - backup.savedAt) / 60000));
+    confirmDialog.ask({
+      title: "저장 안 된 내용이 남아있어요",
+      description: `${savedAgo}분 전 브라우저에 남겨둔 임시 내용이 있어요. 불러올까요?`,
+      confirmLabel: "불러오기",
+      onConfirm: () => restoreFrom(backup),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleBack() {
     if (isDirty) {
@@ -176,6 +212,7 @@ export function PostEditor({
       setError(error.message);
       return;
     }
+    localBackup.clearBackup();
     onDone();
   }
 
@@ -202,7 +239,15 @@ export function PostEditor({
   }
 
   return (
-    <div className="flex h-svh flex-col">
+    <div
+      className="flex h-svh flex-col"
+      onKeyDown={(e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+          e.preventDefault();
+          save("draft");
+        }
+      }}
+    >
       {/* 상단 바 - 제목만 크게, 슬러그/태그/요약은 오른쪽 슬라이드 패널로 뺀다 */}
       <header className="flex shrink-0 items-center gap-3 border-b border-neutral-200 px-5 py-3">
         <button
@@ -327,6 +372,25 @@ export function PostEditor({
             placeholder="마크다운으로 작성하세요..."
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            onKeyDown={(e) => {
+              // 툴바 버튼만으로 서식 넣는 건 마크다운 에디터치고 기본기가
+              // 없는 느낌이라, 흔히 기대하는 단축키 몇 개만 잡는다.
+              const mod = e.metaKey || e.ctrlKey;
+              if (!mod) return;
+              if (e.key === "b") {
+                e.preventDefault();
+                wrapSelection("**", "**");
+              } else if (e.key === "i") {
+                e.preventDefault();
+                wrapSelection("*", "*");
+              } else if (e.key === "k") {
+                e.preventDefault();
+                replaceSelection("[텍스트](https://)", 1);
+              } else if (e.key === "e") {
+                e.preventDefault();
+                wrapSelection("`", "`");
+              }
+            }}
             className="min-h-0 flex-1 resize-none px-6 py-5 font-mono text-sm leading-relaxed text-neutral-800 outline-none placeholder:text-neutral-300"
           />
         </div>

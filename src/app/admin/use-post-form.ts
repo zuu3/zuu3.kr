@@ -152,6 +152,15 @@ export function usePostForm(post: Post | null) {
     };
   }
 
+  // 로컬 백업 복구용. 필드 하나씩 다시 세팅하는 대신 한 번에 갈아끼운다.
+  function restoreFrom(backup: { title: string; excerpt: string; tags: string; content: string }) {
+    setTitle(backup.title);
+    setSlugTouched(true);
+    setExcerpt(backup.excerpt);
+    setTags(backup.tags);
+    setContent(backup.content);
+  }
+
   return {
     slug,
     title,
@@ -171,5 +180,6 @@ export function usePostForm(post: Post | null) {
     wrapSelection,
     insertTable,
     toRow,
+    restoreFrom,
   };
 }

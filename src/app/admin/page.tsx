@@ -90,13 +90,17 @@ export default function AdminPage() {
             <button
               key={p.slug}
               onClick={() => setEditing(p)}
-              className="group flex flex-col rounded-2xl border border-neutral-200 bg-white px-5 py-4 text-left transition [--title-color:#171717] hover:border-neutral-300 hover:shadow-sm hover:[--title-color:#3182f6]"
+              className={`group flex flex-col rounded-2xl border bg-white px-5 py-4 text-left transition [--title-color:#171717] hover:shadow-sm hover:[--title-color:#3182f6] ${
+                p.status === "draft"
+                  ? "border-dashed border-amber-300 bg-amber-50/40 hover:border-amber-400"
+                  : "border-neutral-200 hover:border-neutral-300"
+              }`}
             >
               <div className="flex items-baseline justify-between gap-4">
                 <div className="flex min-w-0 items-center gap-2">
                   <p className="truncate font-bold" style={{ color: "var(--title-color)" }}>{p.title}</p>
                   {p.status === "draft" && (
-                    <span className="shrink-0 rounded-full bg-neutral-100 px-2 py-0.5 text-[11px] font-bold text-neutral-500">
+                    <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-bold text-amber-700">
                       임시글
                     </span>
                   )}

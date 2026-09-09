@@ -1,13 +1,39 @@
 "use client";
 
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Check, Copy } from "lucide-react";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import tsx from "react-syntax-highlighter/dist/esm/languages/prism/tsx";
 import vscDarkPlus from "react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus";
 import { toss } from "./toss-tokens";
 
 SyntaxHighlighter.registerLanguage("tsx", tsx);
+
+// 코드 블록은 항상 다크 하이라이터 스타일(vscDarkPlus)이라 - 블로그
+// 다크모드와 무관하게 버튼은 늘 어두운 배경 위에 놓인다는 전제로 고정 색.
+function CopyCodeButton({ code }: { code: string }) {
+  const [copied, setCopied] = useState(false);
+
+  async function copy() {
+    await navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }
+
+  return (
+    <button
+      onClick={copy}
+      aria-label="코드 복사"
+      className="absolute top-3 right-3 flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-neutral-300 opacity-0 transition group-hover/code:opacity-100 hover:bg-white/10"
+      style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
+    >
+      {copied ? <Check size={13} /> : <Copy size={13} />}
+      {copied ? "복사됨" : "복사"}
+    </button>
+  );
+}
 
 export function BlogMarkdown({ content }: { content: string }) {
   // extractHeadings()가 훑는 순서와 똑같이 h2/h3/h4를 만날 때마다 증가시켜
@@ -114,24 +140,28 @@ export function BlogMarkdown({ content }: { content: string }) {
               </code>
             );
           }
+          const code = String(children).replace(/\n$/, "");
           return (
-            <SyntaxHighlighter
-              language={match && ["tsx", "jsx", "ts"].includes(match[1]) ? "tsx" : undefined}
-              style={vscDarkPlus}
-              customStyle={{
-                margin: "0 0 1.5rem",
-                width: "100%",
-                maxWidth: "100%",
-                boxSizing: "border-box",
-                overflowX: "auto",
-                borderRadius: toss.radius.md,
-                fontSize: "0.85rem",
-                padding: "1.25rem",
-                lineHeight: 1.6,
-              }}
-            >
-              {String(children).replace(/\n$/, "")}
-            </SyntaxHighlighter>
+            <div className="group/code relative mb-6">
+              <SyntaxHighlighter
+                language={match && ["tsx", "jsx", "ts"].includes(match[1]) ? "tsx" : undefined}
+                style={vscDarkPlus}
+                customStyle={{
+                  margin: 0,
+                  width: "100%",
+                  maxWidth: "100%",
+                  boxSizing: "border-box",
+                  overflowX: "auto",
+                  borderRadius: toss.radius.md,
+                  fontSize: "0.85rem",
+                  padding: "1.25rem",
+                  lineHeight: 1.6,
+                }}
+              >
+                {code}
+              </SyntaxHighlighter>
+              <CopyCodeButton code={code} />
+            </div>
           );
         },
       }}

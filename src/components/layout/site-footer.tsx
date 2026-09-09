@@ -15,11 +15,22 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+// --blog-* 변수 fallback으로 --foreground 등 루트 토큰을 쓴다: 메인
+// 포트폴리오(변수 없음)에선 원래 라이트 그대로, /blog 안에서는 다크모드
+// 토글을 따라간다 - 이 컴포넌트 하나로 두 컨텍스트 다 커버.
+const footerFg = "var(--blog-foreground, var(--foreground))";
+const footerMuted = "var(--blog-muted, var(--muted-foreground))";
+const footerBorder = "var(--blog-border, var(--border))";
+const footerBg = "var(--blog-canvas, var(--background))";
+
 export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
   return (
-    <footer className="border-t border-neutral-200 px-6 py-10 md:px-16 lg:pl-72 lg:pr-24">
+    <footer
+      className="border-t px-6 py-10 md:px-16 lg:pl-72 lg:pr-24"
+      style={{ borderColor: footerBorder, backgroundColor: footerBg }}
+    >
       <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 text-sm">
-        <p className="font-semibold text-neutral-900">{profile.name}</p>
+        <p className="font-semibold" style={{ color: footerFg }}>{profile.name}</p>
         <div className="flex flex-wrap items-center gap-2">
           <ActionButton variant="brandOutline" size="xsmall" asChild>
             <a href="/docs/resume.pdf" target="_blank" rel="noreferrer" download>
@@ -35,10 +46,11 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
           </ActionButton>
         </div>
       </div>
-      <div className="mx-auto mt-4 flex max-w-3xl flex-wrap items-center gap-2 text-sm text-neutral-500">
+      <div className="mx-auto mt-4 flex max-w-3xl flex-wrap items-center gap-2 text-sm" style={{ color: footerMuted }}>
           <Button
             variant="ghost"
-            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#ff6f0f]"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal hover:bg-transparent hover:text-[#ff6f0f]"
+            style={{ color: footerMuted }}
             nativeButton={false}
             render={<a href={`mailto:${profile.email}`} />}
           >
@@ -47,7 +59,8 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
           </Button>
           <Button
             variant="ghost"
-            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#ff6f0f]"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal hover:bg-transparent hover:text-[#ff6f0f]"
+            style={{ color: footerMuted }}
             nativeButton={false}
             render={<a href="https://github.com/zuu3" target="_blank" rel="noreferrer" />}
           >
@@ -56,7 +69,8 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
           </Button>
           <Button
             variant="ghost"
-            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal text-neutral-500 hover:bg-transparent hover:text-[#ff6f0f]"
+            className="h-auto gap-1.5 px-2 py-1 text-sm font-normal hover:bg-transparent hover:text-[#ff6f0f]"
+            style={{ color: footerMuted }}
             nativeButton={false}
             render={<Link href="/blog" />}
           >
@@ -64,7 +78,7 @@ export function SiteFooter({ profile }: { profile: typeof ProfileType }) {
             Blog
           </Button>
       </div>
-      <p className="mx-auto mt-6 max-w-3xl text-xs text-neutral-500">
+      <p className="mx-auto mt-6 max-w-3xl text-xs" style={{ color: footerMuted }}>
         © {new Date().getFullYear()} {profile.name}. All rights reserved.
       </p>
     </footer>

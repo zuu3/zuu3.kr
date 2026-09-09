@@ -101,6 +101,91 @@ function TableSizePicker({ onPick, onClose }: { onPick: (rows: number, cols: num
   );
 }
 
+// 파일 업로드 vs 이미 웹에 있는 이미지 URL 붙여넣기, 두 선택지를 준다.
+// 이전엔 버튼 클릭 = 바로 파일 선택창이라 URL 하나 있는 이미지도 무조건
+// 로컬에 저장했다가 올려야 했다.
+function ImagePicker({
+  uploading,
+  onUploadFile,
+  onInsertUrl,
+  onClose,
+}: {
+  uploading: boolean;
+  onUploadFile: (file: File) => void;
+  onInsertUrl: (url: string, alt: string) => void;
+  onClose: () => void;
+}) {
+  const [mode, setMode] = useState<"choose" | "url">("choose");
+  const [url, setUrl] = useState("");
+  const [alt, setAlt] = useState("");
+
+  return (
+    <div className="absolute top-full left-0 z-10 mt-1 w-64 rounded-md border border-neutral-200 bg-white p-3 shadow-lg">
+      {mode === "choose" ? (
+        <div className="flex flex-col gap-1">
+          <label className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100">
+            <ImagePlus size={15} strokeWidth={1.75} />
+            {uploading ? "업로드 중..." : "파일 업로드"}
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              disabled={uploading}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) onUploadFile(file);
+                e.target.value = "";
+              }}
+            />
+          </label>
+          <button
+            type="button"
+            onClick={() => setMode("url")}
+            className="flex items-center gap-2 rounded-md px-2 py-2 text-left text-sm font-medium text-neutral-700 hover:bg-neutral-100"
+          >
+            <Link2 size={15} strokeWidth={1.75} />
+            URL로 추가
+          </button>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-2">
+          <input
+            autoFocus
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="https://..."
+            className="rounded-md border border-neutral-200 px-2.5 py-1.5 text-sm outline-none focus:border-neutral-400"
+          />
+          <input
+            value={alt}
+            onChange={(e) => setAlt(e.target.value)}
+            placeholder="설명 (alt, 선택)"
+            className="rounded-md border border-neutral-200 px-2.5 py-1.5 text-sm outline-none focus:border-neutral-400"
+          />
+          <div className="flex justify-end gap-1.5">
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-md px-3 py-1.5 text-xs font-medium text-neutral-500 hover:bg-neutral-100"
+            >
+              취소
+            </button>
+            <button
+              type="button"
+              disabled={!url.trim()}
+              onClick={() => onInsertUrl(url.trim(), alt.trim())}
+              className="rounded-md px-3 py-1.5 text-xs font-bold text-white disabled:opacity-40"
+              style={{ backgroundColor: toss.color.primary }}
+            >
+              추가
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function PostEditor({
   post,
   existingTags,
@@ -135,6 +220,7 @@ export function PostEditor({
   const confirmDialog = useConfirmDialog();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [tablePickerOpen, setTablePickerOpen] = useState(false);
+  const [imagePickerOpen, setImagePickerOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -305,22 +391,38 @@ export function PostEditor({
             <Trash2 size={16} strokeWidth={1.75} />
           </button>
         )}
-        <button
-          onClick={() => save("draft")}
-          disabled={saving}
-          className="shrink-0 rounded-md px-3.5 py-1.5 text-sm font-bold transition-colors hover:bg-neutral-100 disabled:opacity-50"
-          style={{ color: toss.color.body }}
-        >
-          임시저장
-        </button>
-        <button
-          onClick={() => save("published")}
-          disabled={saving}
-          className="shrink-0 rounded-md px-4 py-1.5 text-sm font-bold text-white transition hover:brightness-95 disabled:opacity-50"
-          style={{ backgroundColor: toss.color.primary }}
-        >
-          {saving ? "저장 중..." : "발행"}
-        </button>
+        {post?.status === "published" ? (
+          // 이미 발행된 글은 "저장" 하나만 - 여기서 "임시저장"을 눌러버리면
+          // 실수로 공개 글이 내려가는 위험한 버튼이 된다. 상태는 그대로
+          // 두고 내용만 갱신한다.
+          <button
+            onClick={() => save("published")}
+            disabled={saving}
+            className="shrink-0 rounded-md px-4 py-1.5 text-sm font-bold text-white transition hover:brightness-95 disabled:opacity-50"
+            style={{ backgroundColor: toss.color.primary }}
+          >
+            {saving ? "저장 중..." : "저장"}
+          </button>
+        ) : (
+          <>
+            <button
+              onClick={() => save("draft")}
+              disabled={saving}
+              className="shrink-0 rounded-md px-3.5 py-1.5 text-sm font-bold transition-colors hover:bg-neutral-100 disabled:opacity-50"
+              style={{ color: toss.color.body }}
+            >
+              임시저장
+            </button>
+            <button
+              onClick={() => save("published")}
+              disabled={saving}
+              className="shrink-0 rounded-md px-4 py-1.5 text-sm font-bold text-white transition hover:brightness-95 disabled:opacity-50"
+              style={{ backgroundColor: toss.color.primary }}
+            >
+              {saving ? "저장 중..." : "발행"}
+            </button>
+          </>
+        )}
       </header>
 
       {/* 좌우 분할 - 왼쪽 타이핑하면 오른쪽에 바로 렌더링. 미리보기 토글 없앰 */}
@@ -348,23 +450,27 @@ export function PostEditor({
               )}
             </div>
             <ToolbarDivider />
-            <label
-              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
-              title="이미지 업로드"
-            >
-              <ImagePlus size={16} strokeWidth={1.75} />
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                disabled={imageUpload.uploading}
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) handleImageUpload(file);
-                  e.target.value = "";
-                }}
+            <div className="relative">
+              <ToolbarButton
+                icon={ImagePlus}
+                title="이미지"
+                onClick={() => setImagePickerOpen((o) => !o)}
               />
-            </label>
+              {imagePickerOpen && (
+                <ImagePicker
+                  uploading={imageUpload.uploading}
+                  onUploadFile={(file) => {
+                    setImagePickerOpen(false);
+                    handleImageUpload(file);
+                  }}
+                  onInsertUrl={(url, alt) => {
+                    setImagePickerOpen(false);
+                    replaceSelection(`![${alt}](${url})`);
+                  }}
+                  onClose={() => setImagePickerOpen(false)}
+                />
+              )}
+            </div>
             {imageUpload.uploading && <span className="ml-1 text-xs text-neutral-400">업로드 중...</span>}
           </div>
           <textarea

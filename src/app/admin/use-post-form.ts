@@ -87,13 +87,29 @@ export function usePostForm(post: Post | null) {
   // 선택 영역을 텍스트로 바꿔치기하고, 커서를 새 텍스트 뒤(또는 지정한
   // 상대 위치)로 옮긴다. 툴바 버튼과 이미지 업로드가 모두 이걸 쓴다 - 직접
   // 마크다운 문법을 외워서 치는 대신 버튼 클릭 한 번으로 끝나게 하기 위함.
-  // setContent는 함수형으로 최신 state를 읽어야 한다 - 클로저로 캡처한
-  // content를 그대로 쓰면 연달아 호출될 때(또는 타이핑과 겹칠 때) 서로의
-  // 결과를 덮어써버린다.
+  //
+  // setContent(prev => ...)로 값만 바꾸면 브라우저 입장에서는 "누가 값을
+  // 강제로 덮어썼다"일 뿐이라, 그 변경이 네이티브 실행취소(Cmd/Ctrl+Z)
+  // 기록에 안 남는다(실측: 표 넣고 Cmd+Z 눌러도 안 지워짐). execCommand로
+  // 실제 편집 동작을 흉내내면 브라우저가 진짜 입력처럼 취급해서 undo
+  // 스택에 쌓인다 - deprecated API지만 지금 이 용도(undo 가능한 프로그램적
+  // textarea 편집)를 대체할 표준 API가 없다.
   function replaceSelection(text: string, cursorOffset = text.length) {
     const el = textareaRef.current;
     const start = el?.selectionStart ?? content.length;
     const end = el?.selectionEnd ?? content.length;
+
+    if (el && typeof document.execCommand === "function") {
+      el.focus();
+      el.setSelectionRange(start, end);
+      const ok = document.execCommand("insertText", false, text);
+      if (ok) {
+        setContent(el.value);
+        pendingCursorRef.current = start + cursorOffset;
+        return;
+      }
+    }
+
     setContent((prev) => prev.slice(0, start) + text + prev.slice(end));
     pendingCursorRef.current = start + cursorOffset;
   }

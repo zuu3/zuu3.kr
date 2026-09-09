@@ -19,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...posts.map((post) => ({
       url: `https://zuu3.kr/blog/${post.slug}`,
-      lastModified: new Date(post.published_at),
+      lastModified: new Date(post.updated_at),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),

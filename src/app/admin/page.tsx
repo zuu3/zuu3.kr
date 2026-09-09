@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
+import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { LoginForm } from "./login-form";
 import { PostEditor } from "./post-editor";
@@ -30,7 +31,7 @@ export default function AdminPage() {
     if (!session) return;
     supabase
       .from("posts")
-      .select("slug, title, excerpt, tags, content, published_at, status")
+      .select("slug, title, excerpt, tags, content, published_at, updated_at, status")
       .order("published_at", { ascending: false })
       .then(({ data }) => setPosts(data ?? []));
   }, [session, editing]);
@@ -95,7 +96,8 @@ export default function AdminPage() {
             <button
               onClick={async () => {
                 const { error } = await supabase.auth.registerPasskey();
-                alert(error ? error.message : "패스키 등록 완료");
+                if (error) toast.error(error.message);
+                else toast.success("패스키 등록 완료");
               }}
               className="rounded-md px-3 py-2.5 text-sm font-medium text-neutral-400 transition hover:text-neutral-600"
             >

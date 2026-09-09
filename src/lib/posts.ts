@@ -7,6 +7,7 @@ export type Post = {
   tags: string[];
   content: string;
   published_at: string;
+  updated_at: string;
   status: "draft" | "published";
 };
 
@@ -16,7 +17,7 @@ export type Post = {
 export async function getAllPosts(): Promise<Post[]> {
   const { data, error } = await supabase
     .from("posts")
-    .select("slug, title, excerpt, tags, content, published_at, status")
+    .select("slug, title, excerpt, tags, content, published_at, updated_at, status")
     .eq("status", "published")
     .order("published_at", { ascending: false });
   if (error) throw error;
@@ -26,7 +27,7 @@ export async function getAllPosts(): Promise<Post[]> {
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   const { data, error } = await supabase
     .from("posts")
-    .select("slug, title, excerpt, tags, content, published_at, status")
+    .select("slug, title, excerpt, tags, content, published_at, updated_at, status")
     .eq("slug", slug)
     .eq("status", "published")
     .maybeSingle();

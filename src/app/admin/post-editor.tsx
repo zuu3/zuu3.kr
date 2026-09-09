@@ -308,7 +308,9 @@ export function PostEditor({
     }
     localBackup.clearBackup();
     commitSaved(row.tags);
-    setEffectivePost({ ...row, tags: row.tags });
+    // updated_at은 DB 트리거가 now()로 채운다(posts_set_updated_at) - 여기선
+    // 왕복 재조회 없이 거의 같은 값으로 근사한다.
+    setEffectivePost({ ...row, updated_at: new Date().toISOString() });
     // 문서 편집기처럼 저장 후에도 계속 편집할 수 있게 목록으로 안 나간다.
     // "저장 안 됨" 표시가 사라지는 것만으론 저장됐는지 확실히 안 보여서
     // 잠깐 "저장됨"을 띄워준다.

@@ -36,7 +36,7 @@ export default function PreviewPage() {
     if (!session) return;
     supabase
       .from("posts")
-      .select("slug, title, excerpt, tags, content, published_at, status")
+      .select("slug, title, excerpt, tags, content, published_at, updated_at, status")
       .eq("slug", params.slug)
       .maybeSingle()
       .then(({ data }) => setPost(data));

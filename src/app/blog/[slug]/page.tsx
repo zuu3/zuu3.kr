@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         headline: post.title,
         description: post.excerpt,
         datePublished: post.published_at,
-        dateModified: post.published_at,
+        dateModified: post.updated_at,
         author: { "@type": "Person", name: "오주현", url: "https://zuu3.kr" },
         keywords: post.tags.join(", "),
         url: `https://zuu3.kr/blog/${post.slug}`,

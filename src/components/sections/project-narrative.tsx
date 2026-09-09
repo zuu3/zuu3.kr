@@ -421,7 +421,7 @@ export function ProjectNarrative({
                           <div key={stage.label} className="relative pl-6">
                             <span
                               aria-hidden
-                              className="absolute top-1.5 left-0 h-[7px] w-[7px] rounded-full bg-neutral-300"
+                              className="absolute top-2.5 left-0 h-[7px] w-[7px] rounded-full bg-neutral-300"
                             />
                             <SeedBadge tone={stage.tone} variant="weak" size="medium">
                               {stage.label}

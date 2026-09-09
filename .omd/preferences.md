@@ -1476,3 +1476,19 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/share
 ```
 
 Introduced off-scale border radius rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/share-button.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T11:23:53.239Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtu0g2s7_272d3767
+timestamp: 2026-09-09T11:23:53.239Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 - DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/related-posts.tsx"
+```
+
+Introduced off-scale border radius rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/related-posts.tsx — not in DESIGN.md radius scale

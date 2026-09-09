@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { Icon } from "@seed-design/react";
 import { IconCalendarLine, IconClockLine } from "@karrotmarket/react-monochrome-icon";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
+import { ReadingProgress } from "../reading-progress";
+import { RelatedPosts } from "../related-posts";
 import { profile } from "@/lib/content";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { formatBlogDate, readingTime } from "@/lib/blog";
@@ -57,7 +59,7 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const [post, allPosts] = await Promise.all([getPostBySlug(slug), getAllPosts()]);
   if (!post) notFound();
 
   const headings = extractHeadings(post.content);
@@ -95,6 +97,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <ReadingProgress />
     <main className="px-6 py-24 md:px-16 lg:px-24" style={{ backgroundColor: toss.color.canvas }}>
       <div className="mx-auto grid w-full max-w-6xl gap-x-12 lg:grid-cols-[1fr_42rem_1fr]">
         <div aria-hidden className="hidden lg:block" />
@@ -122,6 +125,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div className="mt-10">
             <BlogMarkdown content={post.content} />
           </div>
+
+          <RelatedPosts current={post} allPosts={allPosts} />
 
           <BlogComments postSlug={post.slug} />
         </article>

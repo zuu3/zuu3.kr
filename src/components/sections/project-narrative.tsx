@@ -426,7 +426,7 @@ export function ProjectNarrative({
                             <SeedBadge tone={stage.tone} variant="weak" size="medium">
                               {stage.label}
                             </SeedBadge>
-                            <Article lang="ko-KR" className="mt-1.5">
+                            <Article lang="ko-KR" className="mt-2.5">
                               <Text as="p" textStyle="t5Regular" color="fg.neutral" className="leading-relaxed">
                                 {renderRichText(stage.text, {
                                   markColor: stage.label === "Result" ? project.brandColor : undefined,

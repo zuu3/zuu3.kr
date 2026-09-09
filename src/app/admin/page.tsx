@@ -5,6 +5,7 @@ import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
 import { LoginForm } from "./login-form";
 import { PostEditor } from "./post-editor";
+import { CommentsPanel } from "./comments-panel";
 import type { Post } from "@/lib/posts";
 import { toss } from "@/app/blog/toss-tokens";
 
@@ -13,6 +14,7 @@ export default function AdminPage() {
   const [checking, setChecking] = useState(true);
   const [posts, setPosts] = useState<Post[]>([]);
   const [editing, setEditing] = useState<Post | "new" | null>(null);
+  const [tab, setTab] = useState<"posts" | "comments">("posts");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -55,18 +57,33 @@ export default function AdminPage() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs font-bold tracking-wide text-neutral-400 uppercase">Admin</p>
-            <h1 className="mt-1 text-2xl font-bold tracking-tight text-neutral-900">
-              글 {posts.length}개
-            </h1>
+            <div className="mt-1 flex items-center gap-1">
+              <button
+                onClick={() => setTab("posts")}
+                className="rounded-md px-2.5 py-1 text-2xl font-bold tracking-tight transition-colors"
+                style={{ color: tab === "posts" ? toss.color.foreground : toss.color.muted }}
+              >
+                글 {posts.length}개
+              </button>
+              <button
+                onClick={() => setTab("comments")}
+                className="rounded-md px-2.5 py-1 text-2xl font-bold tracking-tight transition-colors"
+                style={{ color: tab === "comments" ? toss.color.foreground : toss.color.muted }}
+              >
+                댓글
+              </button>
+            </div>
           </div>
           <div className="flex gap-2">
-            <button
-              onClick={() => setEditing("new")}
-              className="rounded-md px-4 py-2.5 text-sm font-bold text-white transition hover:brightness-95"
-              style={{ backgroundColor: toss.color.primary }}
-            >
-              새 글 작성
-            </button>
+            {tab === "posts" && (
+              <button
+                onClick={() => setEditing("new")}
+                className="rounded-md px-4 py-2.5 text-sm font-bold text-white transition hover:brightness-95"
+                style={{ backgroundColor: toss.color.primary }}
+              >
+                새 글 작성
+              </button>
+            )}
             <button
               onClick={async () => {
                 const { error } = await supabase.auth.registerPasskey();
@@ -85,6 +102,9 @@ export default function AdminPage() {
           </div>
         </div>
 
+        {tab === "comments" ? (
+          <CommentsPanel />
+        ) : (
         <div className="mt-8 flex flex-col gap-2">
           {posts.map((p) => (
             <button
@@ -127,6 +147,7 @@ export default function AdminPage() {
             </p>
           )}
         </div>
+        )}
       </div>
     </div>
   );

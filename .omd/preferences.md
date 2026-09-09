@@ -1188,3 +1188,147 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/use-
 ```
 
 Introduced off-scale border radius rounded-full(9999px), rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/use-confirm-dialog.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T03:27:31.324Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mttjfgu4_2f2f1232
+timestamp: 2026-09-09T03:27:31.324Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-settings-panel.tsx"
+```
+
+Introduced off-scale border radius rounded-md(6px), rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-settings-panel.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T04:18:36.329Z — introduced-off-palette-color-s-fef2f2-dc
+
+```omd-meta
+id: pref_mttl95t5_374acce1
+timestamp: 2026-09-09T04:18:36.329Z
+scope: color
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-settings-panel.tsx"
+```
+
+Introduced off-palette color(s) #fef2f2, #dc2626 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-settings-panel.tsx — not in DESIGN.md
+
+## 2026-09-09T04:18:36.333Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mttl95t9_704f32b6
+timestamp: 2026-09-09T04:18:36.333Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-settings-panel.tsx"
+```
+
+Introduced off-scale border radius rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-settings-panel.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T04:23:26.458Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mttlfdoa_535c5654
+timestamp: 2026-09-09T04:23:26.458Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/use-confirm-dialog.tsx"
+```
+
+Introduced off-scale border radius rounded-2xl(16px), rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/use-confirm-dialog.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T04:40:11.137Z — introduced-off-palette-color-s-15803d-f0
+
+```omd-meta
+id: pref_mttm0ww1_18e8de6b
+timestamp: 2026-09-09T04:40:11.137Z
+scope: color
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-editor.tsx"
+```
+
+Introduced off-palette color(s) #15803d, #f0fdf4 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-editor.tsx — not in DESIGN.md
+
+## 2026-09-09T04:40:11.140Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mttm0ww4_277778d3
+timestamp: 2026-09-09T04:40:11.140Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-editor.tsx"
+```
+
+Introduced off-scale border radius rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-editor.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T04:49:45.038Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mttmd7pq_c742027d
+timestamp: 2026-09-09T04:49:45.038Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/page.tsx"
+```
+
+Introduced off-scale border radius rounded-2xl(16px), rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/page.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T05:00:48.701Z — introduced-off-palette-color-s-3182f6-a3
+
+```omd-meta
+id: pref_mttmrfst_eb414a41
+timestamp: 2026-09-09T05:00:48.701Z
+scope: color
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/opengraph-image.tsx"
+```
+
+Introduced off-palette color(s) #3182f6, #a3a3a3, #2a2a35 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/[slug]/opengraph-image.tsx — not in DESIGN.md
+
+## 2026-09-09T05:01:58.750Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mttmsxum_c5df5d10
+timestamp: 2026-09-09T05:01:58.750Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그/어드민 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-markdown.tsx"
+```
+
+Introduced off-scale border radius rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-markdown.tsx — not in DESIGN.md radius scale

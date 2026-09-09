@@ -12,6 +12,9 @@ export function SiteTabNav() {
   const pathname = usePathname();
   const active = pathname.startsWith("/blog") ? "blog" : "home";
 
+  // /admin은 전체 화면을 쓰는 내부 도구라 공개 사이트 내비게이션과 겹친다.
+  if (pathname.startsWith("/admin")) return null;
+
   return (
     <nav className="fixed top-6 left-6 z-50 inline-flex w-fit gap-1 rounded-[var(--radius-control)] bg-white/90 p-1 shadow-sm backdrop-blur-sm md:top-8 md:left-8">
       {TABS.map((tab) => {

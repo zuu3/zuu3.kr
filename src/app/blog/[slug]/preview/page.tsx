@@ -66,9 +66,9 @@ export default function PreviewPage() {
           </p>
         </div>
       )}
-      <div className="mx-auto grid w-full max-w-6xl gap-x-12 lg:grid-cols-[1fr_42rem_1fr]">
-        <div aria-hidden className="hidden lg:block" />
-        <article className="mx-auto min-w-0 max-w-full lg:mx-0 lg:max-w-none">
+      <div className="mx-auto grid w-full max-w-6xl gap-x-12 xl:grid-cols-[1fr_42rem_1fr]">
+        <div aria-hidden className="hidden xl:block" />
+        <article className="mx-auto min-w-0 max-w-full xl:mx-0 xl:max-w-none">
           <h1
             className="font-bold tracking-tight"
             style={{ color: toss.color.foreground, fontSize: 36, lineHeight: "1.3" }}

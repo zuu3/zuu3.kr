@@ -31,7 +31,7 @@ export function BlogToc({ headings }: { headings: TocHeading[] }) {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="hidden w-48 shrink-0 lg:block">
+    <nav className="hidden w-48 shrink-0 xl:block">
       <div className="sticky top-24">
         <p className="text-xs font-bold tracking-wide uppercase" style={{ color: toss.color.muted }}>
           목차

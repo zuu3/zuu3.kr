@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { LoginForm } from "./login-form";
 import { PostEditor } from "./post-editor";
 import { CommentsPanel } from "./comments-panel";
+import { ImagesPanel } from "./images-panel";
 import type { Post } from "@/lib/posts";
 import { toss } from "@/app/blog/toss-tokens";
 
@@ -14,7 +15,7 @@ export default function AdminPage() {
   const [checking, setChecking] = useState(true);
   const [posts, setPosts] = useState<Post[]>([]);
   const [editing, setEditing] = useState<Post | "new" | null>(null);
-  const [tab, setTab] = useState<"posts" | "comments">("posts");
+  const [tab, setTab] = useState<"posts" | "comments" | "images">("posts");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -72,6 +73,13 @@ export default function AdminPage() {
               >
                 댓글
               </button>
+              <button
+                onClick={() => setTab("images")}
+                className="rounded-md px-2.5 py-1 text-2xl font-bold tracking-tight transition-colors"
+                style={{ color: tab === "images" ? toss.color.foreground : toss.color.muted }}
+              >
+                이미지
+              </button>
             </div>
           </div>
           <div className="flex gap-2">
@@ -104,6 +112,8 @@ export default function AdminPage() {
 
         {tab === "comments" ? (
           <CommentsPanel />
+        ) : tab === "images" ? (
+          <ImagesPanel />
         ) : (
         <div className="mt-8 flex flex-col gap-2">
           {posts.map((p) => (

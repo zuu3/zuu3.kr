@@ -215,6 +215,7 @@ export function PostEditor({
     insertTable,
     toRow,
     restoreFrom,
+    commitSaved,
   } = usePostForm(post);
   const imageUpload = useImageUpload();
   const confirmDialog = useConfirmDialog();
@@ -223,9 +224,16 @@ export function PostEditor({
   const [imagePickerOpen, setImagePickerOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [savedFlash, setSavedFlash] = useState(false);
+  // 저장 뒤에도 에디터에 계속 머무른다 - post prop은 처음 열었을 때 값에
+  // 고정돼있어서, "지금 이 글이 실제로 어느 상태인지"(발행 여부, 존재하는
+  // 슬러그인지)는 저장할 때마다 이걸로 갱신해서 따라간다. 이게 없으면
+  // 새 글을 저장한 뒤 또 저장 누를 때 insert를 다시 시도해 슬러그 중복
+  // 에러가 난다.
+  const [effectivePost, setEffectivePost] = useState<Post | null>(post);
 
   const localBackup = useLocalBackup(
-    `admin-draft-backup:${post?.slug ?? "new"}`,
+    `admin-draft-backup:${effectivePost?.slug ?? "new"}`,
     { title, excerpt, tags, content },
     true,
   );
@@ -289,9 +297,9 @@ export function PostEditor({
     }
     setSaving(true);
     setError(null);
-    const row = toRow(nextStatus);
-    const { error } = post
-      ? await supabase.from("posts").update(row).eq("slug", post.slug)
+    const row = toRow(nextStatus, effectivePost);
+    const { error } = effectivePost
+      ? await supabase.from("posts").update(row).eq("slug", effectivePost.slug)
       : await supabase.from("posts").insert(row);
     setSaving(false);
     if (error) {
@@ -299,13 +307,19 @@ export function PostEditor({
       return;
     }
     localBackup.clearBackup();
-    onDone();
+    commitSaved(row.tags);
+    setEffectivePost({ ...row, tags: row.tags });
+    // 문서 편집기처럼 저장 후에도 계속 편집할 수 있게 목록으로 안 나간다.
+    // "저장 안 됨" 표시가 사라지는 것만으론 저장됐는지 확실히 안 보여서
+    // 잠깐 "저장됨"을 띄워준다.
+    setSavedFlash(true);
+    setTimeout(() => setSavedFlash(false), 1600);
   }
 
   async function doRemove() {
-    if (!post) return;
+    if (!effectivePost) return;
     setSaving(true);
-    const { error } = await supabase.from("posts").delete().eq("slug", post.slug);
+    const { error } = await supabase.from("posts").delete().eq("slug", effectivePost.slug);
     setSaving(false);
     if (error) {
       setError(error.message);
@@ -315,10 +329,10 @@ export function PostEditor({
   }
 
   function remove() {
-    if (!post) return;
+    if (!effectivePost) return;
     confirmDialog.ask({
       title: "글을 삭제할까요?",
-      description: `"${post.title}"은(는) 복구할 수 없어요.`,
+      description: `"${effectivePost.title}"은(는) 복구할 수 없어요.`,
       confirmLabel: "삭제",
       onConfirm: doRemove,
     });
@@ -349,20 +363,26 @@ export function PostEditor({
           placeholder="제목을 입력하세요"
           className="min-w-0 flex-1 border-none text-lg font-bold text-neutral-900 outline-none placeholder:text-neutral-300"
         />
-        {isDirty && <span className="shrink-0 text-xs text-neutral-400">저장 안 됨</span>}
+        {savedFlash ? (
+          <span className="shrink-0 text-xs font-bold" style={{ color: "#15803d" }}>
+            저장됨
+          </span>
+        ) : (
+          isDirty && <span className="shrink-0 text-xs text-neutral-400">저장 안 됨</span>
+        )}
         <span
           className="shrink-0 rounded-full px-2 py-0.5 text-[11px] font-bold"
           style={
-            (post?.status ?? "draft") === "published"
+            (effectivePost?.status ?? "draft") === "published"
               ? { color: "#15803d", backgroundColor: "#f0fdf4" }
               : { color: toss.color.muted, backgroundColor: toss.color.surface }
           }
         >
-          {(post?.status ?? "draft") === "published" ? "발행됨" : "임시글"}
+          {(effectivePost?.status ?? "draft") === "published" ? "발행됨" : "임시글"}
         </span>
-        {post && (
+        {effectivePost && (
           <a
-            href={`/blog/${post.slug}/preview`}
+            href={`/blog/${effectivePost.slug}/preview`}
             target="_blank"
             rel="noreferrer"
             aria-label="미리보기"
@@ -382,7 +402,7 @@ export function PostEditor({
         >
           <Settings2 size={16} strokeWidth={1.75} />
         </button>
-        {post && (
+        {effectivePost && (
           <button
             onClick={remove}
             aria-label="삭제"
@@ -391,7 +411,7 @@ export function PostEditor({
             <Trash2 size={16} strokeWidth={1.75} />
           </button>
         )}
-        {post?.status === "published" ? (
+        {effectivePost?.status === "published" ? (
           // 이미 발행된 글은 "저장" 하나만 - 여기서 "임시저장"을 눌러버리면
           // 실수로 공개 글이 내려가는 위험한 버튼이 된다. 상태는 그대로
           // 두고 내용만 갱신한다.

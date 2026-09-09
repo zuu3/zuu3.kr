@@ -152,8 +152,13 @@ export function usePostForm(post: Post | null) {
   // 발행 시점(draft -> published로 처음 바뀌는 순간)에만 published_at을
   // now()로 새로 찍는다. 이미 발행된 글을 고쳐 저장할 때 발행일이 수정일로
   // 밀려버리면 목록 정렬이랑 "최근 글" 의미가 둘 다 틀어진다.
-  function toRow(nextStatus: "draft" | "published") {
-    const wasPublished = post?.status === "published";
+  //
+  // referencePost는 생성자 인자 post가 아니라 호출하는 쪽이 매번 넘긴다 -
+  // 저장 후에도 에디터에 계속 머무르게 하면서(아래 commitSaved 참고) 두
+  // 번째 저장부터는 "방금 저장된 상태"를 기준으로 판단해야 하는데, post는
+  // 마운트 시점에 고정된 값이라 이후 저장으로 바뀐 상태를 반영 못 한다.
+  function toRow(nextStatus: "draft" | "published", referencePost: Post | null) {
+    const wasPublished = referencePost?.status === "published";
     return {
       slug,
       title,
@@ -164,7 +169,7 @@ export function usePostForm(post: Post | null) {
       published_at:
         nextStatus === "published" && !wasPublished
           ? new Date().toISOString()
-          : (post?.published_at ?? new Date().toISOString()),
+          : (referencePost?.published_at ?? new Date().toISOString()),
     };
   }
 
@@ -175,6 +180,16 @@ export function usePostForm(post: Post | null) {
     setExcerpt(backup.excerpt);
     setTags(backup.tags);
     setContent(backup.content);
+  }
+
+  // 저장 성공 직후 호출한다. "저장 안 됨" 표시와 나가기 확인의 기준이 되는
+  // initialRef를 방금 저장한 값으로 옮기고, 태그도 화면에 보이는 표기를
+  // 실제로 저장된 정리된 표기와 맞춘다(대소문자 중복 정리 결과가 눈에는
+  // 안 보이던 문제).
+  function commitSaved(normalizedTags: string[]) {
+    const tagsJoined = normalizedTags.join(", ");
+    setTags(tagsJoined);
+    initialRef.current = { slug, title, excerpt, tags: tagsJoined, content };
   }
 
   return {
@@ -197,5 +212,6 @@ export function usePostForm(post: Post | null) {
     insertTable,
     toRow,
     restoreFrom,
+    commitSaved,
   };
 }

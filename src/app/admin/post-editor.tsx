@@ -1,45 +1,98 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import {
+  ArrowLeft,
+  Bold,
+  Code,
+  Code2,
+  Heading2,
+  Heading3,
+  ImagePlus,
+  Italic,
+  Link2,
+  List,
+  Quote,
+  Settings2,
+  Table2,
+  Trash2,
+} from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { BlogMarkdown } from "@/app/blog/blog-markdown";
 import { toss } from "@/app/blog/toss-tokens";
 import type { Post } from "@/lib/posts";
 
 function ToolbarButton({
-  label,
+  icon: Icon,
   title,
   onClick,
-  bold,
-  italic,
-  mono,
 }: {
-  label: string;
+  icon: typeof Bold;
   title: string;
   onClick: () => void;
-  bold?: boolean;
-  italic?: boolean;
-  mono?: boolean;
 }) {
   return (
     <button
       type="button"
       title={title}
+      aria-label={title}
       // 클릭 시 textarea가 blur되면 selectionStart/End가 초기화되므로
       // mousedown에서 막아 포커스가 그대로 유지되게 한다.
       onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
-      className={`flex h-7 min-w-7 items-center justify-center rounded px-1.5 text-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 ${
-        bold ? "font-bold" : ""
-      } ${italic ? "italic" : ""} ${mono ? "font-mono text-xs" : ""}`}
+      className="flex h-8 w-8 items-center justify-center rounded-md text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
     >
-      {label}
+      <Icon size={16} strokeWidth={1.75} />
     </button>
   );
 }
 
 function ToolbarDivider() {
-  return <div className="mx-1 h-4 w-px bg-neutral-200" />;
+  return <div className="mx-1.5 h-5 w-px shrink-0 bg-neutral-200" />;
+}
+
+const TABLE_PICKER_MAX = 6;
+
+// Notion/구글 문서처럼 격자에서 칸 수를 마우스로 훑어 고르는 표 삽입 UI.
+// 행/열 개수를 숫자로 입력하게 하는 것보다 훨씬 빠르고, 결과 크기를 바로
+// 눈으로 보면서 고를 수 있다.
+function TableSizePicker({ onPick, onClose }: { onPick: (rows: number, cols: number) => void; onClose: () => void }) {
+  const [hover, setHover] = useState({ rows: 2, cols: 2 });
+
+  return (
+    <div className="absolute top-full left-0 z-10 mt-1 rounded-md border border-neutral-200 bg-white p-3 shadow-lg">
+      <p className="mb-2 text-xs text-neutral-400">
+        {hover.rows} x {hover.cols} 표
+      </p>
+      <div
+        className="grid gap-1"
+        style={{ gridTemplateColumns: `repeat(${TABLE_PICKER_MAX}, 1fr)` }}
+        onMouseLeave={() => setHover({ rows: 2, cols: 2 })}
+      >
+        {Array.from({ length: TABLE_PICKER_MAX * TABLE_PICKER_MAX }, (_, i) => {
+          const row = Math.floor(i / TABLE_PICKER_MAX) + 1;
+          const col = (i % TABLE_PICKER_MAX) + 1;
+          const active = row <= hover.rows && col <= hover.cols;
+          return (
+            <button
+              key={i}
+              type="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onMouseEnter={() => setHover({ rows: row, cols: col })}
+              onClick={() => {
+                onPick(row, col);
+                onClose();
+              }}
+              className={`h-4 w-4 rounded-sm border ${
+                active ? "border-transparent" : "border-neutral-200 bg-neutral-50"
+              }`}
+              style={active ? { backgroundColor: toss.color.primary } : undefined}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 function slugify(title: string) {
@@ -58,6 +111,7 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
   const [tags, setTags] = useState(post?.tags.join(", ") ?? "");
   const [content, setContent] = useState(post?.content ?? "");
   const [showMeta, setShowMeta] = useState(false);
+  const [tablePickerOpen, setTablePickerOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -68,6 +122,38 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
   // 바로 입력하면 글자가 쏠리거나 뭉개짐). content가 실제로 갱신된 시점에
   // 맞춰 정확히 한 번만 옮기도록 effect로 뺐다.
   const pendingCursorRef = useRef<number | null>(null);
+
+  // 저장 안 한 채 나가려는 걸 막기 위한 기준값. 최초 마운트 시점(불러온 글
+  // 또는 빈 새 글) 그대로 고정해두고 현재 필드들과 비교한다.
+  const initialRef = useRef({
+    slug: post?.slug ?? "",
+    title: post?.title ?? "",
+    excerpt: post?.excerpt ?? "",
+    tags: post?.tags.join(", ") ?? "",
+    content: post?.content ?? "",
+  });
+  const isDirty =
+    slug !== initialRef.current.slug ||
+    title !== initialRef.current.title ||
+    excerpt !== initialRef.current.excerpt ||
+    tags !== initialRef.current.tags ||
+    content !== initialRef.current.content;
+
+  // 브라우저 탭을 닫거나 새로고침/다른 주소로 이동할 때도 걸어야 한다 -
+  // 목록 버튼 클릭만 막으면 새로고침으로는 그냥 날아간다.
+  useEffect(() => {
+    function handler(e: BeforeUnloadEvent) {
+      if (!isDirty) return;
+      e.preventDefault();
+    }
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [isDirty]);
+
+  function handleBack() {
+    if (isDirty && !confirm("지금 나가면 수정한 내용이 사라져요. 나갈까요?")) return;
+    onDone();
+  }
 
   useEffect(() => {
     if (pendingCursorRef.current == null) return;
@@ -109,6 +195,16 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
     replaceSelection(before + selected + after, cursorOffset);
   }
 
+  function insertTable(rows: number, cols: number) {
+    const header = "| " + Array.from({ length: cols }, (_, i) => `열${i + 1}`).join(" | ") + " |";
+    const separator = "| " + Array.from({ length: cols }, () => "---").join(" | ") + " |";
+    const body = Array.from(
+      { length: rows },
+      () => "| " + Array.from({ length: cols }, () => " ").join(" | ") + " |",
+    ).join("\n");
+    replaceSelection(`${header}\n${separator}\n${body}`, 2);
+  }
+
   async function handleImageUpload(file: File) {
     setUploading(true);
     setError(null);
@@ -126,7 +222,7 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
   async function save() {
     if (!slug || !title) {
       setShowMeta(true);
-      setError("제목과 슬러그는 필수입니다.");
+      setError("제목이랑 슬러그를 먼저 입력해주세요.");
       return;
     }
     setSaving(true);
@@ -167,31 +263,44 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
     <div className="flex h-svh flex-col">
       {/* 상단 바 - 제목만 크게, 나머지 메타는 접어둔다. Velog 에디터가 본문에
           집중하고 태그/요약을 별도 발행 단계로 미루는 것과 같은 방향 */}
-      <header className="flex shrink-0 items-center gap-4 border-b border-neutral-200 px-6 py-3">
-        <button onClick={onDone} className="text-sm font-medium text-neutral-400 hover:text-neutral-600">
-          ← 목록
+      <header className="flex shrink-0 items-center gap-3 border-b border-neutral-200 px-5 py-3">
+        <button
+          onClick={handleBack}
+          aria-label="목록으로"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-700"
+        >
+          <ArrowLeft size={18} strokeWidth={1.75} />
         </button>
         <input
           value={title}
           onChange={(e) => handleTitleChange(e.target.value)}
           placeholder="제목을 입력하세요"
-          className="flex-1 border-none text-lg font-bold text-neutral-900 outline-none placeholder:text-neutral-300"
+          className="min-w-0 flex-1 border-none text-lg font-bold text-neutral-900 outline-none placeholder:text-neutral-300"
         />
+        {isDirty && <span className="shrink-0 text-xs text-neutral-400">저장 안 됨</span>}
         <button
           onClick={() => setShowMeta((s) => !s)}
-          className="rounded-md px-3 py-1.5 text-sm font-medium text-neutral-500 hover:bg-neutral-100"
+          aria-label="정보"
+          title="슬러그·태그·요약"
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md transition-colors hover:bg-neutral-100 ${
+            showMeta ? "bg-neutral-100 text-neutral-900" : "text-neutral-400 hover:text-neutral-700"
+          }`}
         >
-          {showMeta ? "정보 닫기" : "정보"}
+          <Settings2 size={16} strokeWidth={1.75} />
         </button>
         {post && (
-          <button onClick={remove} className="text-sm font-medium text-red-500 hover:text-red-600">
-            삭제
+          <button
+            onClick={remove}
+            aria-label="삭제"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-red-50 hover:text-red-500"
+          >
+            <Trash2 size={16} strokeWidth={1.75} />
           </button>
         )}
         <button
           onClick={save}
           disabled={saving}
-          className="rounded-md px-4 py-1.5 text-sm font-bold text-white disabled:opacity-50"
+          className="shrink-0 rounded-md px-4 py-1.5 text-sm font-bold text-white transition hover:brightness-95 disabled:opacity-50"
           style={{ backgroundColor: toss.color.primary }}
         >
           {saving ? "저장 중..." : "저장"}
@@ -231,51 +340,33 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
       {/* 좌우 분할 - 왼쪽 타이핑하면 오른쪽에 바로 렌더링. 미리보기 토글 없앰 */}
       <div className="grid min-h-0 flex-1 grid-cols-2">
         <div className="flex min-h-0 flex-col border-r border-neutral-200">
-          <div className="flex shrink-0 flex-wrap items-center gap-0.5 border-b border-neutral-100 px-3 py-1.5">
-            <ToolbarButton label="H2" title="소제목" onClick={() => replaceSelection("## ")} />
-            <ToolbarButton label="H3" title="작은 소제목" onClick={() => replaceSelection("### ")} />
+          <div className="flex shrink-0 flex-wrap items-center gap-0.5 border-b border-neutral-200 bg-neutral-50/60 px-3 py-2">
+            <ToolbarButton icon={Heading2} title="소제목" onClick={() => replaceSelection("## ")} />
+            <ToolbarButton icon={Heading3} title="작은 소제목" onClick={() => replaceSelection("### ")} />
             <ToolbarDivider />
-            <ToolbarButton label="B" bold title="굵게" onClick={() => wrapSelection("**", "**")} />
-            <ToolbarButton label="I" italic title="기울임" onClick={() => wrapSelection("*", "*")} />
-            <ToolbarButton label="<>" mono title="인라인 코드" onClick={() => wrapSelection("`", "`")} />
+            <ToolbarButton icon={Bold} title="굵게" onClick={() => wrapSelection("**", "**")} />
+            <ToolbarButton icon={Italic} title="기울임" onClick={() => wrapSelection("*", "*")} />
+            <ToolbarButton icon={Code} title="인라인 코드" onClick={() => wrapSelection("`", "`")} />
             <ToolbarDivider />
-            <ToolbarButton
-              label="{ }"
-              mono
-              title="코드 블록"
-              onClick={() => replaceSelection("```\n\n```", 4)}
-            />
-            <ToolbarButton
-              label="●"
-              title="목록"
-              onClick={() => replaceSelection("- ")}
-            />
-            <ToolbarButton
-              label="❝"
-              title="인용구"
-              onClick={() => replaceSelection("> ")}
-            />
-            <ToolbarButton
-              label="🔗"
-              title="링크"
-              onClick={() => replaceSelection("[텍스트](https://)", 1)}
-            />
-            <ToolbarButton
-              label="▦"
-              title="표"
-              onClick={() =>
-                replaceSelection(
-                  "| 제목1 | 제목2 |\n| --- | --- |\n| 내용1 | 내용2 |",
-                  6,
-                )
-              }
-            />
+            <ToolbarButton icon={Code2} title="코드 블록" onClick={() => replaceSelection("```\n\n```", 4)} />
+            <ToolbarButton icon={List} title="목록" onClick={() => replaceSelection("- ")} />
+            <ToolbarButton icon={Quote} title="인용구" onClick={() => replaceSelection("> ")} />
+            <ToolbarButton icon={Link2} title="링크" onClick={() => replaceSelection("[텍스트](https://)", 1)} />
+            <div className="relative">
+              <ToolbarButton icon={Table2} title="표" onClick={() => setTablePickerOpen((o) => !o)} />
+              {tablePickerOpen && (
+                <TableSizePicker
+                  onPick={insertTable}
+                  onClose={() => setTablePickerOpen(false)}
+                />
+              )}
+            </div>
             <ToolbarDivider />
             <label
-              className="cursor-pointer rounded px-2 py-1 text-xs font-bold text-neutral-500 hover:bg-neutral-100"
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
               title="이미지 업로드"
             >
-              {uploading ? "업로드 중..." : "🖼 이미지"}
+              <ImagePlus size={16} strokeWidth={1.75} />
               <input
                 type="file"
                 accept="image/*"
@@ -288,6 +379,7 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
                 }}
               />
             </label>
+            {uploading && <span className="ml-1 text-xs text-neutral-400">업로드 중...</span>}
           </div>
           <textarea
             ref={textareaRef}

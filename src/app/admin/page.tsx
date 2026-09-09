@@ -107,7 +107,7 @@ export default function AdminPage() {
           ))}
           {posts.length === 0 && (
             <p className="rounded-2xl border border-dashed border-neutral-200 py-12 text-center text-sm text-neutral-400">
-              아직 글이 없습니다. &ldquo;새 글 작성&rdquo;으로 시작하세요.
+              아직 쓴 글이 없어요. &ldquo;새 글 작성&rdquo;으로 시작해보세요.
             </p>
           )}
         </div>

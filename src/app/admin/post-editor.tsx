@@ -342,7 +342,8 @@ export function PostEditor({
 
   return (
     <div
-      className="flex h-svh flex-col"
+      className="blog-scope flex h-svh flex-col"
+      data-theme="light"
       onKeyDown={(e) => {
         if ((e.metaKey || e.ctrlKey) && e.key === "s") {
           e.preventDefault();

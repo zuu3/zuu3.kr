@@ -32,7 +32,7 @@ export function LoginForm() {
   }
 
   return (
-    <div className="mx-auto flex min-h-svh max-w-sm flex-col justify-center px-6">
+    <div className="blog-scope mx-auto flex min-h-svh max-w-sm flex-col justify-center px-6" data-theme="light">
       <h1 className="text-xl font-bold tracking-tight text-neutral-900">로그인</h1>
 
       <button

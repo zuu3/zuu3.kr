@@ -1396,3 +1396,83 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/imag
 ```
 
 Introduced off-scale border radius rounded-2xl(16px), rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/images-panel.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T06:46:49.164Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mttqjrkc_bd3bd704
+timestamp: 2026-09-09T06:46:49.164Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 / 다크모드 스코프 - DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-editor.tsx"
+```
+
+Introduced off-scale border radius rounded-full(9999px), rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/post-editor.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T06:47:25.732Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mttqkjs4_c4a1b652
+timestamp: 2026-09-09T06:47:25.732Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 / 다크모드 스코프 - DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/sections/project-narrative.tsx"
+```
+
+Introduced off-scale border radius rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/components/sections/project-narrative.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T11:15:06.741Z — introduced-off-palette-color-s-191f28-4e
+
+```omd-meta
+id: pref_mtu04sj9_c023bddf
+timestamp: 2026-09-09T11:15:06.741Z
+scope: color
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 / 다크모드 스코프 - DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/globals.css"
+```
+
+Introduced off-palette color(s) #191f28, #4e5968, #8b95a1 in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/globals.css — not in DESIGN.md
+
+## 2026-09-09T11:15:57.049Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtu05vcp_fe07bc2e
+timestamp: 2026-09-09T11:15:57.049Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 / 다크모드 스코프 - DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-theme-toggle.tsx"
+```
+
+Introduced off-scale border radius rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/blog-theme-toggle.tsx — not in DESIGN.md radius scale
+
+## 2026-09-09T11:16:20.849Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtu06dpt_cb2a4bef
+timestamp: 2026-09-09T11:16:20.849Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 / 다크모드 스코프 - DESIGN.md에 이미 문서화된 의도적 별도 범위, 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/share-button.tsx"
+```
+
+Introduced off-scale border radius rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/share-button.tsx — not in DESIGN.md radius scale

@@ -11,6 +11,7 @@ import { toss } from "../toss-tokens";
 import { BlogComments } from "../blog-comments";
 import { BlogMarkdown } from "../blog-markdown";
 import { BlogToc } from "../blog-toc";
+import { ShareButton } from "../share-button";
 
 export const revalidate = 60;
 
@@ -104,15 +105,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           >
             {post.title}
           </h1>
-          <div className="mt-4 flex items-center gap-3 text-sm font-medium" style={{ color: toss.color.muted }}>
-            <span className="inline-flex items-center gap-1">
-              <Icon svg={<IconCalendarLine />} size="15px" color={toss.color.muted} />
-              <span className="tabular-nums">{formatBlogDate(post.published_at)}</span>
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <Icon svg={<IconClockLine />} size="15px" color={toss.color.muted} />
-              {readingTime(post.content)}분 읽기
-            </span>
+          <div className="mt-4 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 text-sm font-medium" style={{ color: toss.color.muted }}>
+              <span className="inline-flex items-center gap-1">
+                <Icon svg={<IconCalendarLine />} size="15px" color={toss.color.muted} />
+                <span className="tabular-nums">{formatBlogDate(post.published_at)}</span>
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Icon svg={<IconClockLine />} size="15px" color={toss.color.muted} />
+                {readingTime(post.content)}분 읽기
+              </span>
+            </div>
+            <ShareButton title={post.title} url={`https://zuu3.kr/blog/${post.slug}`} />
           </div>
 
           <div className="mt-10">

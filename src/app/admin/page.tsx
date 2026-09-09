@@ -54,7 +54,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-svh bg-neutral-50">
+    <div className="blog-scope min-h-svh bg-neutral-50" data-theme="light">
       <div className="mx-auto max-w-3xl px-6 py-16">
         <div className="flex items-center justify-between">
           <div>

@@ -65,7 +65,7 @@ export function PostSettingsPanel({
           />
           <motion.div
             className="fixed top-0 right-0 z-30 flex h-svh w-full max-w-sm flex-col bg-white shadow-2xl"
-            style={{ ["--focus-ring" as string]: `${toss.color.primary}26` }}
+            style={{ ["--focus-ring" as string]: toss.color.primaryRing }}
             initial={reduceMotion ? { opacity: 0 } : { x: "100%" }}
             animate={reduceMotion ? { opacity: 1 } : { x: 0 }}
             exit={reduceMotion ? { opacity: 0 } : { x: "100%" }}

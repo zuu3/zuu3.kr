@@ -45,6 +45,51 @@
   --radius: 8px;
 }
 
+/* 블로그 다크모드 스코프. 이 안에서만 toss-tokens.ts 값이 반응한다 - html
+   전역 다크모드 아님, admin은 이 스코프에 data-theme="light" 고정으로
+   들어가 있어서 시스템 다크 설정과 무관하게 항상 라이트. */
+.blog-scope {
+  --blog-canvas: #ffffff;
+  --blog-foreground: #191f28;
+  --blog-body: #4e5968;
+  --blog-muted: #8b95a1;
+  --blog-surface: #f2f4f6;
+  --blog-border: #e5e8eb;
+  --blog-primary: #3182f6;
+  --blog-primary-hover: #2272eb;
+  --blog-weak-bg: #e8f3ff;
+  --blog-weak-fg: #1b64da;
+  --blog-primary-ring: rgba(49, 130, 246, 0.16);
+}
+.blog-scope[data-theme="dark"] {
+  --blog-canvas: #15181d;
+  --blog-foreground: #eef0f2;
+  --blog-body: #b6bcc4;
+  --blog-muted: #7d8590;
+  --blog-surface: #1c2026;
+  --blog-border: #2a2f36;
+  --blog-primary: #5b9dff;
+  --blog-primary-hover: #7db0ff;
+  --blog-weak-bg: #1c2a3d;
+  --blog-weak-fg: #7db0ff;
+  --blog-primary-ring: rgba(91, 157, 255, 0.28);
+}
+@media (prefers-color-scheme: dark) {
+  .blog-scope:not([data-theme="light"]):not([data-theme="dark"]) {
+    --blog-canvas: #15181d;
+    --blog-foreground: #eef0f2;
+    --blog-body: #b6bcc4;
+    --blog-muted: #7d8590;
+    --blog-surface: #1c2026;
+    --blog-border: #2a2f36;
+    --blog-primary: #5b9dff;
+    --blog-primary-hover: #7db0ff;
+    --blog-weak-bg: #1c2a3d;
+    --blog-weak-fg: #7db0ff;
+    --blog-primary-ring: rgba(91, 157, 255, 0.28);
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

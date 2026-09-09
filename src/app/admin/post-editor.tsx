@@ -115,6 +115,9 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // 브라우저 기본 confirm()은 이 화면 전체와 스타일이 안 맞아서, 나가기/삭제
+  // 둘 다 이 상태로 띄우는 커스텀 모달을 쓴다.
+  const [confirmState, setConfirmState] = useState<{ message: string; onConfirm: () => void } | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   // 버튼 클릭 직후 커서를 어디로 옮길지 담아둔다. requestAnimationFrame으로
   // "다음 프레임쯤" 옮기면, 그 사이 사용자가 이미 타이핑을 시작한 경우 늦게
@@ -151,7 +154,10 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
   }, [isDirty]);
 
   function handleBack() {
-    if (isDirty && !confirm("지금 나가면 수정한 내용이 사라져요. 나갈까요?")) return;
+    if (isDirty) {
+      setConfirmState({ message: "지금 나가면 수정한 내용이 사라져요. 나갈까요?", onConfirm: onDone });
+      return;
+    }
     onDone();
   }
 
@@ -246,9 +252,8 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
     onDone();
   }
 
-  async function remove() {
+  async function doRemove() {
     if (!post) return;
-    if (!confirm(`"${post.title}" 삭제할까요?`)) return;
     setSaving(true);
     const { error } = await supabase.from("posts").delete().eq("slug", post.slug);
     setSaving(false);
@@ -257,6 +262,11 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
       return;
     }
     onDone();
+  }
+
+  function remove() {
+    if (!post) return;
+    setConfirmState({ message: `"${post.title}" 삭제할까요?`, onConfirm: doRemove });
   }
 
   return (
@@ -397,6 +407,31 @@ export function PostEditor({ post, onDone }: { post: Post | null; onDone: () => 
           )}
         </div>
       </div>
+
+      {confirmState && (
+        <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/30 px-6">
+          <div className="w-full max-w-xs rounded-md bg-white p-5 shadow-lg">
+            <p className="text-sm leading-relaxed text-neutral-800">{confirmState.message}</p>
+            <div className="mt-4 flex justify-end gap-2">
+              <button
+                onClick={() => setConfirmState(null)}
+                className="rounded-md px-3 py-1.5 text-sm font-medium text-neutral-500 hover:bg-neutral-100"
+              >
+                취소
+              </button>
+              <button
+                onClick={() => {
+                  confirmState.onConfirm();
+                  setConfirmState(null);
+                }}
+                className="rounded-md bg-red-500 px-3 py-1.5 text-sm font-bold text-white hover:bg-red-600"
+              >
+                확인
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

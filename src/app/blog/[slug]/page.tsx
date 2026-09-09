@@ -27,7 +27,31 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return {};
-  return { title: `${post.title} | 오주현`, description: post.excerpt };
+
+  const url = `https://zuu3.kr/blog/${post.slug}`;
+  const title = `${post.title} | 오주현`;
+
+  return {
+    title,
+    description: post.excerpt,
+    keywords: post.tags,
+    alternates: { canonical: url },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url,
+      siteName: "오주현 포트폴리오",
+      locale: "ko_KR",
+      type: "article",
+      publishedTime: post.published_at,
+      tags: post.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -37,8 +61,25 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const headings = extractHeadings(post.content);
 
+  // 검색엔진이 "이건 블로그 글이고, 언제 썼고, 누가 썼는지"를 마크업 파싱
+  // 없이 바로 읽어갈 수 있게 하는 구조화 데이터. 리치 결과(날짜, 작성자 등
+  // 검색 결과에 바로 노출되는 정보)에 반영된다.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.published_at,
+    dateModified: post.published_at,
+    author: { "@type": "Person", name: "오주현", url: "https://zuu3.kr" },
+    keywords: post.tags.join(", "),
+    url: `https://zuu3.kr/blog/${post.slug}`,
+    mainEntityOfPage: `https://zuu3.kr/blog/${post.slug}`,
+  };
+
   return (
     <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     <main className="px-6 py-24 md:px-16 lg:px-24" style={{ backgroundColor: toss.color.canvas }}>
       <div className="mx-auto grid w-full max-w-6xl gap-x-12 lg:grid-cols-[1fr_42rem_1fr]">
         <div aria-hidden className="hidden lg:block" />

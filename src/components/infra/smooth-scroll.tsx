@@ -20,6 +20,11 @@ export function SmoothScroll() {
     // 마우스 휠을 window 레벨에서 가로채 자기 가상 스크롤에 먹여버리므로,
     // 중첩된 textarea/미리보기 패널의 네이티브 스크롤이 안 먹는 원인이 된다.
     if (pathname.startsWith("/admin")) return;
+    // 블로그는 글을 읽는 화면이다 - 관성 스크롤의 "부드러움"보다 원하는
+    // 지점에 정확히 멈추는 게 더 중요하고, 가상 스크롤이 TOC 클릭·중첩
+    // 스크롤 같은 걸 매번 우회 처리해야 하게 만드는 부작용도 있다. 네이티브
+    // 스크롤 그대로 둔다.
+    if (pathname.startsWith("/blog")) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     gsap.registerPlugin(ScrollTrigger);

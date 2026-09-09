@@ -7,9 +7,26 @@ import { toss } from "./toss-tokens";
 
 export const revalidate = 60;
 
+const title = "Blog | 오주현";
+const description = "프론트엔드 개념을 정리해 남기는 기록.";
+
 export const metadata: Metadata = {
-  title: "Blog | 오주현",
-  description: "프론트엔드 개념을 정리해 남기는 기록.",
+  title,
+  description,
+  alternates: { canonical: "https://zuu3.kr/blog" },
+  openGraph: {
+    title,
+    description,
+    url: "https://zuu3.kr/blog",
+    siteName: "오주현 포트폴리오",
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default async function BlogIndexPage() {

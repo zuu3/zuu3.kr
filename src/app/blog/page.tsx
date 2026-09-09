@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/posts";
 import { profile } from "@/lib/content";
-import { SiteFooter } from "@/components/site-footer";
+import { SiteFooter } from "@/components/layout/site-footer";
 import { BlogPostList } from "./blog-post-list";
 import { toss } from "./toss-tokens";
 

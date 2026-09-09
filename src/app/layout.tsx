@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { SmoothScroll } from "@/components/smooth-scroll";
-import { SiteTabNav } from "@/components/site-tab-nav";
-import { ScrollMemory } from "@/components/scroll-memory";
+import { SmoothScroll } from "@/components/infra/smooth-scroll";
+import { SiteTabNav } from "@/components/layout/site-tab-nav";
+import { ScrollMemory } from "@/components/infra/scroll-memory";
 import { Toaster } from "@/components/ui/sonner";
 
 const pretendard = localFont({

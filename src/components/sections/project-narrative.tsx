@@ -22,7 +22,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { Item, ItemContent, ItemGroup, ItemMedia } from "@/components/ui/item";
 import TiltedCard from "@/components/react-bits/tilted-card";
-import { CodeBlock, hasProjectDemo, ProjectDemo } from "@/components/project-narrative-demos";
+import { CodeBlock, hasProjectDemo, ProjectDemo } from "@/components/sections/project-narrative-demos";
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 import { Highlighter } from "@/components/ui/highlighter";
 import { CodeComparison } from "@/components/ui/code-comparison";

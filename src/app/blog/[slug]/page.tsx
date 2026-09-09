@@ -4,7 +4,7 @@ import { Icon } from "@seed-design/react";
 import { IconCalendarLine, IconClockLine } from "@karrotmarket/react-monochrome-icon";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { profile } from "@/lib/content";
-import { SiteFooter } from "@/components/site-footer";
+import { SiteFooter } from "@/components/layout/site-footer";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { extractHeadings } from "@/lib/toc";
 import { toss } from "../toss-tokens";

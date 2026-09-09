@@ -1,11 +1,11 @@
 import { profile, projects } from "@/lib/content";
-import { Hero } from "@/components/hero";
-import { AboutSection } from "@/components/about-section";
-import { TechLogoLoop } from "@/components/tech-logo-loop";
-import { ProjectNarrative } from "@/components/project-narrative";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteNav } from "@/components/site-nav";
-import { MobileMenu } from "@/components/mobile-menu";
+import { Hero } from "@/components/sections/hero";
+import { AboutSection } from "@/components/sections/about-section";
+import { TechLogoLoop } from "@/components/layout/tech-logo-loop";
+import { ProjectNarrative } from "@/components/sections/project-narrative";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteNav } from "@/components/layout/site-nav";
+import { MobileMenu } from "@/components/layout/mobile-menu";
 
 const personJsonLd = {
   "@context": "https://schema.org",

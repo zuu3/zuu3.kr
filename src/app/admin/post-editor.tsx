@@ -24,6 +24,7 @@ import type { Post } from "@/lib/posts";
 import { usePostForm } from "./use-post-form";
 import { useImageUpload } from "./use-image-upload";
 import { useConfirmDialog, ConfirmDialog } from "./use-confirm-dialog";
+import { PostSettingsPanel } from "./post-settings-panel";
 
 function ToolbarButton({
   icon: Icon,
@@ -129,7 +130,7 @@ export function PostEditor({
   } = usePostForm(post);
   const imageUpload = useImageUpload();
   const confirmDialog = useConfirmDialog();
-  const [showMeta, setShowMeta] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [tablePickerOpen, setTablePickerOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -149,7 +150,7 @@ export function PostEditor({
 
   async function save() {
     if (!slug || !title) {
-      setShowMeta(true);
+      setSettingsOpen(true);
       setError("제목이랑 슬러그를 먼저 입력해주세요.");
       return;
     }
@@ -186,8 +187,7 @@ export function PostEditor({
 
   return (
     <div className="flex h-svh flex-col">
-      {/* 상단 바 - 제목만 크게, 나머지 메타는 접어둔다. Velog 에디터가 본문에
-          집중하고 태그/요약을 별도 발행 단계로 미루는 것과 같은 방향 */}
+      {/* 상단 바 - 제목만 크게, 슬러그/태그/요약은 오른쪽 슬라이드 패널로 뺀다 */}
       <header className="flex shrink-0 items-center gap-3 border-b border-neutral-200 px-5 py-3">
         <button
           onClick={handleBack}
@@ -204,11 +204,11 @@ export function PostEditor({
         />
         {isDirty && <span className="shrink-0 text-xs text-neutral-400">저장 안 됨</span>}
         <button
-          onClick={() => setShowMeta((s) => !s)}
+          onClick={() => setSettingsOpen((s) => !s)}
           aria-label="정보"
           title="슬러그·태그·요약"
           className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md transition-colors hover:bg-neutral-100 ${
-            showMeta ? "bg-neutral-100 text-neutral-900" : "text-neutral-400 hover:text-neutral-700"
+            settingsOpen ? "bg-neutral-100 text-neutral-900" : "text-neutral-400 hover:text-neutral-700"
           }`}
         >
           <Settings2 size={16} strokeWidth={1.75} />
@@ -231,56 +231,6 @@ export function PostEditor({
           {saving ? "저장 중..." : "저장"}
         </button>
       </header>
-
-      {showMeta && (
-        <div className="flex shrink-0 flex-col gap-2 border-b border-neutral-200 bg-neutral-50 px-6 py-3">
-          {error && <p className="text-sm text-red-600">{error}</p>}
-          <div className="flex gap-2">
-            <input
-              placeholder="슬러그 (URL)"
-              value={slug}
-              onChange={(e) => handleSlugChange(e.target.value)}
-              className="w-56 rounded-md border border-neutral-200 bg-white px-3 py-1.5 font-mono text-xs outline-none focus:border-neutral-400"
-            />
-            <input
-              placeholder="태그 (쉼표로 구분)"
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-              className="flex-1 rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm outline-none focus:border-neutral-400"
-            />
-          </div>
-          {existingTags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {existingTags.map((tag) => {
-                const used = currentTagList.some((t) => t.toLowerCase() === tag.toLowerCase());
-                return (
-                  <button
-                    key={tag}
-                    type="button"
-                    disabled={used}
-                    onClick={() => addTag(tag)}
-                    className="rounded-full border px-2.5 py-1 text-xs font-medium transition-colors disabled:cursor-default"
-                    style={{
-                      borderColor: toss.color.border,
-                      color: used ? toss.color.muted : toss.color.body,
-                      backgroundColor: used ? toss.color.surface : "#ffffff",
-                    }}
-                  >
-                    {tag}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-          <textarea
-            placeholder="요약 (목록에 보이는 짧은 설명)"
-            value={excerpt}
-            onChange={(e) => setExcerpt(e.target.value)}
-            rows={2}
-            className="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm outline-none focus:border-neutral-400"
-          />
-        </div>
-      )}
 
       {/* 좌우 분할 - 왼쪽 타이핑하면 오른쪽에 바로 렌더링. 미리보기 토글 없앰 */}
       <div className="grid min-h-0 flex-1 grid-cols-2">
@@ -342,6 +292,21 @@ export function PostEditor({
           )}
         </div>
       </div>
+
+      <PostSettingsPanel
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        error={error}
+        slug={slug}
+        onSlugChange={handleSlugChange}
+        tags={tags}
+        onTagsChange={setTags}
+        existingTags={existingTags}
+        currentTagList={currentTagList}
+        onAddTag={addTag}
+        excerpt={excerpt}
+        onExcerptChange={setExcerpt}
+      />
 
       <ConfirmDialog
         state={confirmDialog.state}

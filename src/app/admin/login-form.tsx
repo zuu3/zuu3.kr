@@ -12,6 +12,7 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [passkeyLoading, setPasskeyLoading] = useState(false);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -22,10 +23,33 @@ export function LoginForm() {
     if (error) setError(error.message);
   }
 
+  async function signInWithPasskey() {
+    setPasskeyLoading(true);
+    setError(null);
+    const { error } = await supabase.auth.signInWithPasskey();
+    setPasskeyLoading(false);
+    if (error) setError(error.message);
+  }
+
   return (
     <div className="mx-auto flex min-h-svh max-w-sm flex-col justify-center px-6">
       <h1 className="text-xl font-bold tracking-tight text-neutral-900">로그인</h1>
-      <form onSubmit={submit} className="mt-6 flex flex-col gap-3">
+
+      <button
+        onClick={signInWithPasskey}
+        disabled={passkeyLoading}
+        className="mt-6 rounded-md border border-neutral-200 px-4 py-2 text-sm font-bold text-neutral-700 disabled:opacity-50"
+      >
+        {passkeyLoading ? "인증 중..." : "패스키로 로그인"}
+      </button>
+
+      <div className="my-4 flex items-center gap-3 text-xs text-neutral-300">
+        <div className="h-px flex-1 bg-neutral-200" />
+        또는
+        <div className="h-px flex-1 bg-neutral-200" />
+      </div>
+
+      <form onSubmit={submit} className="flex flex-col gap-3">
         <input
           type="email"
           name="email"

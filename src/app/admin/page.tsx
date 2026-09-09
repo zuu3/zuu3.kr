@@ -63,6 +63,15 @@ export default function AdminPage() {
               새 글 작성
             </button>
             <button
+              onClick={async () => {
+                const { error } = await supabase.auth.registerPasskey();
+                alert(error ? error.message : "패스키 등록 완료");
+              }}
+              className="rounded-md px-3 py-2.5 text-sm font-medium text-neutral-400 transition hover:text-neutral-600"
+            >
+              패스키 등록
+            </button>
+            <button
               onClick={() => supabase.auth.signOut()}
               className="rounded-md px-3 py-2.5 text-sm font-medium text-neutral-400 transition hover:text-neutral-600"
             >

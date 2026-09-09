@@ -6,6 +6,7 @@ import {
   Bold,
   Code,
   Code2,
+  Eye,
   Heading2,
   Heading3,
   ImagePlus,
@@ -228,6 +229,18 @@ export function PostEditor({
         >
           {(post?.status ?? "draft") === "published" ? "발행됨" : "임시글"}
         </span>
+        {post && (
+          <a
+            href={`/blog/${post.slug}/preview`}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="미리보기"
+            title="실제 페이지로 미리보기"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-700"
+          >
+            <Eye size={16} strokeWidth={1.75} />
+          </a>
+        )}
         <button
           onClick={() => setSettingsOpen((s) => !s)}
           aria-label="정보"

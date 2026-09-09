@@ -5,6 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/admin", "/blog/*/preview"],
     },
     sitemap: "https://zuu3.kr/sitemap.xml",
   };

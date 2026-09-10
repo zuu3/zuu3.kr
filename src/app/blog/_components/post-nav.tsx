@@ -9,33 +9,33 @@ import { toss } from "../toss-tokens";
 function NavCard({ post, direction }: { post: Post; direction: "prev" | "next" }) {
   const isNext = direction === "next";
   const [hover, setHover] = useState(false);
+  const Arrow = isNext ? ArrowRight : ArrowLeft;
 
   return (
     <Link
       href={`/blog/${post.slug}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="flex flex-col gap-3 rounded-lg border p-5 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md"
+      className="flex flex-col gap-1.5 rounded-lg border p-5 transition-colors duration-150"
       style={{
         borderColor: hover ? toss.color.primary : toss.color.border,
         backgroundColor: toss.color.canvas,
         alignItems: isNext ? "flex-end" : "flex-start",
       }}
     >
-      <div className={`flex items-center gap-2 ${isNext ? "flex-row-reverse" : ""}`}>
-        <span
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors"
+      <span
+        className="inline-flex items-center gap-1 text-xs font-medium"
+        style={{ color: toss.color.muted, flexDirection: isNext ? "row-reverse" : "row" }}
+      >
+        <Arrow
+          size={12}
           style={{
-            backgroundColor: hover ? toss.color.primary : toss.color.surface,
-            color: hover ? "#ffffff" : toss.color.muted,
+            transform: hover ? `translateX(${isNext ? 2 : -2}px)` : "translateX(0)",
+            transition: "transform 150ms",
           }}
-        >
-          {isNext ? <ArrowRight size={14} /> : <ArrowLeft size={14} />}
-        </span>
-        <span className="text-xs font-bold tracking-wide uppercase" style={{ color: toss.color.muted }}>
-          {isNext ? "다음 글" : "이전 글"}
-        </span>
-      </div>
+        />
+        {isNext ? "다음 글" : "이전 글"}
+      </span>
       <span
         className={`line-clamp-2 text-[15px] font-bold ${isNext ? "text-right" : "text-left"}`}
         style={{ color: toss.color.foreground }}

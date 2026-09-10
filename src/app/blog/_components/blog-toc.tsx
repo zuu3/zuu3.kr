@@ -1,13 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "motion/react";
 import type { TocHeading } from "@/lib/toc";
 import { toss } from "../toss-tokens";
 
 export function BlogToc({ headings }: { headings: TocHeading[] }) {
   const [activeId, setActiveId] = useState<string | null>(headings[0]?.id ?? null);
   const reduceMotion = useReducedMotion();
+  const listRef = useRef<HTMLUListElement>(null);
+  const itemRefs = useRef<Record<string, HTMLLIElement | null>>({});
+  // 목차 자체 안의 진행 바 길이(px) - 첫 항목 위부터 지금 읽고 있는
+  // 항목의 아래끝까지. 활성 항목이 바뀌어도 그 위 구간은 파랗게 남아있고,
+  // 이 목차 리스트는 늘 화면에 다 떠 있어서(sticky) 실질적으로 다시
+  // 회색으로 되돌아가는 일은 없다 - 지나온 만큼 계속 쌓이는 진행 표시.
+  const [progressPx, setProgressPx] = useState(0);
 
   useEffect(() => {
     const elements = headings
@@ -30,6 +37,13 @@ export function BlogToc({ headings }: { headings: TocHeading[] }) {
     return () => observer.disconnect();
   }, [headings]);
 
+  useEffect(() => {
+    if (!activeId || !listRef.current) return;
+    const activeLi = itemRefs.current[activeId];
+    if (!activeLi) return;
+    setProgressPx(activeLi.offsetTop + activeLi.offsetHeight);
+  }, [activeId, headings]);
+
   if (headings.length === 0) return null;
 
   return (
@@ -38,34 +52,30 @@ export function BlogToc({ headings }: { headings: TocHeading[] }) {
         <p className="text-xs font-bold tracking-wide uppercase" style={{ color: toss.color.muted }}>
           목차
         </p>
-        <ul className="mt-3 space-y-1.5">
+        <ul ref={listRef} className="relative mt-3 space-y-1.5 pl-4">
+          {/* 회색 배경 선 - 목차 전체 높이만큼 항상 깔려있다 */}
+          <div className="absolute top-0 left-0 h-full w-px" style={{ backgroundColor: toss.color.border }} />
+          {/* 진행 선 - 첫 항목부터 지금 읽는 위치까지, 끊기지 않고 하나로
+              이어진다. 높이만 바뀌므로 li마다 따로 그리는 것과 달리 절대
+              끊어지지 않는다. */}
+          <div
+            className="absolute top-0 left-0 w-px"
+            style={{
+              height: progressPx,
+              backgroundColor: toss.color.primary,
+              transition: reduceMotion ? "none" : "height 250ms ease-out",
+            }}
+          />
           {headings.map((h) => {
             const isActive = h.id === activeId;
-            const isNested = h.level !== 2;
             return (
               <li
                 key={h.id}
-                className="relative"
-                style={{
-                  marginLeft: h.level === 3 ? "1rem" : h.level === 4 ? "2rem" : 0,
-                  // 최상위(level 2) 항목엔 세로 가이드라인을 두지 않는다 -
-                  // 당근 seed-design 목차처럼 하위 항목에만 얇은 구조선이
-                  // 붙고, 최상위는 활성일 때만 굵은 바가 나타난다.
-                  borderLeft: isNested ? `1px solid ${toss.color.border}` : undefined,
-                  paddingLeft: isNested ? "1rem" : 0,
+                ref={(el) => {
+                  itemRefs.current[h.id] = el;
                 }}
+                style={{ marginLeft: h.level === 3 ? "1rem" : h.level === 4 ? "2rem" : 0 }}
               >
-                {/* layoutId 공유 - 활성 항목이 바뀔 때 굵은 바가 순간이동
-                    대신 부드럽게 미끄러져 이동한다. */}
-                {isActive && (
-                  <motion.span
-                    layoutId="toc-active-indicator"
-                    aria-hidden
-                    className="absolute top-0 h-full w-0.5 rounded-full"
-                    style={{ left: isNested ? -1 : -1.5, backgroundColor: toss.color.primary }}
-                    transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 40 }}
-                  />
-                )}
                 <a
                   href={`#${h.id}`}
                   onClick={(e) => {

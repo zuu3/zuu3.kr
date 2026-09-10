@@ -4,7 +4,6 @@ import { Icon } from "@seed-design/react";
 import { IconCalendarLine, IconClockLine } from "@karrotmarket/react-monochrome-icon";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { ReadingProgress } from "../_components/reading-progress";
-import { RelatedPosts } from "../_components/related-posts";
 import { PostNav } from "../_components/post-nav";
 import { profile } from "@/lib/content";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -128,8 +127,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
 
           <PostNav current={post} allPosts={allPosts} />
-
-          <RelatedPosts current={post} allPosts={allPosts} />
 
           <BlogComments postSlug={post.slug} />
         </article>

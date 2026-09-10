@@ -38,23 +38,31 @@ export function BlogToc({ headings }: { headings: TocHeading[] }) {
         <p className="text-xs font-bold tracking-wide uppercase" style={{ color: toss.color.muted }}>
           목차
         </p>
-        <ul className="mt-3 space-y-0.5 border-l pl-4" style={{ borderColor: toss.color.border }}>
+        <ul className="mt-3 space-y-1.5">
           {headings.map((h) => {
             const isActive = h.id === activeId;
+            const isNested = h.level !== 2;
             return (
               <li
                 key={h.id}
                 className="relative"
-                style={{ marginLeft: h.level === 3 ? "1rem" : h.level === 4 ? "2rem" : 0 }}
+                style={{
+                  marginLeft: h.level === 3 ? "1rem" : h.level === 4 ? "2rem" : 0,
+                  // 최상위(level 2) 항목엔 세로 가이드라인을 두지 않는다 -
+                  // 당근 seed-design 목차처럼 하위 항목에만 얇은 구조선이
+                  // 붙고, 최상위는 활성일 때만 굵은 바가 나타난다.
+                  borderLeft: isNested ? `1px solid ${toss.color.border}` : undefined,
+                  paddingLeft: isNested ? "1rem" : 0,
+                }}
               >
-                {/* layoutId 공유 - 활성 항목이 바뀔 때 세로 바가 순간이동 대신
-                    seed-design 사이드 내비처럼 부드럽게 미끄러져 이동한다. */}
+                {/* layoutId 공유 - 활성 항목이 바뀔 때 굵은 바가 순간이동
+                    대신 부드럽게 미끄러져 이동한다. */}
                 {isActive && (
                   <motion.span
                     layoutId="toc-active-indicator"
                     aria-hidden
-                    className="absolute -left-4 h-full w-0.5 rounded-full"
-                    style={{ backgroundColor: toss.color.primary }}
+                    className="absolute top-0 h-full w-0.5 rounded-full"
+                    style={{ left: isNested ? -1 : -1.5, backgroundColor: toss.color.primary }}
                     transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 40 }}
                   />
                 )}
@@ -75,10 +83,9 @@ export function BlogToc({ headings }: { headings: TocHeading[] }) {
                       target.scrollIntoView({ behavior: "smooth", block: "start" });
                     }
                   }}
-                  className="block rounded px-2 py-1.5 -ml-2 transition-colors duration-150"
+                  className="block py-0.5 leading-snug transition-colors duration-150"
                   style={{
-                    color: isActive ? toss.color.primary : toss.color.muted,
-                    backgroundColor: isActive ? toss.color.weakBg : "transparent",
+                    color: isActive ? toss.color.foreground : toss.color.muted,
                     fontWeight: isActive ? 700 : 400,
                     fontSize: h.level === 4 ? 13 : 14,
                   }}

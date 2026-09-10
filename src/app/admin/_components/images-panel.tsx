@@ -2,8 +2,8 @@
 
 import { Copy, Trash2 } from "lucide-react";
 import { toss } from "@/app/blog/toss-tokens";
-import { useImagesAdmin } from "./use-images-admin";
-import { useConfirmDialog, ConfirmDialog } from "./use-confirm-dialog";
+import { useImagesAdmin } from "@/app/admin/_hooks/use-images-admin";
+import { useConfirmDialog, ConfirmDialog } from "@/app/admin/_components/confirm-dialog";
 
 export function ImagesPanel() {
   const { images, loading, remove } = useImagesAdmin();

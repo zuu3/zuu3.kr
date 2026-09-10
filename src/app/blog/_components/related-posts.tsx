@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Post } from "@/lib/posts";
 import { formatBlogDate } from "@/lib/blog";
-import { toss } from "./toss-tokens";
+import { toss } from "../toss-tokens";
 
 // 태그 겹치는 글 최대 3개. 서버 컴포넌트 - 이미 fetch해둔 전체 글 목록에서
 // 순수 계산만 하고 별도 쿼리는 안 던진다.

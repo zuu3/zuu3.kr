@@ -7,7 +7,7 @@ import { Icon } from "@seed-design/react";
 import { IconCalendarLine, IconClockLine, IconMagnifyingglassLine } from "@karrotmarket/react-monochrome-icon";
 import type { Post } from "@/lib/posts";
 import { firstImageUrl, formatBlogDate, readingTime } from "@/lib/blog";
-import { toss } from "./toss-tokens";
+import { toss } from "../toss-tokens";
 
 // 실제 삽화 대신, 글마다 고정 그라디언트 썸네일을 결정론적으로 배정.
 const THUMBNAIL_GRADIENTS = [

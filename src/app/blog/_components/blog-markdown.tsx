@@ -17,7 +17,7 @@ import sql from "react-syntax-highlighter/dist/esm/languages/prism/sql";
 import yaml from "react-syntax-highlighter/dist/esm/languages/prism/yaml";
 import markdown from "react-syntax-highlighter/dist/esm/languages/prism/markdown";
 import vscDarkPlus from "react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus";
-import { toss } from "./toss-tokens";
+import { toss } from "../toss-tokens";
 
 // 지금까지 쓴 글은 전부 tsx뿐이었지만, 펜스 언어 태그가 이거 하나만
 // 등록돼 있으면 bash/json/sql 등은 그냥 색 없는 텍스트로 나간다 - 다음

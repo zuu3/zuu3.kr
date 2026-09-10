@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { toss } from "./toss-tokens";
+import { toss } from "../toss-tokens";
 
 // article 요소 스크롤 진행률(0~100)을 상단 얇은 바로 보여준다.
 export function ReadingProgress() {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/posts";
 import { profile } from "@/lib/content";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { BlogPostList } from "./blog-post-list";
+import { BlogPostList } from "./_components/blog-post-list";
 import { toss } from "./toss-tokens";
 
 export const revalidate = 60;

@@ -9,8 +9,8 @@ import { supabase } from "@/lib/supabase";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { extractHeadings } from "@/lib/toc";
 import { toss } from "../../toss-tokens";
-import { BlogMarkdown } from "../../blog-markdown";
-import { BlogToc } from "../../blog-toc";
+import { BlogMarkdown } from "../../_components/blog-markdown";
+import { BlogToc } from "../../_components/blog-toc";
 import type { Post } from "@/lib/posts";
 
 // 공개 /blog/[slug] 페이지는 status='published'만 조회한다(getPostBySlug).

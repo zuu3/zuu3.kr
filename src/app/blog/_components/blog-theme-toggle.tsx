@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
-import { toss } from "./toss-tokens";
+import { toss } from "../toss-tokens";
 
 type Theme = "light" | "dark";
 

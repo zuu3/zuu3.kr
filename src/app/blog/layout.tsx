@@ -1,4 +1,4 @@
-import { BlogThemeToggle } from "./blog-theme-toggle";
+import { BlogThemeToggle } from "./_components/blog-theme-toggle";
 
 // /blog 아래 전체(목록, 글, 미리보기)를 다크모드 스코프로 감싼다. 값
 // 자체는 globals.css의 .blog-scope CSS 변수가 갖고 있고, 토글은

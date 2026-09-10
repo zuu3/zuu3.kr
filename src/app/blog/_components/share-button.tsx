@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Copy, Send, Share2 } from "lucide-react";
 import { toast } from "sonner";
-import { toss } from "./toss-tokens";
+import { toss } from "../toss-tokens";
 
 // lucide-react엔 X(트위터) 마크가 없어서 인라인.
 function XIcon(props: React.SVGProps<SVGSVGElement>) {

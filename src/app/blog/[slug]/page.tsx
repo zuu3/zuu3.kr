@@ -3,17 +3,17 @@ import { notFound } from "next/navigation";
 import { Icon } from "@seed-design/react";
 import { IconCalendarLine, IconClockLine } from "@karrotmarket/react-monochrome-icon";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
-import { ReadingProgress } from "../reading-progress";
-import { RelatedPosts } from "../related-posts";
+import { ReadingProgress } from "../_components/reading-progress";
+import { RelatedPosts } from "../_components/related-posts";
 import { profile } from "@/lib/content";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { formatBlogDate, readingTime } from "@/lib/blog";
 import { extractHeadings } from "@/lib/toc";
 import { toss } from "../toss-tokens";
-import { BlogComments } from "../blog-comments";
-import { BlogMarkdown } from "../blog-markdown";
-import { BlogToc } from "../blog-toc";
-import { ShareButton } from "../share-button";
+import { BlogComments } from "../_components/blog-comments";
+import { BlogMarkdown } from "../_components/blog-markdown";
+import { BlogToc } from "../_components/blog-toc";
+import { ShareButton } from "../_components/share-button";
 
 export const revalidate = 60;
 

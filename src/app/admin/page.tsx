@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
-import { LoginForm } from "./login-form";
-import { PostEditor } from "./post-editor";
-import { CommentsPanel } from "./comments-panel";
-import { ImagesPanel } from "./images-panel";
+import { LoginForm } from "./_components/login-form";
+import { PostEditor } from "./_components/post-editor/post-editor";
+import { CommentsPanel } from "./_components/comments-panel";
+import { ImagesPanel } from "./_components/images-panel";
 import type { Post } from "@/lib/posts";
 import { toss } from "@/app/blog/toss-tokens";
 

@@ -2,8 +2,8 @@
 
 import { Trash2 } from "lucide-react";
 import { toss } from "@/app/blog/toss-tokens";
-import { useCommentsAdmin } from "./use-comments-admin";
-import { useConfirmDialog, ConfirmDialog } from "./use-confirm-dialog";
+import { useCommentsAdmin } from "@/app/admin/_hooks/use-comments-admin";
+import { useConfirmDialog, ConfirmDialog } from "@/app/admin/_components/confirm-dialog";
 
 export function CommentsPanel() {
   const { comments, loading, remove } = useCommentsAdmin();

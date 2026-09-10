@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/lib/supabase";
-import { toss } from "./toss-tokens";
+import { toss } from "../toss-tokens";
 
 type Comment = {
   id: string;

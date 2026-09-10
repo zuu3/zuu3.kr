@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { TocHeading } from "@/lib/toc";
-import { toss } from "./toss-tokens";
+import { toss } from "../toss-tokens";
 
 export function BlogToc({ headings }: { headings: TocHeading[] }) {
   const [activeId, setActiveId] = useState<string | null>(headings[0]?.id ?? null);

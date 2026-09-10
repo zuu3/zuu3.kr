@@ -5,6 +5,7 @@ import { IconCalendarLine, IconClockLine } from "@karrotmarket/react-monochrome-
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { ReadingProgress } from "../_components/reading-progress";
 import { RelatedPosts } from "../_components/related-posts";
+import { PostNav } from "../_components/post-nav";
 import { profile } from "@/lib/content";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { formatBlogDate, readingTime } from "@/lib/blog";
@@ -125,6 +126,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div className="mt-10">
             <BlogMarkdown content={post.content} />
           </div>
+
+          <PostNav current={post} allPosts={allPosts} />
 
           <RelatedPosts current={post} allPosts={allPosts} />
 

@@ -17,7 +17,7 @@ export function RelatedPosts({ current, allPosts }: { current: Post; allPosts: P
   if (related.length === 0) return null;
 
   return (
-    <div className="mt-16 border-t pt-10" style={{ borderColor: toss.color.border }}>
+    <div className="mt-10">
       <p className="text-xs font-bold tracking-wide uppercase" style={{ color: toss.color.muted }}>
         관련 글
       </p>

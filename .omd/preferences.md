@@ -1540,3 +1540,18 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/_com
 ```
 
 Introduced off-scale border radius rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/admin/_components/post-editor/image-picker.tsx — not in DESIGN.md radius scale
+
+## 2026-09-10T01:14:31.430Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtuu4a6e_c4c9baf4
+timestamp: 2026-09-10T01:14:31.430Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: pending
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/_components/post-nav.tsx"
+```
+
+Introduced off-scale border radius rounded-md(6px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/_components/post-nav.tsx — not in DESIGN.md radius scale

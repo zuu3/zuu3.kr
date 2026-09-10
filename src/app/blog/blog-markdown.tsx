@@ -6,10 +6,63 @@ import remarkGfm from "remark-gfm";
 import { Check, Copy } from "lucide-react";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import tsx from "react-syntax-highlighter/dist/esm/languages/prism/tsx";
+import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
+import typescript from "react-syntax-highlighter/dist/esm/languages/prism/typescript";
+import javascript from "react-syntax-highlighter/dist/esm/languages/prism/javascript";
+import bash from "react-syntax-highlighter/dist/esm/languages/prism/bash";
+import json from "react-syntax-highlighter/dist/esm/languages/prism/json";
+import css from "react-syntax-highlighter/dist/esm/languages/prism/css";
+import python from "react-syntax-highlighter/dist/esm/languages/prism/python";
+import sql from "react-syntax-highlighter/dist/esm/languages/prism/sql";
+import yaml from "react-syntax-highlighter/dist/esm/languages/prism/yaml";
+import markdown from "react-syntax-highlighter/dist/esm/languages/prism/markdown";
 import vscDarkPlus from "react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus";
 import { toss } from "./toss-tokens";
 
+// 지금까지 쓴 글은 전부 tsx뿐이었지만, 펜스 언어 태그가 이거 하나만
+// 등록돼 있으면 bash/json/sql 등은 그냥 색 없는 텍스트로 나간다 - 다음
+// 글에서 다른 언어를 쓸 걸 대비해 자주 쓰는 언어를 미리 등록해둔다.
 SyntaxHighlighter.registerLanguage("tsx", tsx);
+SyntaxHighlighter.registerLanguage("jsx", jsx);
+SyntaxHighlighter.registerLanguage("typescript", typescript);
+SyntaxHighlighter.registerLanguage("javascript", javascript);
+SyntaxHighlighter.registerLanguage("bash", bash);
+SyntaxHighlighter.registerLanguage("json", json);
+SyntaxHighlighter.registerLanguage("css", css);
+SyntaxHighlighter.registerLanguage("python", python);
+SyntaxHighlighter.registerLanguage("sql", sql);
+SyntaxHighlighter.registerLanguage("yaml", yaml);
+SyntaxHighlighter.registerLanguage("markdown", markdown);
+
+// 펜스 언어 태그(````js`, ```sh`, ```yml` 등 흔한 축약형)를 등록된
+// 이름으로 정규화한다.
+const LANGUAGE_ALIASES: Record<string, string> = {
+  ts: "typescript",
+  js: "javascript",
+  sh: "bash",
+  shell: "bash",
+  zsh: "bash",
+  yml: "yaml",
+  md: "markdown",
+};
+const REGISTERED_LANGUAGES = new Set([
+  "tsx",
+  "jsx",
+  "typescript",
+  "javascript",
+  "bash",
+  "json",
+  "css",
+  "python",
+  "sql",
+  "yaml",
+  "markdown",
+]);
+function resolveLanguage(tag: string | undefined): string | undefined {
+  if (!tag) return undefined;
+  const normalized = LANGUAGE_ALIASES[tag] ?? tag;
+  return REGISTERED_LANGUAGES.has(normalized) ? normalized : undefined;
+}
 
 // 코드 블록은 항상 다크 하이라이터 스타일(vscDarkPlus)이라 - 블로그
 // 다크모드와 무관하게 버튼은 늘 어두운 배경 위에 놓인다는 전제로 고정 색.
@@ -144,7 +197,7 @@ export function BlogMarkdown({ content }: { content: string }) {
           return (
             <div className="group/code relative mb-6">
               <SyntaxHighlighter
-                language={match && ["tsx", "jsx", "ts"].includes(match[1]) ? "tsx" : undefined}
+                language={resolveLanguage(match?.[1])}
                 style={vscDarkPlus}
                 customStyle={{
                   margin: 0,

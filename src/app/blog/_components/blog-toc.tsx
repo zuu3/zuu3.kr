@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import type { TocHeading } from "@/lib/toc";
 import { toss } from "../toss-tokens";
 
 export function BlogToc({ headings }: { headings: TocHeading[] }) {
   const [activeId, setActiveId] = useState<string | null>(headings[0]?.id ?? null);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const elements = headings
@@ -36,7 +38,7 @@ export function BlogToc({ headings }: { headings: TocHeading[] }) {
         <p className="text-xs font-bold tracking-wide uppercase" style={{ color: toss.color.muted }}>
           목차
         </p>
-        <ul className="mt-3 space-y-2.5 border-l pl-4" style={{ borderColor: toss.color.border }}>
+        <ul className="mt-3 space-y-0.5 border-l pl-4" style={{ borderColor: toss.color.border }}>
           {headings.map((h) => {
             const isActive = h.id === activeId;
             return (
@@ -45,11 +47,15 @@ export function BlogToc({ headings }: { headings: TocHeading[] }) {
                 className="relative"
                 style={{ marginLeft: h.level === 3 ? "1rem" : h.level === 4 ? "2rem" : 0 }}
               >
+                {/* layoutId 공유 - 활성 항목이 바뀔 때 세로 바가 순간이동 대신
+                    seed-design 사이드 내비처럼 부드럽게 미끄러져 이동한다. */}
                 {isActive && (
-                  <span
+                  <motion.span
+                    layoutId="toc-active-indicator"
                     aria-hidden
-                    className="absolute -left-4 h-full w-0.5"
+                    className="absolute -left-4 h-full w-0.5 rounded-full"
                     style={{ backgroundColor: toss.color.primary }}
+                    transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 40 }}
                   />
                 )}
                 <a
@@ -69,11 +75,18 @@ export function BlogToc({ headings }: { headings: TocHeading[] }) {
                       target.scrollIntoView({ behavior: "smooth", block: "start" });
                     }
                   }}
-                  className="block text-sm transition-colors"
+                  className="block rounded px-2 py-1.5 -ml-2 transition-colors duration-150"
                   style={{
-                    color: isActive ? toss.color.foreground : toss.color.muted,
+                    color: isActive ? toss.color.primary : toss.color.muted,
+                    backgroundColor: isActive ? toss.color.weakBg : "transparent",
                     fontWeight: isActive ? 700 : 400,
                     fontSize: h.level === 4 ? 13 : 14,
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) e.currentTarget.style.color = toss.color.foreground;
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) e.currentTarget.style.color = toss.color.muted;
                   }}
                 >
                   {h.text}

@@ -65,7 +65,7 @@ function resolveLanguage(tag: string | undefined): string | undefined {
 }
 
 // 코드 블록은 항상 다크 하이라이터 스타일(vscDarkPlus)이라 - 블로그
-// 다크모드와 무관하게 버튼은 늘 어두운 배경 위에 놓인다는 전제로 고정 색.
+// 다크모드와 무관하게 헤더바는 늘 어두운 배경 위에 놓인다는 전제로 고정 색.
 function CopyCodeButton({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -79,8 +79,7 @@ function CopyCodeButton({ code }: { code: string }) {
     <button
       onClick={copy}
       aria-label="코드 복사"
-      className="absolute top-3 right-3 flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-neutral-300 opacity-0 transition group-hover/code:opacity-100 hover:bg-white/10"
-      style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
+      className="flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-neutral-400 transition hover:bg-white/10 hover:text-neutral-200"
     >
       {copied ? <Check size={13} /> : <Copy size={13} />}
       {copied ? "복사됨" : "복사"}
@@ -194,10 +193,18 @@ export function BlogMarkdown({ content }: { content: string }) {
             );
           }
           const code = String(children).replace(/\n$/, "");
+          const language = resolveLanguage(match?.[1]);
           return (
-            <div className="group/code relative mb-6">
+            <div className="mb-6 overflow-hidden" style={{ borderRadius: toss.radius.md }}>
+              <div
+                className="flex items-center justify-between px-4 py-2"
+                style={{ backgroundColor: "#2a2a2a", borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+              >
+                <span className="font-mono text-xs text-neutral-400">{language ?? match?.[1] ?? "text"}</span>
+                <CopyCodeButton code={code} />
+              </div>
               <SyntaxHighlighter
-                language={resolveLanguage(match?.[1])}
+                language={language}
                 style={vscDarkPlus}
                 customStyle={{
                   margin: 0,
@@ -205,7 +212,7 @@ export function BlogMarkdown({ content }: { content: string }) {
                   maxWidth: "100%",
                   boxSizing: "border-box",
                   overflowX: "auto",
-                  borderRadius: toss.radius.md,
+                  borderRadius: 0,
                   fontSize: "0.85rem",
                   padding: "1.25rem",
                   lineHeight: 1.6,
@@ -213,7 +220,6 @@ export function BlogMarkdown({ content }: { content: string }) {
               >
                 {code}
               </SyntaxHighlighter>
-              <CopyCodeButton code={code} />
             </div>
           );
         },

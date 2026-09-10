@@ -1549,7 +1549,8 @@ timestamp: 2026-09-10T01:14:31.430Z
 scope: visualTheme
 signal: ambient
 confidence: inferred
-status: pending
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
 source_agent: claude-code
 source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/_components/post-nav.tsx"
 ```

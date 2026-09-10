@@ -1588,3 +1588,19 @@ source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/_comp
 ```
 
 Introduced off-palette color(s) #2a2a2a in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/_components/blog-markdown.tsx — not in DESIGN.md
+
+## 2026-09-10T01:21:46.045Z — introduced-off-scale-border-radius-round
+
+```omd-meta
+id: pref_mtuudlj1_9e7b47bd
+timestamp: 2026-09-10T01:21:46.045Z
+scope: visualTheme
+signal: ambient
+confidence: inferred
+status: rejected
+rejected_reason: "블로그 전용 Toss 토큰 시스템 - 루트 그래프에 반영하지 않음"
+source_agent: claude-code
+source_context: "/Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/_components/post-nav.tsx"
+```
+
+Introduced off-scale border radius rounded-full(9999px) in /Users/juhyun/orca/workspaces/zuu3.kr/limpet/src/app/blog/_components/post-nav.tsx — not in DESIGN.md radius scale

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import type { Post } from "@/lib/posts";
 import { formatBlogDate } from "@/lib/blog";
 import { toss } from "../toss-tokens";
@@ -26,18 +27,25 @@ export function RelatedPosts({ current, allPosts }: { current: Post; allPosts: P
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group/related block rounded-md p-4 transition-colors"
-            style={{ backgroundColor: toss.color.surface }}
+            className="group/related flex flex-col justify-between gap-4 rounded-lg border p-4 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md"
+            style={{ borderColor: toss.color.border, backgroundColor: toss.color.canvas }}
           >
             <p
-              className="line-clamp-2 text-sm font-bold transition-colors"
+              className="line-clamp-2 text-sm font-bold transition-colors group-hover/related:opacity-80"
               style={{ color: toss.color.foreground }}
             >
               {post.title}
             </p>
-            <p className="mt-2 text-xs" style={{ color: toss.color.muted }}>
-              {formatBlogDate(post.published_at)}
-            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-xs" style={{ color: toss.color.muted }}>
+                {formatBlogDate(post.published_at)}
+              </span>
+              <ArrowUpRight
+                size={14}
+                className="translate-x-0 translate-y-0 opacity-0 transition-all duration-150 group-hover/related:translate-x-0.5 group-hover/related:-translate-y-0.5 group-hover/related:opacity-100"
+                style={{ color: toss.color.primary }}
+              />
+            </div>
           </Link>
         ))}
       </div>
